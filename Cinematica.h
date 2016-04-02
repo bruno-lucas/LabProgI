@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <limits.h>
 
-// fun√ß√£o que recebe as componentes x e y  do vetor posi√ß√£o, velocidade e resultante
-// e determina os pr√≥ximos passos  dos objetos
+// funÁ„o que recebe as componentes x e y  do vetor posiÁ„o, velocidade e resultante
+// e determina os prÛximos passos  dos objetos
 void moving_eixo (double Fx, double Fy, double posx, double posy, double velx, double vely, double massa) {
     double ax, ay;
 
@@ -16,12 +16,12 @@ void moving_eixo (double Fx, double Fy, double posx, double posy, double velx, d
     desloca_eixo(&posy, &vely, ay, frame);
 }
 
-// fun√ß√£o respons√°vel por modificar as velocidades e posi√ß√£o do corpo
+// funÁ„o respons·vel por modificar as velocidades e posiÁ„o do corpo
 private void desloca_eixo (double * pos, double * vel, double acel, double frame) {
-    // passo 1 -- modifica posi√ß√£o usando a f√≥rmula do MUV
+    // passo 1 -- modifica posiÁ„o usando a fÛrmula do MUV
      pos = pos + vel*frame + (acel*frame*frame)/2;
 
-    // passo 2 -- modifica velocidade no eixo em quest√£o
+    // passo 2 -- modifica velocidade no eixo em quest„o
     vel = vel + acel*frame;
 }
 

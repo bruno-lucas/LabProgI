@@ -4,7 +4,7 @@
 #include <math.h>
 #define G 0.00000000667
 
-/* recebe a posi√ß√£o e massa de um corpo1, posi√ß√£o e massa de outro corpo2 e calcula a for√ßa gravitacional no corpo 1*/
+/* recebe a posiÁ„o e massa de um corpo1, posiÁ„o e massa de outro corpo2 e calcula a forÁa gravitacional no corpo 1*/
 /* (apenas intensidade) */
 double gravit(double x1, double y1, double m1, double x2, double y2, double m2) {
     double d;
@@ -14,7 +14,7 @@ double gravit(double x1, double y1, double m1, double x2, double y2, double m2) 
 
 }
 
-/* decomp√µe a for√ßa nos eixos x e y, respectivamente */
+/* decompıe a forÁa nos eixos x e y, respectivamente */
 double resx(double F, double x1, double y1, double x2, double y2){
     double d;
     double cos;
