@@ -5,7 +5,7 @@
 #include <limits.h>
 
 // função responsável por modificar as velocidades e posição do corpo
-void desloca_eixo (double * pos, double * vel, double acel, double frame) {
+void desloca_eixo (double pos, double vel, double acel, double frame) {
     // passo 1 -- modifica posição usando a fórmula do MUV
      pos = pos + (vel*frame) + (acel*frame*frame)/2;
 
@@ -15,14 +15,14 @@ void desloca_eixo (double * pos, double * vel, double acel, double frame) {
 
 // função que recebe as componentes x e y  do vetor posição, velocidade e resultante
 // e determina os próximos passos  dos objetos
-void moving_eixo (double Fx, double Fy, double posx, double posy, double velx, double vely, double massa) {
+void moving_eixo (double Fx, double Fy, Object *nave) {
     double ax, ay;
 
     ax = Fx/massa;
-    desloca_eixo(&posx, &velx, ax, frame);
+    desloca_eixo(&nave->posx, &nave->velx, ax, frame);
 
     ay = Fy/massa;
-    desloca_eixo(&posy, &vely, ay, frame);
+    desloca_eixo(&nave->posy, &nave->vely, ay, frame);
 }
 
 
