@@ -5,6 +5,7 @@
 #include <string.h>
 
 #define G 0.00000000667
+#define MAX 50
 
 
 typedef struct{
@@ -17,7 +18,7 @@ typedef struct{
 
 typedef struct {
    int life;
-   char name[50];
+   char name[MAX];
    double radius;
    double posx;
    double posy;
@@ -132,9 +133,9 @@ void imprime(Object *nave1, Object *nave2){
 
 int main(){
 
-Object * planeta;
-Object * nave1;
-Object * nave2;
+Object* planeta = malloc(sizeof	(*planeta));
+Object* nave1 = malloc(sizeof (*nave1));
+Object* nave2 = malloc(sizeof(*nave2));
 double time;
 double duration;
 Projectile *projectile;
@@ -142,7 +143,7 @@ int projeteis;
 double frame;
 int i;
 int n = 100;
-char *names;
+char names[MAX];
 
 /*Lê o arquivo e inicializa o programa*/
 
@@ -162,26 +163,29 @@ char *names;
 
 
     /*Recebe a nave1*/
-    fgets(names, sizeof(nave1->name), arquivo);
-    strcpy(&nave1->name, names);
-    fscanf(arquivo, "%lf %lf %lf %lf %lf",
+    fscanf(arquivo, "%s %lf %lf %lf %lf %lf",
+		   names,
            &nave1->mass,
            &nave1->posx,
            &nave1->posy,
            &nave1->velx,
            &nave1->vely
            );
+	memset(nave1->name, 0, MAX);
+	strncpy(nave1->name, names, MAX-1);
 
    /*Recebe a nave2*/
-    fgets(names, sizeof(nave2->name), arquivo);
-    strcpy(&nave2->name, names);
-    fscanf(arquivo, "%lf %lf %lf %lf %lf",
+    fscanf(arquivo, "%s, %lf %lf %lf %lf %lf",
+		   names,
            &nave2->mass,
            &nave2->posx,
            &nave2->posy,
            &nave2->velx,
            &nave2->vely
            );
+	memset(nave2->name, 0, MAX);
+	strncpy(nave2->name, names, MAX-1);
+
     /*Recebe a linha 3*/
     fscanf(arquivo, "%d %lf",
            &projeteis,
@@ -206,6 +210,7 @@ char *names;
     fclose(arquivo);
 
     i = 0;
+	frame = 1; // provisório
     /*Vai chamar a função update n vezes (provisório) para simular as ações das forças */
     while(i < n){
         update(nave1, nave2, planeta, frame);
@@ -215,5 +220,8 @@ char *names;
 
 /* Da free no array de projéteis */
 free(projectile);
+free(planeta);
+free(nave1);
+free(nave2);
 return 0;
 }
