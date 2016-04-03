@@ -120,10 +120,10 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
 
 /*Imprime as posições das naves 1 e 2 */
 void imprime(Object *nave1, Object *nave2){
-    printf("%.02f \n", nave1->posx);
+    printf("\n %.02f, ", nave1->posx);
     printf("%.02f \n", nave1->posy);
-    printf("%.02f \n", nave2->posx);
-    printf("%.02f \n", nave2->posy);
+    printf("%.02f, ", nave2->posx);
+    printf("%.02f; \n", nave2->posy);
 }
 
 
@@ -206,7 +206,7 @@ char names[MAX];
     fclose(arquivo);
 
     i = 0;
-	frame = 1; // provisório
+	frame = 1; /*provisório*/
     /*Vai chamar a função update n vezes (provisório) para simular as ações das forças */
     while(i < n){
         update(nave1, nave2, planeta, frame);
@@ -214,7 +214,7 @@ char names[MAX];
         i++;
     }
 
-/* Da free no array de projéteis */
+/* Da free nos structs e arrays */
 free(projectile);
 free(planeta);
 free(nave1);
