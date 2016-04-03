@@ -4,7 +4,7 @@
 #include <math.h>
 #include <string.h>
 
-#define G 0.00000000667
+#define G 0.667
 #define MAX 50
 
 
@@ -65,12 +65,12 @@ double resy(double F, double x1, double y1, double x2, double y2){
 
 
 // função responsável por modificar as velocidades e posição do corpo
-void desloca_eixo (double pos, double vel, double acel, double frame) {
+void desloca_eixo (double *pos, double *vel, double acel, double frame) {
     // passo 1 -- modifica posição usando a fórmula do MUV
-     pos = pos + (vel*frame) + (acel*frame*frame)/2;
+     *pos = *pos + ((*vel)*frame) + (acel*frame*frame)/2;
 
     // passo 2 -- modifica velocidade no eixo em questão
-    vel = vel + acel*frame;
+    *vel = *vel + acel*frame;
 }
 
 // função que recebe as componentes x e y  do vetor posição, velocidade e resultante
@@ -79,10 +79,10 @@ void moving_eixo (double Fx, double Fy, Object *nave, double frame) {
     double ax, ay;
 
     ax = Fx/nave->mass;
-    desloca_eixo(nave->posx, nave->velx, ax, frame);
+    desloca_eixo(&nave->posx, &nave->velx, ax, frame);
 
     ay = Fy/nave->mass;
-    desloca_eixo(nave->posy, nave->vely, ay, frame);
+    desloca_eixo(&nave->posy, &nave->vely, ay, frame);
 }
 
 
@@ -120,10 +120,10 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
 
 /*Imprime as posições das naves 1 e 2 */
 void imprime(Object *nave1, Object *nave2){
-    printf("%f \n", nave1->posx);
-    printf("%f \n", nave1->posy);
-    printf("%f \n", nave2->posx);
-    printf("%f \n", nave2->posy);
+    printf("%.02f \n", nave1->posx);
+    printf("%.02f \n", nave1->posy);
+    printf("%.02f \n", nave2->posx);
+    printf("%.02f \n", nave2->posy);
 }
 
 
@@ -157,7 +157,6 @@ char names[MAX];
            &time
            );
 
-
     /*Recebe a nave1*/
     fscanf(arquivo, "%s %lf %lf %lf %lf %lf",
 		   names,
@@ -171,7 +170,7 @@ char names[MAX];
 	strncpy(nave1->name, names, MAX-1);
 
    /*Recebe a nave2*/
-    fscanf(arquivo, "%s, %lf %lf %lf %lf %lf",
+    fscanf(arquivo, "%s %lf %lf %lf %lf %lf",
 		   names,
            &nave2->mass,
            &nave2->posx,
@@ -181,6 +180,7 @@ char names[MAX];
            );
 	memset(nave2->name, 0, MAX);
 	strncpy(nave2->name, names, MAX-1);
+
 
     /*Recebe a linha 3*/
     fscanf(arquivo, "%d %lf",
@@ -206,7 +206,7 @@ char names[MAX];
     fclose(arquivo);
 
     i = 0;
-	frame = 1/160; // provisório
+	frame = 1; // provisório
     /*Vai chamar a função update n vezes (provisório) para simular as ações das forças */
     while(i < n){
         update(nave1, nave2, planeta, frame);
