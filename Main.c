@@ -97,22 +97,18 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     G2 = gravit(nave1->posx, nave1->posy, nave1->mass, planeta->posx, planeta->posy, planeta->mass);
     G3 = gravit(nave2->posx, nave2->posy, nave2->mass, planeta->posx, planeta->posy, planeta->mass);
 
-    /*desloca o eixo de acordo com G1 */
+    /*desloca o eixo da nave 1 de acordo com forças da terra e da nave 2*/
     Fx1 += resx(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
     Fy1 += resy(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
-    moving_eixo(Fx1, Fy1, nave1, frame);
-    /*Espaço para o OpenGL renderizar (posteriormente)*/
 
     Fx1 += resx(G2, nave1->posx, nave1->posy, 0, 0);
     Fy1 += resy(G2, nave1->posx, nave1->posy, 0, 0);
     moving_eixo(Fx1, Fy1, nave1, frame);
     /*Espaço para o OpenGL renderizar (posteriormente)*/
 
-
+	/*desloca o eixo da nave 2 de acordo com forças da terra e da nave 1 */
     Fx2 += resx(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
     Fy2 += resy(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
-    moving_eixo(Fx2, Fy2, nave2, frame);
-    /*Espaço para o OpenGL renderizar (posteriormente)*/
 
     Fx2 += resx(G3, nave2->posx, nave2->posy, 0, 0);
     Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0);
@@ -142,7 +138,7 @@ Projectile *projectile;
 int projeteis;
 double frame;
 int i;
-int n = 100;
+int n = 500;
 char names[MAX];
 
 /*Lê o arquivo e inicializa o programa*/
