@@ -5,6 +5,7 @@ Correções:
 - Relatório atualizado/melhorado
 - Adicionado um header no main do programa
 - Criado um manual do usuário (provisório)
+- Modularização de arquivos
 
 O quê não foi mudado:
 - Projéteis 
