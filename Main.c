@@ -1,8 +1,27 @@
+
+/*
+|---------------------------|
+|Laboratório de Programação |
+|---------------------------|
+ */
+
+
+/*
+|----------------------------------------------|
+|Bruno Guilherme Ricci Lucas      nºUSP 4460596
+|André Luiz
+|
+|----------------------------------------------|
+ */
+
+
+
 #include<stdio.h>
 #include<stdlib.h>
 #include <limits.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 #define G 0.667
 #define MAX 50
@@ -138,8 +157,11 @@ Projectile *projectile;
 int projeteis;
 double frame;
 int i;
-int n = 500;
+float n;
 char names[MAX];
+float time1, time2, timedif;
+time1 = (float) clock() / (float)CLOCKS_PER_SEC;
+
 
 /*Lê o arquivo e inicializa o programa*/
 
@@ -205,13 +227,16 @@ char names[MAX];
 
     fclose(arquivo);
 
-    i = 0;
+    printf("Digite o tempo que durara a rodada (em segundos):");
+    scanf("%f", &n);
+
 	frame = 1; /*provisório*/
     /*Vai chamar a função update n vezes (provisório) para simular as ações das forças */
-    while(i < n){
+    while(timedif < n){
         update(nave1, nave2, planeta, frame);
         imprime(nave1, nave2);
-        i++;
+        time2 = (float) clock() / (float)CLOCKS_PER_SEC;
+        timedif = time2 - time1;
     }
 
 /* Da free nos structs e arrays */

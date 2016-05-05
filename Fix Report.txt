@@ -1,0 +1,14 @@
+
+Correções:
+
+- Usuário agora pode selecionar um tempo máximo para a rodada
+- Relatório atualizado/melhorado
+- Adicionado um header no main do programa
+- Criado um manual do usuário (provisório)
+
+O quê não foi mudado:
+- Projéteis 
+	Como a próxima fase é a construção do jogo em si, o que envolve controlar as naves, tudo relacionado aos projéteis
+foram deixados para a próxima fase.
+- Órbita
+	Não entendemos o que seria isso exatamente. Atração gravitacional não seria o bastante? 
