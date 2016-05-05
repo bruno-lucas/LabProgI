@@ -45,9 +45,9 @@ endif
 empacotar:	
 	@mkdir entrega
 	cp  *.c ./entrega
-	cp 	*.h ./entrega
-	cp 	*.txt ./entrega
-	cp 	Makefile ./entrega
+	cp  *.h ./entrega
+	cp  *.txt ./entrega
+	cp  Makefile ./entrega
 	tar -cvf entrega.tar entrega
 	rm -rf ./entrega
 
