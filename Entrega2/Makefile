@@ -3,8 +3,8 @@
 #				Cinematica.h *
 #				FileParser.c *
 #				Main.c *
-#				resultante.c
-#				Resultante.h
+#				resultante.c *
+#				Resultante.h *
 #				estruturas.h NEW
 # * significa que o arquivo eu modifiquei o arquivo -- verificar
 #pegando as variáveis <-- para referencia
