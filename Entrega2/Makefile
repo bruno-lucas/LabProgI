@@ -1,7 +1,6 @@
 #Makefile realtivo ao projeto de LabProg 1
 # componentes	cinematica.c *
 #				Cinematica.h *
-#				FileParser.c *
 #				Main.c *
 #				resultante.c *
 #				Resultante.h *
@@ -14,28 +13,25 @@
 # $+ --- lista de dependência
 # $? --- lista de dependência mais "recentes"
 
-CFLAGS= -Wall -g  -g -O2
+CFLAGS= -Wall -g  -g -O2 -lm
 
 #gerando executável
-game:	resultante.o cinematica.o FileParser.o main.o
+game:	resultante.o cinematica.o  Main.o
 	${CC} ${CFLAGS} -o $@ $?
 
 resultante.o:	resultante.c
 
 cinematica.o:	cinematica.c 
 
-FileParser.o:	FileParser.c
-	${CC} -c $^
-
-main.o:	Main.c
+Main.o:	Main.c
 	${CC} -c $<
 
 #limpando a 'bagunça'
 ifndef game
-limpa:	
+clean:	
 	rm *.o
 else
-limpa:	
+clean:	
 	rm *.o
 	rm game
 endif

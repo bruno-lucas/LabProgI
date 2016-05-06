@@ -1,16 +1,34 @@
-#include <stdio.h>
-#include <stdlib.h>
+
+/*
+|---------------------------|
+|Laboratório de Programação |
+|---------------------------|
+ */
+
+
+/*
+|----------------------------------------------|
+|Bruno Guilherme Ricci Lucas      nºUSP 4460596
+|André Luiz
+|
+|----------------------------------------------|
+ */
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
 #include <limits.h>
 #include <math.h>
 #include <string.h>
-#include "estruturas.h"
+#include <time.h>
 
 #define G 0.667
 #define MAX 50
 
 
-/*typedef struct{ // movi para estruturas.h pois precisei dessa struct para 
-    double posx;   // compilar cinematica e resultante
+typedef struct{
+    double posx;
     double posy;
     double velx;
     double vely;
@@ -29,7 +47,8 @@ typedef struct {
    int projectiles;
    double resx;
    double resy;
-}Object;*/
+}Object;
+
 
 
 /*Calcula a posição das naves de acordo com as forças em ação */
@@ -75,95 +94,103 @@ void imprime(Object *nave1, Object *nave2){
 
 int main(){
 
-Object* planeta = malloc(sizeof	(*planeta));
-Object* nave1 = malloc(sizeof (*nave1));
-Object* nave2 = malloc(sizeof(*nave2));
-double time;
-double duration;
-Projectile *projectile;
-int projeteis;
-double frame;
-int i;
-int n = 500;
-char names[MAX];
+	Object* planeta = malloc(sizeof	(*planeta));
+	Object* nave1 = malloc(sizeof (*nave1));
+	Object* nave2 = malloc(sizeof(*nave2));
+	double time;
+	double duration;
+	Projectile *projectile;
+	int projeteis;
+	double frame;
+	int i;
+	float n;
+	char names[MAX];
+	time_t time1, time2; 
+	float timedif;
 
-/*Lê o arquivo e inicializa o programa*/
-
-    FILE *arquivo = fopen("config.txt", "r");
-
-    if (arquivo == NULL) {
-        printf("Erro! Arquivo 'config.txt' não encontrado!\n");
-        return 0;
-    }
-
-    /* Recebe a primeira linha */
-    fscanf(arquivo, "%lf %lf %lf",
-           &planeta->radius,
-           &planeta->mass,
-           &time
-           );
-
-    /*Recebe a nave1*/
-    fscanf(arquivo, "%s %lf %lf %lf %lf %lf",
-		   names,
-           &nave1->mass,
-           &nave1->posx,
-           &nave1->posy,
-           &nave1->velx,
-           &nave1->vely
-           );
-	memset(nave1->name, 0, MAX);
-	strncpy(nave1->name, names, MAX-1);
-
-   /*Recebe a nave2*/
-    fscanf(arquivo, "%s %lf %lf %lf %lf %lf",
-		   names,
-           &nave2->mass,
-           &nave2->posx,
-           &nave2->posy,
-           &nave2->velx,
-           &nave2->vely
-           );
-	memset(nave2->name, 0, MAX);
-	strncpy(nave2->name, names, MAX-1);
+	time1 = clock();
 
 
-    /*Recebe a linha 3*/
-    fscanf(arquivo, "%d %lf",
-           &projeteis,
-           &duration
-           );
-    /*Aloca o array de projéteis */
-    projectile = malloc(projeteis * sizeof(Projectile));
+	/*Lê o arquivo e inicializa o programa*/
 
-    /*Configura os projéteis */
-    for(i = 0; i < projeteis; i++){
-        fscanf(arquivo, "%lf %lf %lf %lf %lf",
-               &projectile[i].mass,
-               &projectile[i].posx,
-               &projectile[i].posy,
-               &projectile[i].velx,
-               &projectile[i].vely
-               );
-    }
+		FILE *arquivo = fopen("config.txt", "r");
+
+		if (arquivo == NULL) {
+			printf("Erro! Arquivo 'config.txt' não encontrado!\n");
+			return 0;
+		}
+
+		/* Recebe a primeira linha */
+		fscanf(arquivo, "%lf %lf %lf",
+			   &planeta->radius,
+			   &planeta->mass,
+			   &time
+			   );
+
+		/*Recebe a nave1*/
+		fscanf(arquivo, "%s %lf %lf %lf %lf %lf",
+			   names,
+			   &nave1->mass,
+			   &nave1->posx,
+			   &nave1->posy,
+			   &nave1->velx,
+			   &nave1->vely
+			   );
+		memset(nave1->name, 0, MAX);
+		strncpy(nave1->name, names, MAX-1);
+
+	   /*Recebe a nave2*/
+		fscanf(arquivo, "%s %lf %lf %lf %lf %lf",
+			   names,
+			   &nave2->mass,
+			   &nave2->posx,
+			   &nave2->posy,
+			   &nave2->velx,
+			   &nave2->vely
+			   );
+		memset(nave2->name, 0, MAX);
+		strncpy(nave2->name, names, MAX-1);
+
+
+		/*Recebe a linha 3*/
+		fscanf(arquivo, "%d %lf",
+			   &projeteis,
+			   &duration
+			   );
+		/*Aloca o array de projéteis */
+		projectile = malloc(projeteis * sizeof(Projectile));
+
+		/*Configura os projéteis */
+		for(i = 0; i < projeteis; i++){
+			fscanf(arquivo, "%lf %lf %lf %lf %lf",
+				   &projectile[i].mass,
+				   &projectile[i].posx,
+				   &projectile[i].posy,
+				   &projectile[i].velx,
+				   &projectile[i].vely
+				   );
+		}
 
 
 
-    fclose(arquivo);
+		fclose(arquivo);
 
-    i = 0;
-	frame = 1; /*provisório*/
-    /*Vai chamar a função update n vezes (provisório) para simular as ações das forças */
-    while(i < n){
-        update(nave1, nave2, planeta, frame);
-        imprime(nave1, nave2);
-        i++;
-    }
+		printf("Digite o tempo que durara a rodada (em segundos):");
+		scanf("%f", &n);
 
-/* Da free nos structs e arrays */
-free(projectile);
-free(planeta);
-free(nave1);
-free(nave2);
-return 0;
+		frame = 1; /*provisório*/
+		while(timedif < n){
+			update(nave1, nave2, planeta, frame);
+			imprime(nave1, nave2);
+			time2 = clock();
+			timedif = (float) (time2 - time1) / (float)CLOCKS_PER_SEC;
+			printf("%f \n", timedif);
+		}
+
+	/* Da free nos structs e arrays */
+	free(projectile);
+	free(planeta);
+	free(nave1);
+	free(nave2);
+	return 0;
 }
