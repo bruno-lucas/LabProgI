@@ -3,7 +3,6 @@
 #include "xwc.h"
 
 
-
 int main(int ac, char **av)
 {
 	PIC P1, P2, P3, Aux, P; 

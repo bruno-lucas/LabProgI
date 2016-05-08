@@ -30,15 +30,15 @@ int main(int ac, char **av)
 	PutPic(w1, P1, 0, 0, 800, 800, 0, 0);
 
 	/* Desenha parte do Sky em Aux */
-	PutPic(Aux, w1, 300, 300, 205, 205, 0, 0);
+//	PutPic(Aux, w1, 300, 300, 205, 205, 0, 0);
 	
 	/* Seta máscara para lua */
-	SetMask(Aux,msk);
+	SetMask(w1,msk);
 	puts("Tecle <enter>"); getchar();
 	/* desenha lua em Aux */
-	PutPic(Aux, P2, 0,0, 205, 205, 0, 0);
+//	PutPic(Aux, P2, 0,0, 205, 205, 0, 0);
 	/* desenha Aux na janela principal */
-	PutPic(w1, Aux, 0, 0, 205, 205, 300, 300);
+	PutPic(w1, P2, 0, 0, 205, 205, 300, 300);
 
 	/* copia o estado da janela principal para P, para apagar a tela posteriormente */
 	puts("Tecle <enter>"); getchar();
