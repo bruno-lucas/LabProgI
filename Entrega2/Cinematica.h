@@ -1,15 +1,16 @@
 #ifndef cinematica
 #define cinematica
 
+#include <math.h>
 #include <stdio.h>
 #include <limits.h>
 #include "estruturas.h"
 
-// funÁ„o respons·vel por modificar as velocidades e posiÁ„o do corpo
+// fun√ß√£o respons√°vel por modificar as velocidades e posi√ß√£o do corpo
 void desloca_eixo (double * pos, double * vel, double acel, double frame);
 
-// funÁ„o que recebe as componentes x e y  do vetor posiÁ„o, velocidade e resultante
-// e determina os prÛximos passos  dos objetos
+// fun√ß√£o que recebe as componentes x e y  do vetor posi√ß√£o, velocidade e resultante
+// e determina os pr√≥ximos passos  dos objetos
 void moving_eixo (double Fx, double Fy, Object *nave, double frame);
 
 
