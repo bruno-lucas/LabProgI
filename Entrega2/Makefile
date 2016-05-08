@@ -16,7 +16,7 @@ CFLAGS= -Wall -g  -g -O2 -lm
 
 #gerando executável
 game:	resultante.o cinematica.o  Main.o
-	${CC} ${CFLAGS} -o $@ $?
+	${CC} ${CFLAGS} -o $@ $^
 
 resultante.o:	resultante.c
 
