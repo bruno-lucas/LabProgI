@@ -12,4 +12,6 @@ O quê não foi mudado:
 	Como a próxima fase é a construção do jogo em si, o que envolve controlar as naves, tudo relacionado aos projéteis
 foram deixados para a próxima fase.
 - Órbita
-	Não entendemos o que seria isso exatamente. Atração gravitacional não seria o bastante? 
+	Algumas divergências quanto a implementação e o funcionamento. Postergado para a Fase 3.
+
+Mais detalhes no arquivo Relatório 1 - Update.
