@@ -95,7 +95,7 @@ int main() {
 
 
 	/* Lê duas linhas (uma para nave 1 e outra para nave 2 e as desenha na tela (apagando o que tinha antes) */
-	for (i=0; i<10; i++){
+	while (true)){
 		scanf("%d %d %lf %lf", &posx1, &posy1, &velx1, &vely1);
 		scanf("%d %d %lf %lf", &posx2, &posy2, &velx2, &vely2);
 
