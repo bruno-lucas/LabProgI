@@ -1,16 +1,16 @@
 
 /*
 |---------------------------|
-|Laboratório de Programação |
+|LaboratÃ³rio de ProgramaÃ§Ã£o |
 |---------------------------|
  */
 
 
 /*
 |----------------------------------------------|
-|Bruno Guilherme Ricci Lucas      nºUSP 4460596
-|André Luiz
-|
+|Bruno Guilherme Ricci Lucas      nÂºUSP 4460596
+|AndrÃ© Luiz Abdalla Silveira 	  nÂºUSP 8030353
+|Matheus Takeshi Yabiku		  nÂºUSP 7629949
 |----------------------------------------------|
  */
 
@@ -51,7 +51,7 @@ typedef struct {
 
 
 
-/*Calcula a posição das naves de acordo com as forças em ação */
+/*Calcula a posiÃ§Ã£o das naves de acordo com as forÃ§as em aÃ§Ã£o */
 void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     double G1 /*gravidade entre naves */, G2 /*gravidade entre nave1 e planeta*/ ,G3 /*gravidade entre nave 2 e planeta*/;
     double Fx1 /*resultante x da nave 1*/, Fy1 /*resultante y na nave 1, etc*/, Fx2, Fy2;
@@ -62,33 +62,32 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     G2 = gravit(nave1->posx, nave1->posy, nave1->mass, planeta->posx, planeta->posy, planeta->mass);
     G3 = gravit(nave2->posx, nave2->posy, nave2->mass, planeta->posx, planeta->posy, planeta->mass);
 
-    /*desloca o eixo da nave 1 de acordo com forças da terra e da nave 2*/
+    /*desloca o eixo da nave 1 de acordo com forÃ§as da terra e da nave 2*/
     Fx1 += resx(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
     Fy1 += resy(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
 
     Fx1 += resx(G2, nave1->posx, nave1->posy, 0, 0);
     Fy1 += resy(G2, nave1->posx, nave1->posy, 0, 0);
     moving_eixo(Fx1, Fy1, nave1, frame);
-    /*Espaço para o OpenGL renderizar (posteriormente)*/
+    /*EspaÃ§o para o OpenGL renderizar (posteriormente)*/
 
-	/*desloca o eixo da nave 2 de acordo com forças da terra e da nave 1 */
+	/*desloca o eixo da nave 2 de acordo com forÃ§as da terra e da nave 1 */
     Fx2 += resx(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
     Fy2 += resy(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
 
     Fx2 += resx(G3, nave2->posx, nave2->posy, 0, 0);
     Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0);
     moving_eixo(Fx2, Fy2, nave2, frame);
-    /*Espaço para o OpenGL renderizar (posteriormente)*/
+    /*EspaÃ§o para o OpenGL renderizar (posteriormente)*/
 
 
 }
 
-/*Imprime as posições das naves 1 e 2 */
-void imprime(Object *nave1, Object *nave2){
-    printf("\n %.02f, ", nave1->posx);
-    printf("%.02f \n", nave1->posy);
-    printf("%.02f, ", nave2->posx);
-    printf("%.02f; \n", nave2->posy);
+/*Imprime as posiÃ§Ãµes das naves 1 e 2 */
+void imprime(Object *nave){
+	int px = ((int) nave->posx);
+	int py = ((int) nave->posy);
+	printf("%d %d %.02f %.02f\n", px, py, nave->velx, nave->vely);
 }
 
 
@@ -111,12 +110,12 @@ int main(){
 	time1 = clock();
 
 
-	/*Lê o arquivo e inicializa o programa*/
+	/*LÃª o arquivo e inicializa o programa*/
 
 		FILE *arquivo = fopen("config.txt", "r");
 
 		if (arquivo == NULL) {
-			printf("Erro! Arquivo 'config.txt' não encontrado!\n");
+			printf("Erro! Arquivo 'config.txt' nÃ£o encontrado!\n");
 			return 0;
 		}
 
@@ -157,10 +156,10 @@ int main(){
 			   &projeteis,
 			   &duration
 			   );
-		/*Aloca o array de projéteis */
+		/*Aloca o array de projÃ©teis */
 		projectile = malloc(projeteis * sizeof(Projectile));
 
-		/*Configura os projéteis */
+		/*Configura os projÃ©teis */
 		for(i = 0; i < projeteis; i++){
 			fscanf(arquivo, "%lf %lf %lf %lf %lf",
 				   &projectile[i].mass,
@@ -178,10 +177,11 @@ int main(){
 		printf("Digite o tempo que durara a rodada (em segundos):");
 		scanf("%f", &n);
 
-		frame = 1; /*provisório*/
+		frame = 1; /*provisÃ³rio*/
 		while(timedif < n){
 			update(nave1, nave2, planeta, frame);
-			imprime(nave1, nave2);
+			imprime(nave1);
+			imprime(nave2);
 			time2 = clock();
 			timedif = (float) (time2 - time1) / (float)CLOCKS_PER_SEC;
 			printf("%f \n", timedif);
