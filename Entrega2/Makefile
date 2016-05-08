@@ -1,11 +1,10 @@
 #Makefile realtivo ao projeto de LabProg 1
-# componentes	cinematica.c *
-#				Cinematica.h *
-#				Main.c *
-#				resultante.c *
-#				Resultante.h *
-#				estruturas.h NEW
-# * significa que o arquivo eu modifiquei o arquivo -- verificar
+# componentes	cinematica.c
+#		Cinematica.h
+#		Main.c
+#		resultante.c
+#		Resultante.h
+#		estruturas.h
 #pegando as variáveis <-- para referencia
 # $@ --- alvo
 # $< --- 1a dependência
