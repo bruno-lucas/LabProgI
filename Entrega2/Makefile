@@ -42,6 +42,7 @@ empacotar:
 	cp  *.c ./entrega
 	cp  *.h ./entrega
 	cp  *.txt ./entrega
+	cp *.docx ./entrega
 	cp  Makefile ./entrega
 	tar -cvf entrega.tar entrega
 	rm -rf ./entrega
