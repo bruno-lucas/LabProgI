@@ -1,3 +1,19 @@
+
+/*
+|---------------------------|
+|Laboratório de Programação |
+|---------------------------|
+ */
+
+
+/*
+|----------------------------------------------|
+|Bruno Guilherme Ricci Lucas      nºUSP 4460596
+|André Luiz Abdalla Silveira 	  nºUSP 8030353
+|Matheus Takeshi Yabiku		  nºUSP 7629949
+|----------------------------------------------|
+ */
+
 #include "Resultante.h"
 
 double gravit(double x1, double y1, double m1, double x2, double y2, double m2) {

@@ -1,9 +1,0 @@
-Sobre a modularização do projeto.
-
-   Durante o prosseguimento dos trabalho, uma atividade importante foi a
- modularização do projeto. Para tal, organizamos o que central para que o programa funcionasse melhor possível, e com um código limpo e organi-
- zado.
-  
-  Passo 1: dividir as funções de acordo com a suas respectivas importâncias para o trabalho. Temos uma biblioteca para as fórmulas de gravitação, outra para as de cinemática. Temos a nossas funções para as animações e a xwc.c
-
-  Passo 2: Fazer o Makefile. Considerando os arquivos-fonte e os cabeçalhos, nós os organizamos de forma a produzir os arquivos *.o e por fim, o executável game que recebe um texto com os dados e retorna os dados para que o programa das animações funcione 
