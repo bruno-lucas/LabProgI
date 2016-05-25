@@ -22,36 +22,15 @@
 #include <math.h>
 #include <string.h>
 #include <time.h>
+#include "estruturas.h"
 
 #define G 0.667
 #define MAX 50
 
 
-typedef struct{
-    double posx;
-    double posy;
-    double velx;
-    double vely;
-    double mass;
-}Projectile;
-
-typedef struct {
-   int life;
-   char name[MAX];
-   double radius;
-   double posx;
-   double posy;
-   double velx;
-   double vely;
-   double mass;
-   int projectiles;
-   double resx;
-   double resy;
-}Object;
 
 
-
-/*Calcula a posição das naves de acordo com as forças em ação */
+/*Calcula a posicao das naves de acordo com as forca as em acao */
 void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     double G1 /*gravidade entre naves */, G2 /*gravidade entre nave1 e planeta*/ ,G3 /*gravidade entre nave 2 e planeta*/;
     double Fx1 /*resultante x da nave 1*/, Fy1 /*resultante y na nave 1, etc*/, Fx2, Fy2;
@@ -98,19 +77,18 @@ int main(){
 	Object* nave2 = malloc(sizeof(*nave2));
 	double time;
 	double duration;
-	Projectile *projectile;
-	int projeteis;
+	int projs;
 	double frame;
 	int i;
 	float n;
 	char names[MAX];
 	time_t time1, time2; 
 	float timedif;
-
+	Projectile *model;
 	time1 = clock();
 
 
-	/*Lê o arquivo e inicializa o programa*/
+	/*Le o arquivo e inicializa o programa*/
 
 		FILE *arquivo = fopen("config.txt", "r");
 
@@ -153,32 +131,28 @@ int main(){
 
 		/*Recebe a linha 3*/
 		fscanf(arquivo, "%d %lf",
-			   &projeteis,
+			   &projs,
 			   &duration
 			   );
-		/*Aloca o array de projéteis */
-		projectile = malloc(projeteis * sizeof(Projectile));
+		/*Aloca o array de projeteis */
+		model = malloc(projs * sizeof(Projectile));
 
-		/*Configura os projéteis */
-		for(i = 0; i < projeteis; i++){
-			fscanf(arquivo, "%lf %lf %lf %lf %lf",
-				   &projectile[i].mass,
-				   &projectile[i].posx,
-				   &projectile[i].posy,
-				   &projectile[i].velx,
-				   &projectile[i].vely
+		/*Configura os projeteis */
+		for(i = 0; i < projs; i++){
+			fscanf(arquivo, "%lf %lf %lf %lf",
+				   &model[i].mass,
+				   &model[i].velx,
+				   &model[i].vely,
+				   &model[i].time
 				   );
-		}
+		} 
 
 
 
 		fclose(arquivo);
 
-		printf("Digite o tempo que durara a rodada (em segundos):");
-		scanf("%f", &n);
-
-		frame = 1; /*provisório*/
-		while(timedif < n){
+		frame = 1; /*provisorio*/
+		while(timedif < duration){
 			update(nave1, nave2, planeta, frame);
 			imprime(nave1);
 			imprime(nave2);
@@ -188,7 +162,7 @@ int main(){
 		}
 
 	/* Da free nos structs e arrays */
-	free(projectile);
+	free(model);
 	free(planeta);
 	free(nave1);
 	free(nave2);

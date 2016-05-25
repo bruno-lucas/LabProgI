@@ -8,9 +8,9 @@
 
 /*
 |----------------------------------------------|
-|Bruno Guilherme Ricci Lucas      nºUSP 4460596
-|André Luiz Abdalla Silveira 	  nºUSP 8030353
-|Matheus Takeshi Yabiku		  nºUSP 7629949
+|Bruno Guilherme Ricci Lucas      nºUSP 4460596|
+|André Luiz Abdalla Silveira 	  nºUSP 8030353|
+|Matheus Takeshi Yabiku		  nºUSP 7629949    |
 |----------------------------------------------|
  */
 
@@ -26,7 +26,15 @@ typedef struct{
     double velx;
     double vely;
     double mass;
+    double time;
 }Projectile;
+
+struct _Celula{
+	Projectile projectile;
+	struct _Celula *next;
+};
+
+typedef struct _Celula Celula;
 
 typedef struct {
    int life;
@@ -37,7 +45,7 @@ typedef struct {
    double velx;
    double vely;
    double mass;
-   int projectiles;
+   Celula projectile_hash[4];
    double resx;
    double resy;
 }Object;
