@@ -25,7 +25,7 @@ double gravit(double x1, double y1, double m1, double x2, double y2, double m2) 
 }
 
 /* decompõe a força nos eixos x e y, respectivamente */
-double resx(double F, double x1, double y1, double x2, double y2, double acel){ // veio do comando de (des)acelerar
+double resx(double F, double x1, double y1, double x2, double y2, int acel){ // veio do comando de (des)acelerar
     double d;
     double cos;
 
@@ -33,10 +33,10 @@ double resx(double F, double x1, double y1, double x2, double y2, double acel){ 
     d = sqrt(d);
     cos = (x2 - x1)/d;
 
-    return  cos * (F + acel);
+    return  cos * (F + A*acel);
 }
 
-double resy(double F, double x1, double y1, double x2, double y2, double acel){
+double resy(double F, double x1, double y1, double x2, double y2, int acel){
     double d;
     double sen;
 
@@ -44,5 +44,5 @@ double resy(double F, double x1, double y1, double x2, double y2, double acel){
     d = sqrt(d);
     sen = (y2 - y1)/d;
 
-    return sen * (F + acel);
+    return sen * (F + A*cel);
 }
