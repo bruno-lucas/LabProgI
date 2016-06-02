@@ -18,7 +18,7 @@
 
 #include <math.h>
 #define G 0.00000000667
-#define A 10.00
+#define A 10.0
 
 /* recebe a posição e massa de um corpo1, posição e massa de outro corpo2 e calcula a força gravitacional no corpo 1*/
 /* (apenas intensidade) */
