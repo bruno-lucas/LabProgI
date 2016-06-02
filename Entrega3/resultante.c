@@ -14,7 +14,7 @@
 |----------------------------------------------|
  */
 
-#include "Resultante.h"
+#include "resultante.h"
 
 double gravit(double x1, double y1, double m1, double x2, double y2, double m2) {
     double d;
