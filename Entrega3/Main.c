@@ -48,20 +48,20 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     G3 = gravit(nave2->posx, nave2->posy, nave2->mass, planeta->posx, planeta->posy, planeta->mass);
 
     /*desloca o eixo da nave 1 de acordo com forças da terra e da nave 2*/
-    Fx1 += resx(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
-    Fy1 += resy(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
+    Fx1 += resx(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave1->accel);
+    Fy1 += resy(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave1->accel);
 
-    Fx1 += resx(G2, nave1->posx, nave1->posy, 0, 0);
-    Fy1 += resy(G2, nave1->posx, nave1->posy, 0, 0);
+    Fx1 += resx(G2, nave1->posx, nave1->posy, 0, 0, nave1->accel);
+    Fy1 += resy(G2, nave1->posx, nave1->posy, 0, 0, nave1->accel);
     moving_eixo(Fx1, Fy1, nave1, frame);
     /*Espaço para o OpenGL renderizar (posteriormente)*/
 
-	/*desloca o eixo da nave 2 de acordo com forças da terra e da nave 1 */
-    Fx2 += resx(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
-    Fy2 += resy(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
+    /*desloca o eixo da nave 2 de acordo com forças da terra e da nave 1 */
+    Fx2 += resx(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave2->accel);
+    Fy2 += resy(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave2->accel);
 
-    Fx2 += resx(G3, nave2->posx, nave2->posy, 0, 0);
-    Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0);
+    Fx2 += resx(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
+    Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
     moving_eixo(Fx2, Fy2, nave2, frame);
     /*Espaço para o OpenGL renderizar (posteriormente)*/
 
@@ -110,10 +110,6 @@ void keyboard(int key, Object *nave1, Object *nave2){
 	}
 
 }
-
-
-
-
 
 
 
@@ -269,12 +265,10 @@ int main() {
 		}
 
 		if (nave1->accel == 1){
-		/* colocar velocidade dependendo da nave1->dir */
+		/* colocar velocidade dependendo da nave1->dir -- fiz isso na update --> resx(y) na resultante.h */
+		// apagem esse comentário depois de lerem, eu vou apagar o nave2->accel
 		}
 		
-		if (nave2->accel == 1){
-		/* colocar velocidade dependendo da nave2->dir */
-		}
 		update(nave1, nave2, planeta, frame);
 
 		/* como faz o programa esperar um pouco? */
