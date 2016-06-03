@@ -54,7 +54,6 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     Fx1 += resx(G2, nave1->posx, nave1->posy, 0, 0, nave1->accel);
     Fy1 += resy(G2, nave1->posx, nave1->posy, 0, 0, nave1->accel);
     moving_eixo(Fx1, Fy1, nave1, frame);
-    /*Espaço para o OpenGL renderizar (posteriormente)*/
 
     /*desloca o eixo da nave 2 de acordo com forças da terra e da nave 1 */
     Fx2 += resx(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave2->accel);
@@ -63,7 +62,6 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     Fx2 += resx(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
     Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
     moving_eixo(Fx2, Fy2, nave2, frame);
-    /*Espaço para o OpenGL renderizar (posteriormente)*/
 
 
 }
@@ -264,17 +262,14 @@ int main() {
 			keyboard(key, nave1, nave2);
 		}
 
-		if (nave1->accel == 1){
-		/* colocar velocidade dependendo da nave1->dir -- fiz isso na update --> resx(y) na resultante.h */
-		// apagem esse comentário depois de lerem, eu vou apagar o nave2->accel
-		}
 		
 		update(nave1, nave2, planeta, frame);
 
-		/* como faz o programa esperar um pouco? */
+		/*programa espera um décimo de segundo para garantir jogabilidade */
+		usleep(100000);
 
-		dir1 = direção(nave1->dir);
-		dir2 = direção(nave2->dir);
+		dir1 = direcao(nave1->dir);
+		dir2 = direcao(nave2->dir);
 		
 		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], posx1, posy1, posx2, posy2);
 

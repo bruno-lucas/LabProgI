@@ -9,8 +9,8 @@
 #define G 6.67e10-11
 #define MAX 50
 
-int direcao (double dir){
-	double teta, section;
+int direcao (double teta){
+	double section;
 	int i;
 
 	if (teta >= 348.75 || teta < 11.25)
@@ -48,22 +48,20 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     G3 = gravit(nave2->posx, nave2->posy, nave2->mass, planeta->posx, planeta->posy, planeta->mass);
 
     /*desloca o eixo da nave 1 de acordo com forças da terra e da nave 2*/
-    Fx1 += resx(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
-    Fy1 += resy(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
+    Fx1 += resx(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave1->accel);
+    Fy1 += resy(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave1->accel);
 
-    Fx1 += resx(G2, nave1->posx, nave1->posy, 0, 0);
-    Fy1 += resy(G2, nave1->posx, nave1->posy, 0, 0);
+    Fx1 += resx(G2, nave1->posx, nave1->posy, 0, 0, nave1->accel);
+    Fy1 += resy(G2, nave1->posx, nave1->posy, 0, 0, nave1->accel);
     moving_eixo(Fx1, Fy1, nave1, frame);
-    /*Espaço para o OpenGL renderizar (posteriormente)*/
 
-	/*desloca o eixo da nave 2 de acordo com forças da terra e da nave 1 */
-    Fx2 += resx(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
-    Fy2 += resy(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy);
+    /*desloca o eixo da nave 2 de acordo com forças da terra e da nave 1 */
+    Fx2 += resx(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave2->accel);
+    Fy2 += resy(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave2->accel);
 
-    Fx2 += resx(G3, nave2->posx, nave2->posy, 0, 0);
-    Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0);
+    Fx2 += resx(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
+    Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
     moving_eixo(Fx2, Fy2, nave2, frame);
-    /*Espaço para o OpenGL renderizar (posteriormente)*/
 
 
 }
@@ -114,10 +112,6 @@ void keyboard(int key, Object *nave1, Object *nave2){
 
 
 
-
-
-
-
 int main() {
 	PIC P1, P2, P; 
 	PIC Nave[16];
@@ -132,6 +126,7 @@ int main() {
 	double duration;
 	int projs;
 	double frame;
+	int dir1, dir2;
 	int i;
 	float n;
 	char names[MAX];
@@ -260,6 +255,7 @@ int main() {
 	/* colocar direcao, tratamento das teclas, controle */
 
 	while (nave1->life != 0 && nave2->life != 0){
+
 		if (WCheckKBD(w1)){
 			key = WGetKey(w1);
 			key = WLastKeySym();
@@ -267,19 +263,23 @@ int main() {
 		}
 
 		if (nave1->accel == 1){
-		/* colocar velocidade dependendo da nave1->dir */
+		/* colocar velocidade dependendo da nave1->dir -- fiz isso na update --> resx(y) na resultante.h */
+		// apagem esse comentário depois de lerem, eu vou apagar o nave2->accel
 		}
 		
-		if (nave2->accel == 1){
-		/* colocar velocidade dependendo da nave2->dir */
-		}
 		update(nave1, nave2, planeta, frame);
 
-		/* como faz o programa esperar um pouco? */
+		/*programa espera um décimo de segundo para garantir jogabilidade */
+		usleep(100000);
 
-
+		dir1 = direção(nave1->dir);
+		dir2 = direção(nave2->dir);
 		
-		imprimetela(w1, P, Nave[nave1->dir], msknave[nave1->dir], Nave[nave2->dir], msknave[nave2->dir], posx1, posy1, posx2, posy2)
+		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], posx1, posy1, posx2, posy2);
+
+		/* verificação de colisões */
+
+	}
 
 
 
