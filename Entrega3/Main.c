@@ -26,7 +26,9 @@ int direcao (double teta){
 	return -1;
 }
 
-void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int posx1, int posy1, int posx2, int posy2){
+void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int posx1, int posy1, int posx2, int posy2, PIC Tiro, int proj, int projpos[20][2]){
+	int i;
+	
 	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
 	SetMask(w1, msk1);
 	PutPic(w1, P1, 0, 0, 35, 35, posx1, posy1);
@@ -34,6 +36,9 @@ void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int po
 	SetMask(w1, msk2);
 	PutPic(w1, P2, 0, 0, 35, 35, posx2, posy2);
 	UnSetMask(w1);
+
+	for (i=0; i<proj; i++)
+		PutPic(w1, Tiro, 0, 0, 7, 7, projpos[i][0], projpos[i][1]);
 }
 
 /*Calcula a posicao das naves de acordo com as forca as em acao */
@@ -113,11 +118,12 @@ void keyboard(int key, Object *nave1, Object *nave2){
 
 
 int main() {
-	PIC P1, P2, P; 
+	PIC P1, P2, P, Tiro; 
 	PIC Nave[16];
 	WINDOW *w1;
 	MASK msklua, msknave[16];
 	int key;
+	int projGraph[25][2];  //vai receber as posições dos projéteis, em [i][0] posição x e em [i][1] posição y
 
 	Object* planeta = malloc(sizeof	(*planeta));
 	Object* nave1 = malloc(sizeof (*nave1));
@@ -141,6 +147,7 @@ int main() {
 		P = NewPic(w1, 801, 801); // será a pic que mantém o estado da janela (universo + lua)
 		P1 = ReadPic(w1, "Sky.xpm", NULL); // pic do universo
 		P2 = ReadPic(w1, "Moon.xpm", NULL); // pic da lua
+		Tiro = ReadPic(w1, "tiro.xpm", NULL); // pic dos projeteis
 
 		for (i=0; i<16; i++)
 			msknave[i] = NewMask(w1, 35, 35);
@@ -252,10 +259,10 @@ int main() {
 	
 	/* FIM DA INICIALIZACAO */
 
-	/* colocar direcao, tratamento das teclas, controle */
 
 	while (nave1->life != 0 && nave2->life != 0){
 
+		/* checando próxima tecla inserida (se houver) e tratando ela */
 		if (WCheckKBD(w1)){
 			key = WGetKey(w1);
 			key = WLastKeySym();
@@ -271,7 +278,10 @@ int main() {
 		dir1 = direcao(nave1->dir);
 		dir2 = direcao(nave2->dir);
 		
-		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], posx1, posy1, posx2, posy2);
+
+		/* antes daqui é necessário tratar as posições pra deixar num int dentro da janela, mesma coisa para os projeteis */
+		
+		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], posx1, posy1, posx2, posy2, projs, projGraph);
 
 		/* verificação de colisões */
 
