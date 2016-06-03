@@ -28,7 +28,7 @@ int direcao (double teta){
 
 void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int posx1, int posy1, int posx2, int posy2, PIC Tiro, int proj, int projpos[20][2]){
 	int i;
-	
+
 	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
 	SetMask(w1, msk1);
 	PutPic(w1, P1, 0, 0, 35, 35, posx1, posy1);
@@ -39,6 +39,37 @@ void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int po
 
 	for (i=0; i<proj; i++)
 		PutPic(w1, Tiro, 0, 0, 7, 7, projpos[i][0], projpos[i][1]);
+}
+
+void inicia(Fila lista){
+    lista = malloc(sizeof(lista));
+    lista->ini = NULL;
+    lista->fim = NULL;
+}
+
+void insere (Fila lista, Object *nave, Projectile *model){
+    Celula *p;
+    Projectile *proj;
+
+    /* Copia os parâmetros definidos no arquivo config e gera um projetil */
+    proj->dir = nave->dir;
+    proj->posx = nave->posx + 3;
+    proj->posy = nave->posy + 3;
+    proj->velx = model->velx;
+    proj->vely = model->vely;
+    proj->time = model->time;
+
+    p = malloc(sizeof (*p));
+    p->projectile = proj;
+    p->num = lista->fim->num;
+
+    lista->fim->next = p;
+    lista->fim = lista->fim->next;
+
+    if(lista->ini == NULL){
+        lista->ini = lista->fim;
+    }
+
 }
 
 /*Calcula a posicao das naves de acordo com as forca as em acao */
@@ -72,10 +103,10 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
 }
 
 /* recebe a tecla lida e faz as mudanças necessárias */
-void keyboard(int key, Object *nave1, Object *nave2){
-	
+void keyboard(int key, Object *nave1, Object *nave2, Fila fila, Projectile *model){
+
 	/* tecla 'w' */
-	if (key == 119) 
+	if (key == 119)
 		nave1->accel = 1;
 
 	/* tecla 's' */
@@ -92,6 +123,11 @@ void keyboard(int key, Object *nave1, Object *nave2){
 		if (nave1->dir < 0)
 			nave1->dir += 360;
 	}
+
+	/*tecla de tiro da nave 1
+	else if (key == ){
+        insere(lista, nave1, model)
+	} */
 
 	/* tecla 'cima' */
 	else if (key == 65362)
@@ -112,13 +148,19 @@ void keyboard(int key, Object *nave1, Object *nave2){
 			nave2->dir += 360;
 	}
 
+
+	/*tecla de tiro da nave 2
+	else if (key == ){
+        insere(lista, nave2, model)
+	} */
+
 }
 
 
 
 
 int main() {
-	PIC P1, P2, P, Tiro; 
+	PIC P1, P2, P, Tiro;
 	PIC Nave[16];
 	WINDOW *w1;
 	MASK msklua, msknave[16];
@@ -131,18 +173,19 @@ int main() {
 	double time;
 	double duration;
 	int projs;
+	Fila lista;
 	double frame;
 	int dir1, dir2;
 	int i;
 	float n;
 	char names[MAX];
-	time_t time1, time2; 
+	time_t time1, time2;
 	float timedif;
 	Projectile *model;
 	time1 = clock();
 
 	/* INICIALIZACAO DA PARTE GRAFICA */
-		
+
 		w1 = InitGraph(801,801, "NightSky");
 		P = NewPic(w1, 801, 801); // será a pic que mantém o estado da janela (universo + lua)
 		P1 = ReadPic(w1, "Sky.xpm", NULL); // pic do universo
@@ -236,9 +279,18 @@ int main() {
 			   &duration
 			   );
 		/*Aloca o array de projeteis */
-		model = malloc(projs * sizeof(Projectile));
+		model = malloc(/*projs * */sizeof(Projectile));
 
 		/*Configura os projeteis */
+
+		fscanf(arquivo, "%lf %lf %lf %lf",
+				   &model->mass,
+				   &model->velx,
+				   &model->vely,
+				   &model->time
+				   );
+
+		/*
 		for(i = 0; i < projs; i++){
 			fscanf(arquivo, "%lf %lf %lf %lf",
 				   &model[i].mass,
@@ -246,7 +298,7 @@ int main() {
 				   &model[i].vely,
 				   &model[i].time
 				   );
-		} 
+		} */
 
 
 
@@ -256,7 +308,7 @@ int main() {
 		nave2->dir = 0;
 		nave1->accel = 0;
 		nave2->accel = 0;
-	
+
 	/* FIM DA INICIALIZACAO */
 
 
@@ -266,10 +318,10 @@ int main() {
 		if (WCheckKBD(w1)){
 			key = WGetKey(w1);
 			key = WLastKeySym();
-			keyboard(key, nave1, nave2);
+			keyboard(key, nave1, nave2, fila, model);
 		}
 
-		
+
 		update(nave1, nave2, planeta, frame);
 
 		/*programa espera um décimo de segundo para garantir jogabilidade */
@@ -277,10 +329,10 @@ int main() {
 
 		dir1 = direcao(nave1->dir);
 		dir2 = direcao(nave2->dir);
-		
+
 
 		/* antes daqui é necessário tratar as posições pra deixar num int dentro da janela, mesma coisa para os projeteis */
-		
+
 		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], posx1, posy1, posx2, posy2, projs, projGraph);
 
 		/* verificação de colisões */

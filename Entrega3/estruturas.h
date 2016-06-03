@@ -25,16 +25,23 @@ typedef struct{
     double posy;
     double velx;
     double vely;
+    double dir;
     double mass;
     double time;
 }Projectile;
 
 struct _Celula{
 	Projectile projectile;
+	int num;
 	struct _Celula *next;
 };
 
 typedef struct _Celula Celula;
+
+typedef struct{
+    Celula *ini;
+    Celula *fim;
+    }Fila;
 
 typedef struct {
    int life;
@@ -45,11 +52,10 @@ typedef struct {
    double velx;
    double vely;
    double mass;
-   Celula projectile_hash[4];
    double resx;
    double resy;
-	double dir;
-	int accel;
+   double dir;
+   int accel;
 }Object;
 
 #endif
