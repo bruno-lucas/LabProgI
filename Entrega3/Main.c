@@ -124,10 +124,10 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila fila, Projectile *mode
 			nave1->dir += 360;
 	}
 
-	/*tecla de tiro da nave 1
-	else if (key == ){
+	/*tecla 'espaco'*/
+	else if (key == 32){
         insere(lista, nave1, model)
-	} */
+	}
 
 	/* tecla 'cima' */
 	else if (key == 65362)
@@ -149,11 +149,11 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila fila, Projectile *mode
 	}
 
 
-	/*tecla de tiro da nave 2
-	else if (key == ){
-        insere(lista, nave2, model)
-	} */
+	/*tecla '0' do teclado numérico*/
 
+	else if (key == 65438){
+        insere(lista, nave2, model)
+	}
 }
 
 
