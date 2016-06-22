@@ -1,0 +1,13 @@
+Lista de símbolos que a gente vai usar
+
+w         119
+a         97
+s         115
+d         100
+espaço    32
+          
+cima      65362
+esq       65361
+baixo     65364
+direit    65363
+0         48 /* do keypad é 65438 */
