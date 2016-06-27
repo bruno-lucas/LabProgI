@@ -72,17 +72,33 @@ void insere (Fila lista, Object *nave, Projectile *model){
 
 }
 
-void apaga(Fila hash, Project *proj){}
+/*Apaga um projetil da lista */
+void apaga(Fila hash, Project *proj){
+	Celula *p;
+	Celula *mata;
+	
+	for (p = hash->inicio; p->next->projectile != proj; p = p->next){
+		if(p == hash->fim)
+			return;
+	}
+	
+	mata = p->next;
+	p->next = p->next->next;
+	
+	free(mata->projectile);
+	free(mata);
+}
 
+/*Verifica colisao entre um pojetil(7x7) e uma nave(35x35) */
 void colisao_proj_nave(Projectile *proj, Object *nave){
-    if((proj.posx >= nave.posx && proj.posx <= nave.posx + 10 && proj.posy >= nave.posy && proj.posy <= nave.posy + 10)
-       || (proj.posx + 7 >= nave.posx && proj.posx + 7 <= nave.posx + 10 && proj.posy >= nave.posy && proj.posy <= nave.posy + 10)
-       || (proj.posx >= nave.posx && proj.posx <= nave.posx + 10 && proj.posy + 7 >= nave.posy && proj.posy + 7 <= nave.posy + 10)
-       || (proj.posx + 7 >= nave.posx && proj.posx + 7 <= nave.posx + 10 && proj.posy + 7 >= nave.posy && proj.posy + 7 <= nave.posy + 10))
+    if((proj.posx >= nave.posx && proj.posx <= nave.posx + 35 && proj.posy >= nave.posy && proj.posy <= nave.posy + 35)
+       || (proj.posx + 7 >= nave.posx && proj.posx + 7 <= nave.posx + 35 && proj.posy >= nave.posy && proj.posy <= nave.posy + 35)
+       || (proj.posx >= nave.posx && proj.posx <= nave.posx + 35 && proj.posy + 7 >= nave.posy && proj.posy + 7 <= nave.posy + 35)
+       || (proj.posx + 7 >= nave.posx && proj.posx + 7 <= nave.posx + 35 && proj.posy + 7 >= nave.posy && proj.posy + 7 <= nave.posy + 35))
         nave.life = 0;
 
 }
-
+ /*Verifica colisao entre duas naves(35x35) */
 void colisao_nave_nave(Object *nave1, Object *nave2){
     if((nave1.posx >= nave2.posx && nave1.posx <= nave2.posx + 10 && nave1.posy >= nave2.posy && nave1.posy <= nave2.posy + 10)
        || (nave1.posx + 7 >= nave2.posx && nave1.posx + 7 <= nave2.posx + 10 && nave1.posy >= nave2.posy && nave1.posy <= nave2.posy + 10)
@@ -92,19 +108,21 @@ void colisao_nave_nave(Object *nave1, Object *nave2){
         nave2.life = 0;
 }
 
+/*Verifica colisao entre nave(35x35) e palneta(206x206) */
 void colisao_nave_planeta(Object *planeta, Object * nave){
-    if((planeta.posx >= nave.posx && planeta.posx <= nave.posx + 10 && planeta.posy >= nave.posy && planeta.posy <= nave.posy + 10)
-       || (planeta.posx + 7 >= nave.posx && planeta.posx + 7 <= nave.posx + 10 && planeta.posy >= nave.posy && planeta.posy <= nave.posy + 10)
-       || (planeta.posx >= nave.posx && planeta.posx <= nave.posx + 10 && planeta.posy + 7 >= nave.posy && planeta.posy + 7 <= nave.posy + 10)
-       || (planeta.posx + 7 >= nave.posx && planeta.posx + 7 <= nave.posx + 10 && planeta.posy + 7 >= nave.posy && planeta.posy + 7 <= nave.posy + 10))
+    if((planeta.posx >= nave.posx && planeta.posx <= nave.posx + 35 && planeta.posy >= nave.posy && planeta.posy <= nave.posy + 35)
+       || (planeta.posx + 206 >= nave.posx && planeta.posx + 206 <= nave.posx + 35 && planeta.posy >= nave.posy && planeta.posy <= nave.posy + 35)
+       || (planeta.posx >= nave.posx && planeta.posx <= nave.posx + 35 && planeta.posy + 206 >= nave.posy && planeta.posy + 206 <= nave.posy + 35)
+       || (planeta.posx + 206 >= nave.posx && planeta.posx + 206 <= nave.posx + 35 && planeta.posy + 206 >= nave.posy && planeta.posy + 206 <= nave.posy + 35))
         nave.life = 0;
 }
 
+/*Verifica colisao entre projetil(7x7) e planeta(206x206) */
 void colisao_proj_planeta(Fila *hash, Projectile *proj, Object *planeta){
     if((planeta.posx >= proj.posx && planeta.posx <= proj.posx + 7 && planeta.posy >= proj.posy && planeta.posy <= proj.posy + 7)
-       || (planeta.posx + 7 >= proj.posx && planeta.posx + 7 <= proj.posx + 7 && planeta.posy >= proj.posy && planeta.posy <= proj.posy + 7)
-       || (planeta.posx >= proj.posx && planeta.posx <= proj.posx + 7 && planeta.posy + 7 >= proj.posy && planeta.posy + 7 <= proj.posy + 7)
-       || (planeta.posx + 7 >= proj.posx && planeta.posx + 7 <= proj.posx + 7 && planeta.posy + 7 >= proj.posy && planeta.posy + 7 <= proj.posy + 7))
+       || (planeta.posx + 206 >= proj.posx && planeta.posx + 206 <= proj.posx + 7 && planeta.posy >= proj.posy && planeta.posy <= proj.posy + 7)
+       || (planeta.posx >= proj.posx && planeta.posx <= proj.posx + 7 && planeta.posy + 206 >= proj.posy && planeta.posy + 206 <= proj.posy + 7)
+       || (planeta.posx + 206 >= proj.posx && planeta.posx + 206 <= proj.posx + 7 && planeta.posy + 206 >= proj.posy && planeta.posy + 206 <= proj.posy + 7))
         apaga(hash, proj) = 0;
 }
 
