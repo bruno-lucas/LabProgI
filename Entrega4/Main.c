@@ -76,66 +76,70 @@ void insere (Fila lista, Object *nave, Projectile *model){
 void apaga(Fila hash, Project *proj){
 	Celula *p;
 	Celula *mata;
-	
+
 	for (p = hash->inicio; p->next->projectile != proj; p = p->next){
 		if(p == hash->fim)
 			return;
 	}
-	
+
 	mata = p->next;
 	p->next = p->next->next;
-	
+
 	free(mata->projectile);
 	free(mata);
 }
 
 /*Verifica colisao entre um pojetil(7x7) e uma nave(35x35) */
 void colisao_proj_nave(Projectile *proj, Object *nave){
-    if((proj.posx >= nave.posx && proj.posx <= nave.posx + 35 && proj.posy >= nave.posy && proj.posy <= nave.posy + 35)
-       || (proj.posx + 7 >= nave.posx && proj.posx + 7 <= nave.posx + 35 && proj.posy >= nave.posy && proj.posy <= nave.posy + 35)
-       || (proj.posx >= nave.posx && proj.posx <= nave.posx + 35 && proj.posy + 7 >= nave.posy && proj.posy + 7 <= nave.posy + 35)
-       || (proj.posx + 7 >= nave.posx && proj.posx + 7 <= nave.posx + 35 && proj.posy + 7 >= nave.posy && proj.posy + 7 <= nave.posy + 35))
-        nave.life = 0;
+    if((proj->posx >= nave->posx && proj->posx <= nave->posx + 35 && proj->posy >= nave->posy && proj->posy <= nave->posy + 35)
+       || (proj->posx + 7 >= nave->posx && proj->posx + 7 <= nave->posx + 35 && proj->posy >= nave->posy && proj->posy <= nave->posy + 35)
+       || (proj->posx >= nave->posx && proj->posx <= nave->posx + 35 && proj->posy + 7 >= nave->posy && proj->posy + 7 <= nave->posy + 35)
+       || (proj->posx + 7 >= nave->posx && proj->posx + 7 <= nave->posx + 35 && proj->posy + 7 >= nave->posy && proj->posy + 7 <= nave->posy + 35))
+        nave->life = 0;
 
 }
  /*Verifica colisao entre duas naves(35x35) */
 void colisao_nave_nave(Object *nave1, Object *nave2){
-    if((nave1.posx >= nave2.posx && nave1.posx <= nave2.posx + 10 && nave1.posy >= nave2.posy && nave1.posy <= nave2.posy + 10)
-       || (nave1.posx + 7 >= nave2.posx && nave1.posx + 7 <= nave2.posx + 10 && nave1.posy >= nave2.posy && nave1.posy <= nave2.posy + 10)
-       || (nave1.posx >= nave2.posx && nave1.posx <= nave2.posx + 10 && nave1.posy + 7 >= nave2.posy && nave1.posy + 7 <= nave2.posy + 10)
-       || (nave1.posx + 7 >= nave2.posx && nave1.posx + 7 <= nave2.posx + 10 && nave1.posy + 7 >= nave2.posy && nave1.posy + 7 <= nave2.posy + 10))
-        nave1.life = 0;
-        nave2.life = 0;
+    if((nave1->posx >= nave2->posx && nave1->posx <= nave2->posx + 10 && nave1->posy >= nave2->posy && nave1->posy <= nave2->posy + 10)
+       || (nave1->posx + 7 >= nave2->posx && nave1->posx + 7 <= nave2->posx + 10 && nave1->posy >= nave2->posy && nave1->posy <= nave2->posy + 10)
+       || (nave1->posx >= nave2->posx && nave1->posx <= nave2->posx + 10 && nave1->posy + 7 >= nave2->posy && nave1->posy + 7 <= nave2->posy + 10)
+       || (nave1->posx + 7 >= nave2->posx && nave1->posx + 7 <= nave2->posx + 10 && nave1->posy + 7 >= nave2->posy && nave1->posy + 7 <= nave2->posy + 10))
+        nave1->life = 0;
+        nave2->life = 0;
 }
 
 /*Verifica colisao entre nave(35x35) e palneta(206x206) */
 void colisao_nave_planeta(Object *planeta, Object * nave){
-    if((planeta.posx >= nave.posx && planeta.posx <= nave.posx + 35 && planeta.posy >= nave.posy && planeta.posy <= nave.posy + 35)
-       || (planeta.posx + 206 >= nave.posx && planeta.posx + 206 <= nave.posx + 35 && planeta.posy >= nave.posy && planeta.posy <= nave.posy + 35)
-       || (planeta.posx >= nave.posx && planeta.posx <= nave.posx + 35 && planeta.posy + 206 >= nave.posy && planeta.posy + 206 <= nave.posy + 35)
-       || (planeta.posx + 206 >= nave.posx && planeta.posx + 206 <= nave.posx + 35 && planeta.posy + 206 >= nave.posy && planeta.posy + 206 <= nave.posy + 35))
-        nave.life = 0;
+    if((planeta->posx >= nave->posx && planeta->posx <= nave->posx + 35 && planeta->posy >= nave->posy && planeta->posy <= nave->posy + 35)
+       || (planeta->posx + 206 >= nave->posx && planeta->posx + 206 <= nave->posx + 35 && planeta->posy >= nave->posy && planeta->posy <= nave->posy + 35)
+       || (planeta->posx >= nave->posx && planeta->posx <= nave->posx + 35 && planeta->posy + 206 >= nave->posy && planeta->posy + 206 <= nave->posy + 35)
+       || (planeta->posx + 206 >= nave->posx && planeta->posx + 206 <= nave->posx + 35 && planeta->posy + 206 >= nave->posy && planeta->posy + 206 <= nave->posy + 35))
+        nave->life = 0;
 }
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
-void colisao_proj_planeta(Fila *hash, Projectile *proj, Object *planeta){
-    if((planeta.posx >= proj.posx && planeta.posx <= proj.posx + 7 && planeta.posy >= proj.posy && planeta.posy <= proj.posy + 7)
-       || (planeta.posx + 206 >= proj.posx && planeta.posx + 206 <= proj.posx + 7 && planeta.posy >= proj.posy && planeta.posy <= proj.posy + 7)
-       || (planeta.posx >= proj.posx && planeta.posx <= proj.posx + 7 && planeta.posy + 206 >= proj.posy && planeta.posy + 206 <= proj.posy + 7)
-       || (planeta.posx + 206 >= proj.posx && planeta.posx + 206 <= proj.posx + 7 && planeta.posy + 206 >= proj.posy && planeta.posy + 206 <= proj.posy + 7))
-        apaga(hash, proj) = 0;
+void colisao_proj_planeta(Fila lista, Projectile *proj, Object *planeta){
+    if((planeta->posx >= proj->posx && planeta->posx <= proj->posx + 7 && planeta->posy >= proj->posy && planeta->posy <= proj->posy + 7)
+       || (planeta->posx + 206 >= proj->posx && planeta->posx + 206 <= proj->posx + 7 && planeta->posy >= proj->posy && planeta->posy <= proj->posy + 7)
+       || (planeta->posx >= proj->posx && planeta->posx <= proj->posx + 7 && planeta->posy + 206 >= proj->posy && planeta->posy + 206 <= proj->posy + 7)
+       || (planeta->posx + 206 >= proj->posx && planeta->posx + 206 <= proj->posx + 7 && planeta->posy + 206 >= proj->posy && planeta->posy + 206 <= proj->posy + 7))
+        apaga(lista, proj) = 0;
 }
 
 /*Calcula a posicao das naves de acordo com as forca as em acao */
-void update(Object *nave1, Object *nave2, Object *planeta, double frame){
+void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila lista){
+
+    Celula *p;
     double G1 /*gravidade entre naves */, G2 /*gravidade entre nave1 e planeta*/ ,G3 /*gravidade entre nave 2 e planeta*/;
+    double G4 /*gravidade proj-nave1 */ , G5 /*gravidade proj-nave2*/, G6 /*gravidade proj-planeta*/;
     double Fx1 /*resultante x da nave 1*/, Fy1 /*resultante y na nave 1, etc*/, Fx2, Fy2;
 
-	Fx1 = Fy1 = Fx2 = Fy2 = 0;
+	Fx1 = Fy1 = Fx2 = Fy2 = Fxp = Fyp = 0;
 
     G1 = gravit(nave1->posx, nave1->posy, nave1->mass, nave2->posx, nave2->posy, nave2->mass);
     G2 = gravit(nave1->posx, nave1->posy, nave1->mass, planeta->posx, planeta->posy, planeta->mass);
     G3 = gravit(nave2->posx, nave2->posy, nave2->mass, planeta->posx, planeta->posy, planeta->mass);
+
 
     /*desloca o eixo da nave 1 de acordo com forças da terra e da nave 2*/
     Fx1 += resx(G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave1->accel);
@@ -153,11 +157,36 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame){
     Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
     moving_eixo(Fx2, Fy2, nave2, frame);
 
+    for(p = lista->ini; p != NULL; p = p->next){
+        G4 = gravit(p->projectile->posx, p->projectile->posy, p->projectile->mass, nave1->posx, nave1->posy, nave1->mass);
+        G5 = gravit(p->projectile->posx, p->projectile->posy, p->projectile->mass, nave2->posx, nave2->posy, nave2->mass);
+        G6 = gravit(p->projectile->posx, p->projectile->posy, p->projectile->mass, planeta->posx, planeta->posy, planeta->mass);
+
+        Fxp += resx(G4, p->projectile->posx, p->projectile->posy, nave1->posx, nave1->posy, 0);
+        Fxp += resx(G5, p->projectile->posx, p->projectile->posy, nave2->posx, nave2->posy, 0);
+        Fxp += resx(G6, p->projectile->posx, p->projectile->posy, 0, 0, 0);
+
+        Fyp += resy(G4, p->projectile->posx, p->projectile->posy, nave1->posx, nave1->posy, 0);
+        Fyp += resy(G5, p->projectile->posx, p->projectile->posy, nave2->posx, nave2->posy, 0);
+        Fyp += resy(G6, p->projectile->posx, p->projectile->posy, 0, 0, 0);
+        moving_eixo(Fxp, Fyp, p->projectile, frame);
+    }
+
+    colisao_nave_nave(nave1, nave2);
+    colisao_nave_planeta(planeta, nave1);
+    colisao_nave_planeta(planeta, nave2);
+
+	for (p = lista->inicio; p != NULL; p = p->next){
+		colisao_proj_nave(p->projectile, nave1);
+		colisao_proj_nave(p->projectile, nave2);
+		colisao_proj_planeta(lista, p->projectile, planeta);
+	}
+
 
 }
 
 /* recebe a tecla lida e faz as mudanças necessárias */
-void keyboard(int key, Object *nave1, Object *nave2, Fila fila, Projectile *model){
+void keyboard(int key, Object *nave1, Object *nave2, Fila lista, Projectile *model){
 
 	/* tecla 'w' */
 	if (key == 119)
@@ -344,18 +373,6 @@ int main() {
 				   &model->time
 				   );
 
-		/*
-		for(i = 0; i < projs; i++){
-			fscanf(arquivo, "%lf %lf %lf %lf",
-				   &model[i].mass,
-				   &model[i].velx,
-				   &model[i].vely,
-				   &model[i].time
-				   );
-		} */
-
-
-
 		fclose(arquivo);
 
 		nave1->dir = 180;
@@ -376,7 +393,7 @@ int main() {
 		}
 
 
-		update(nave1, nave2, planeta, frame);
+		update(nave1, nave2, planeta, frame, lista);
 
 		/*programa espera um décimo de segundo para garantir jogabilidade */
 		usleep(100000);

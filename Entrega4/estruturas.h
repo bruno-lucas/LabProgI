@@ -28,6 +28,7 @@ typedef struct{
     double dir;
     double mass;
     double time;
+    int accel;
 }Projectile;
 
 struct _Celula{
