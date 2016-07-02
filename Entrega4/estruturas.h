@@ -31,6 +31,7 @@ typedef struct{
     int accel;
 	 int posxGraph;
 	 int posyGraph;
+	 int id;
 }Projectile;
 
 struct _Celula{

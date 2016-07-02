@@ -37,7 +37,7 @@ int escala (double pos){
 
 	return graphPos;
 }
-	
+
 
 void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, Object *nave1, Object *nave2, PIC Tiro, Fila *lista){
 	Celula *p;
@@ -60,17 +60,18 @@ void inicia(Fila *lista){
     lista->fim = NULL;
 }
 
-void insere (Fila *lista, Object *nave, Projectile *model){
+void insere (Fila *lista, Object *nave, Projectile *model, int id){
     Celula *p;
     Projectile proj;
 
     /* Copia os parâmetros definidos no arquivo config e gera um projetil */
-    proj.dir = nave->dir;
-    proj.posx = nave->posx + 3;
-    proj.posy = nave->posy + 3;
-    proj.velx = model->velx;
-    proj.vely = model->vely;
-    proj.time = model->time;
+    proj->dir = nave->dir;
+    proj->posx = nave->posx + 3;
+    proj->posy = nave->posy + 3;
+    proj->velx = model->velx;
+    proj->vely = model->vely;
+    proj->time = model->time;
+    proj->id = id;
 
     p = malloc(sizeof (*p));
     p->projectile = proj;
@@ -82,7 +83,7 @@ void insere (Fila *lista, Object *nave, Projectile *model){
     if(lista->ini == NULL){
         lista->ini = lista->fim;
     }
-
+    id++;
 }
 
 /*Apaga um projetil da lista */
@@ -90,7 +91,7 @@ void apaga(Fila *hash, Projectile proj){
 	Celula *p;
 	Celula *mata;
 
-	for (p = hash->ini; p->next->projectile != proj; p = p->next){
+	for (p = hash->ini; p->next->projectile->id != proj->id; p = p->next){
 		if(p == hash->fim)
 			return;
 	}
@@ -98,7 +99,6 @@ void apaga(Fila *hash, Projectile proj){
 	mata = p->next;
 	p->next = p->next->next;
 
-	free(mata->projectile);
 	free(mata);
 }
 
@@ -131,7 +131,7 @@ void colisao_nave_planeta(Object *planeta, Object * nave){
 }
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
-void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta){
+void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, id){
     if((300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
        || (300 + 206 >= proj.posxGraph && 300 + 206 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
        || (300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 + 206 >= proj.posyGraph && 300 + 206 <= proj.posyGraph + 7)
@@ -207,7 +207,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 }
 
 /* recebe a tecla lida e faz as mudanças necessárias */
-void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *model){
+void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *model, int id){
 
 	/* tecla 'w' */
 	if (key == 119)
@@ -233,7 +233,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *mo
 
 	/*tecla 'espaco'*/
 	else if (key == 32){
-        insere(lista, nave1, model);
+        insere(lista, nave1, model, id);
 	}
 
 	/* tecla 'cima' */
@@ -262,7 +262,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *mo
 	/*tecla '0' do teclado numérico*/
 
 	else if (key == 65438){
-        insere(lista, nave2, model);
+        insere(lista, nave2, model, id);
 	}
 }
 
@@ -286,6 +286,7 @@ int main() {
 	double frame;
 	int dir1, dir2;
 	int i;
+	int id = 0;
 	float n;
 	char names[MAX];
 	time_t time1, time2;
@@ -415,7 +416,7 @@ int main() {
 		if (WCheckKBD(w1)){
 			key = WGetKey(w1);
 			key = WLastKeySym();
-			keyboard(key, nave1, nave2, lista, model);
+			keyboard(key, nave1, nave2, lista, model, id);
 		}
 
 
@@ -431,8 +432,6 @@ int main() {
 		/* antes daqui é necessário tratar as posições pra deixar num int dentro da janela, mesma coisa para os projeteis */
 
 		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], nave1, nave2, Tiro, lista);
-
-		/* verificação de colisões */
 
 	}
 
