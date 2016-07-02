@@ -91,7 +91,7 @@ void apaga(Fila *hash, Projectile proj){
 	Celula *p;
 	Celula *mata;
 
-	for (p = hash->ini; p->next->projectile->id != proj->id; p = p->next){
+	for (p = hash->ini; p->next->projectile.id != proj.id; p = p->next){
 		if(p == hash->fim)
 			return;
 	}
@@ -131,7 +131,7 @@ void colisao_nave_planeta(Object *planeta, Object * nave){
 }
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
-void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, id){
+void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, int id){
     if((300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
        || (300 + 206 >= proj.posxGraph && 300 + 206 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
        || (300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 + 206 >= proj.posyGraph && 300 + 206 <= proj.posyGraph + 7)
@@ -200,7 +200,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 	for (p = lista->ini; p != NULL; p = p->next){
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
-		colisao_proj_planeta(lista, p->projectile, planeta p->projectile.id);
+		colisao_proj_planeta(lista, p->projectile, planeta, p->projectile.id);
 	}
 
 
