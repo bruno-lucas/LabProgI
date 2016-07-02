@@ -282,7 +282,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 	for (p = lista->ini; p != NULL; p = p->next){
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
-		colisao_proj_planeta(lista, p->projectile, planeta, p->projectile.id);
+		colisao_proj_planeta(lista, p->projectile, planeta);
 	}
 
 
@@ -536,7 +536,7 @@ int main() {
 	free(nave1);
 	free(nave2);
 
-	for(p->lista->ini; p != NULL; p = p->next){
+	for(p = lista->ini; p != NULL; p = p->next){
         aux = p;
         free(aux);
 	}
