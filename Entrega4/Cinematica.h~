@@ -28,7 +28,6 @@ void desloca_eixo (double * pos, double * vel, double acel, double frame);
 // função que recebe as componentes x e y  do vetor posição, velocidade e resultante
 // e determina os próximos passos  dos objetos
 void moving_eixo (double Fx, double Fy, Object *nave, double frame);
-void moving_eixo_proj (double Fx, double Fy, Projectile *proj, double frame);
 
 
 

@@ -186,7 +186,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
         Fyp += resy(G4, p->projectile.posx, p->projectile.posy, nave1->posx, nave1->posy, 0);
         Fyp += resy(G5, p->projectile.posx, p->projectile.posy, nave2->posx, nave2->posy, 0);
         Fyp += resy(G6, p->projectile.posx, p->projectile.posy, 0, 0, 0);
-        moving_eixo(Fxp, Fyp, p->projectile, frame);
+        moving_eixo_proj(Fxp, Fyp, &p->projectile, frame);
 		  p->projectile.posxGraph = escala(p->projectile.posx);
 		  p->projectile.posyGraph = escala(p->projectile.posy);
 		  Fxp = 0;

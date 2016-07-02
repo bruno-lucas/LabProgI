@@ -27,6 +27,16 @@ void moving_eixo (double Fx, double Fy, Object *nave, double frame) {
     desloca_eixo(&nave->posy, &nave->vely, ay, frame);
 }
 
+void moving_eixo_proj (double Fx, double Fy, Projectile *proj, double frame) {
+	double ax, ay;
+
+	ax = Fx/(proj->mass);
+   desloca_eixo(&proj->posx, &proj->velx, ax, frame);
+
+	ay = Fy/(proj->mass);
+   desloca_eixo(&proj->posy, &proj->vely, ay, frame);
+}
+
 void desloca_eixo (double * pos, double * vel, double acel, double frame) {
     // passo 1 -- modifica posição usando a fórmula do MUV
     (* pos) = (* pos) + (* vel)*frame + (acel*frame*frame)/2;
@@ -38,3 +48,4 @@ void desloca_eixo (double * pos, double * vel, double acel, double frame) {
     // passo 2 -- modifica velocidade no eixo em questão
     (* vel) = (* vel) + acel*frame;
 }
+
