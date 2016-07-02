@@ -4,9 +4,12 @@
 #include <math.h>
 #include <time.h>
 #include "estruturas.h"
+#include "Cinematica.h"
+#include "resultante.h"
+#include <string.h>
+#include <stdlib.h>
 #define PI 3.14159265
 
-#define G 6.67e10-11
 #define MAX 50
 
 int direcao (double teta){
@@ -36,39 +39,38 @@ int escala (double pos){
 }
 	
 
-void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int posx1, int posy1, int posx2, int posy2, PIC Tiro, Fila lista){
-	int i;
+void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, Object *nave1, Object *nave2, PIC Tiro, Fila *lista){
 	Celula *p;
 
 	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
 	SetMask(w1, msk1);
-	PutPic(w1, P1, 0, 0, 35, 35, posx1, posy1);
+	PutPic(w1, P1, 0, 0, 35, 35, nave1->posxGraph, nave1->posyGraph);
 	UnSetMask(w1);
 	SetMask(w1, msk2);
-	PutPic(w1, P2, 0, 0, 35, 35, posx2, posy2);
+	PutPic(w1, P2, 0, 0, 35, 35, nave2->posxGraph, nave2->posyGraph);
 	UnSetMask(w1);
 
     for(p = lista->ini; p != NULL; p = p->next)
-		PutPic(w1, Tiro, 0, 0, 7, 7, p->projectile->posx, p->projectile->posy);
+		PutPic(w1, Tiro, 0, 0, 7, 7, p->projectile.posxGraph, p->projectile.posyGraph);
 }
 
-void inicia(Fila lista){
+void inicia(Fila *lista){
     lista = malloc(sizeof(lista));
     lista->ini = NULL;
     lista->fim = NULL;
 }
 
-void insere (Fila lista, Object *nave, Projectile *model){
+void insere (Fila *lista, Object *nave, Projectile *model){
     Celula *p;
-    Projectile *proj;
+    Projectile proj;
 
     /* Copia os parâmetros definidos no arquivo config e gera um projetil */
-    proj->dir = nave->dir;
-    proj->posx = nave->posx + 3;
-    proj->posy = nave->posy + 3;
-    proj->velx = model->velx;
-    proj->vely = model->vely;
-    proj->time = model->time;
+    proj.dir = nave->dir;
+    proj.posx = nave->posx + 3;
+    proj.posy = nave->posy + 3;
+    proj.velx = model->velx;
+    proj.vely = model->vely;
+    proj.time = model->time;
 
     p = malloc(sizeof (*p));
     p->projectile = proj;
@@ -84,11 +86,11 @@ void insere (Fila lista, Object *nave, Projectile *model){
 }
 
 /*Apaga um projetil da lista */
-void apaga(Fila hash, Projectile *proj){
+void apaga(Fila *hash, Projectile proj){
 	Celula *p;
 	Celula *mata;
 
-	for (p = hash->inicio; p->next->projectile != proj; p = p->next){
+	for (p = hash->ini; p->next->projectile != proj; p = p->next){
 		if(p == hash->fim)
 			return;
 	}
@@ -101,11 +103,11 @@ void apaga(Fila hash, Projectile *proj){
 }
 
 /*Verifica colisao entre um pojetil(7x7) e uma nave(35x35) */
-void colisao_proj_nave(Projectile *proj, Object *nave){
-    if((proj->posxGraph >= nave->posxGraph && proj->posxGraph <= nave->posxGraph + 35 && proj->posyGraph >= nave->posyGraph && proj->posyGraph <= nave->posyGraph + 35)
-       || (proj->posxGraph + 7 >= nave->posxGraph && proj->posxGraph + 7 <= nave->posxGraph + 35 && proj->posyGraph >= nave->posyGraph && proj->posyGraph <= nave->posyGraph + 35)
-       || (proj->posxGraph >= nave->posxGraph && proj->posxGraph <= nave->posxGraph + 35 && proj->posyGraph + 7 >= nave->posyGraph && proj->posyGraph + 7 <= nave->posyGraph + 35)
-       || (proj->posxGraph + 7 >= nave->posxGraph && proj->posxGraph + 7 <= nave->posxGraph + 35 && proj->posyGraph + 7 >= nave->posyGraph && proj->posyGraph + 7 <= nave->posyGraph + 35))
+void colisao_proj_nave(Projectile proj, Object *nave){
+    if((proj.posxGraph >= nave->posxGraph && proj.posxGraph <= nave->posxGraph + 35 && proj.posyGraph >= nave->posyGraph && proj.posyGraph <= nave->posyGraph + 35)
+       || (proj.posxGraph + 7 >= nave->posxGraph && proj.posxGraph + 7 <= nave->posxGraph + 35 && proj.posyGraph >= nave->posyGraph && proj.posyGraph <= nave->posyGraph + 35)
+       || (proj.posxGraph >= nave->posxGraph && proj.posxGraph <= nave->posxGraph + 35 && proj.posyGraph + 7 >= nave->posyGraph && proj.posyGraph + 7 <= nave->posyGraph + 35)
+       || (proj.posxGraph + 7 >= nave->posxGraph && proj.posxGraph + 7 <= nave->posxGraph + 35 && proj.posyGraph + 7 >= nave->posyGraph && proj.posyGraph + 7 <= nave->posyGraph + 35))
         nave->life = 0;
 
 }
@@ -129,21 +131,21 @@ void colisao_nave_planeta(Object *planeta, Object * nave){
 }
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
-void colisao_proj_planeta(Fila lista, Projectile *proj, Object *planeta){
-    if((300 >= proj->posxGraph && 300 <= proj->posxGraph + 7 && 300 >= proj->posyGraph && 300 <= proj->posyGraph + 7)
-       || (300 + 206 >= proj->posxGraph && 300 + 206 <= proj->posxGraph + 7 && 300 >= proj->posyGraph && 300 <= proj->posyGraph + 7)
-       || (300 >= proj->posxGraph && 300 <= proj->posxGraph + 7 && 300 + 206 >= proj->posyGraph && 300 + 206 <= proj->posyGraph + 7)
-       || (300 + 206 >= proj->posxGraph && 300 + 206 <= proj->posxGraph + 7 && 300 + 206 >= proj->posyGraph && 300 + 206 <= proj->posyGraph + 7))
-        apaga(lista, proj) = 0;
+void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta){
+    if((300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
+       || (300 + 206 >= proj.posxGraph && 300 + 206 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
+       || (300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 + 206 >= proj.posyGraph && 300 + 206 <= proj.posyGraph + 7)
+       || (300 + 206 >= proj.posxGraph && 300 + 206 <= proj.posxGraph + 7 && 300 + 206 >= proj.posyGraph && 300 + 206 <= proj.posyGraph + 7))
+        apaga(lista, proj);
 }
 
 /*Calcula a posicao das naves de acordo com as forca as em acao */
-void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila lista){
+void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *lista){
 
     Celula *p;
     double G1 /*gravidade entre naves */, G2 /*gravidade entre nave1 e planeta*/ ,G3 /*gravidade entre nave 2 e planeta*/;
     double G4 /*gravidade proj-nave1 */ , G5 /*gravidade proj-nave2*/, G6 /*gravidade proj-planeta*/;
-    double Fx1 /*resultante x da nave 1*/, Fy1 /*resultante y na nave 1, etc*/, Fx2, Fy2;
+    double Fx1 /*resultante x da nave 1*/, Fy1 /*resultante y na nave 1, etc*/, Fx2, Fy2, Fxp, Fyp;
 
 	Fx1 = Fy1 = Fx2 = Fy2 = Fxp = Fyp = 0;
 
@@ -173,20 +175,20 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila li
 	 nave2->posyGraph = escala(nave2->posy);
 
     for(p = lista->ini; p != NULL; p = p->next){
-        G4 = gravit(p->projectile->posx, p->projectile->posy, p->projectile->mass, nave1->posx, nave1->posy, nave1->mass);
-        G5 = gravit(p->projectile->posx, p->projectile->posy, p->projectile->mass, nave2->posx, nave2->posy, nave2->mass);
-        G6 = gravit(p->projectile->posx, p->projectile->posy, p->projectile->mass, planeta->posx, planeta->posy, planeta->mass);
+        G4 = gravit(p->projectile.posx, p->projectile.posy, p->projectile.mass, nave1->posx, nave1->posy, nave1->mass);
+        G5 = gravit(p->projectile.posx, p->projectile.posy, p->projectile.mass, nave2->posx, nave2->posy, nave2->mass);
+        G6 = gravit(p->projectile.posx, p->projectile.posy, p->projectile.mass, planeta->posx, planeta->posy, planeta->mass);
 
-        Fxp += resx(G4, p->projectile->posx, p->projectile->posy, nave1->posx, nave1->posy, 0);
-        Fxp += resx(G5, p->projectile->posx, p->projectile->posy, nave2->posx, nave2->posy, 0);
-        Fxp += resx(G6, p->projectile->posx, p->projectile->posy, 0, 0, 0);
+        Fxp += resx(G4, p->projectile.posx, p->projectile.posy, nave1->posx, nave1->posy, 0);
+        Fxp += resx(G5, p->projectile.posx, p->projectile.posy, nave2->posx, nave2->posy, 0);
+        Fxp += resx(G6, p->projectile.posx, p->projectile.posy, 0, 0, 0);
 
-        Fyp += resy(G4, p->projectile->posx, p->projectile->posy, nave1->posx, nave1->posy, 0);
-        Fyp += resy(G5, p->projectile->posx, p->projectile->posy, nave2->posx, nave2->posy, 0);
-        Fyp += resy(G6, p->projectile->posx, p->projectile->posy, 0, 0, 0);
+        Fyp += resy(G4, p->projectile.posx, p->projectile.posy, nave1->posx, nave1->posy, 0);
+        Fyp += resy(G5, p->projectile.posx, p->projectile.posy, nave2->posx, nave2->posy, 0);
+        Fyp += resy(G6, p->projectile.posx, p->projectile.posy, 0, 0, 0);
         moving_eixo(Fxp, Fyp, p->projectile, frame);
-		  p->projectile->posxGraph = escala(p->projectile->posx);
-		  p->projectile->posyGraph = escala(p->projectile->posy);
+		  p->projectile.posxGraph = escala(p->projectile.posx);
+		  p->projectile.posyGraph = escala(p->projectile.posy);
 		  Fxp = 0;
 		  Fyp = 0;
     }
@@ -195,7 +197,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila li
     colisao_nave_planeta(planeta, nave1);
     colisao_nave_planeta(planeta, nave2);
 
-	for (p = lista->inicio; p != NULL; p = p->next){
+	for (p = lista->ini; p != NULL; p = p->next){
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
 		colisao_proj_planeta(lista, p->projectile, planeta);
@@ -205,7 +207,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila li
 }
 
 /* recebe a tecla lida e faz as mudanças necessárias */
-void keyboard(int key, Object *nave1, Object *nave2, Fila lista, Projectile *model){
+void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *model){
 
 	/* tecla 'w' */
 	if (key == 119)
@@ -231,7 +233,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila lista, Projectile *mod
 
 	/*tecla 'espaco'*/
 	else if (key == 32){
-        insere(lista, nave1, model)
+        insere(lista, nave1, model);
 	}
 
 	/* tecla 'cima' */
@@ -260,7 +262,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila lista, Projectile *mod
 	/*tecla '0' do teclado numérico*/
 
 	else if (key == 65438){
-        insere(lista, nave2, model)
+        insere(lista, nave2, model);
 	}
 }
 
@@ -278,8 +280,9 @@ int main() {
 	Object* nave1 = malloc(sizeof (*nave1));
 	Object* nave2 = malloc(sizeof(*nave2));
 	double time;
+	int projs;
 	double duration;
-	Fila lista;
+	Fila* lista;
 	double frame;
 	int dir1, dir2;
 	int i;
@@ -402,7 +405,7 @@ int main() {
 		nave2->dir = 0;
 		nave1->accel = 0;
 		nave2->accel = 0;
-		nave1->life = nave2->life = 1 
+		nave1->life = nave2->life = 1;
 	/* FIM DA INICIALIZACAO */
 
 
@@ -412,7 +415,7 @@ int main() {
 		if (WCheckKBD(w1)){
 			key = WGetKey(w1);
 			key = WLastKeySym();
-			keyboard(key, nave1, nave2, fila, model);
+			keyboard(key, nave1, nave2, lista, model);
 		}
 
 
@@ -427,7 +430,7 @@ int main() {
 
 		/* antes daqui é necessário tratar as posições pra deixar num int dentro da janela, mesma coisa para os projeteis */
 
-		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], posx1, posy1, posx2, posy2, lista);
+		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], nave1, nave2, Tiro, lista);
 
 		/* verificação de colisões */
 
