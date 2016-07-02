@@ -66,7 +66,7 @@ void insere (Fila *lista, Object *nave, Projectile *model, int id){
 
     /* Copia os parâmetros definidos no arquivo config e gera um projetil */
     proj.dir = nave->dir;
-    proj.posx = nave->posx + 3;	// vc escreveu proj->posx = nave->posx + 3; 
+    proj.posx = nave->posx + 3;	// vc escreveu proj->posx = nave->posx + 3;
     proj.posy = nave->posy + 3;	//acontece que proj nao e ponteiro, mas model é
     proj.velx = model->velx; // vc cometeu esse erro na funçao
     proj.vely = model->vely;
@@ -131,7 +131,7 @@ void colisao_nave_planeta(Object *planeta, Object * nave){
 }
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
-void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, int id){
+void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta){
     if((300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
        || (300 + 206 >= proj.posxGraph && 300 + 206 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
        || (300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 + 206 >= proj.posyGraph && 300 + 206 <= proj.posyGraph + 7)
@@ -293,6 +293,8 @@ int main() {
 	float timedif;
 	Projectile *model;
 	time1 = clock();
+	Celula *p;
+	Celula *aux;
 
 	/* INICIALIZACAO DA PARTE GRAFICA */
 
@@ -451,6 +453,14 @@ int main() {
 	free(planeta);
 	free(nave1);
 	free(nave2);
+
+	for(p->lista->ini; p != NULL; p = p->next){
+        aux = p;
+        free(aux);
+	}
+
+	free(lista);
+
 	return 0;
 }
 
