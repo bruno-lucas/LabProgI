@@ -70,12 +70,12 @@ void insere (Fila *lista, Object *nave, Projectile *model, int id){
     proj.time = model->time;
     proj.id = id;
 
-    if(nave.dir == 0){
+    if(nave->dir == 0){
         proj.posxGraph = nave->posxGraph + 36;
         proj.posyGraph = nave->posyGraph + 17.5;
     }
 
-    if(nave.dir == 22.5){
+    if(nave->dir == 22.5){
         proj.posxGraph = nave->posxGraph + 36;
         proj.posyGraph = nave->posyGraph + 8.75;
     }
