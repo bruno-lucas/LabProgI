@@ -26,8 +26,9 @@ int direcao (double teta){
 	return -1;
 }
 
-void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int posx1, int posy1, int posx2, int posy2, PIC Tiro, int proj, int projpos[20][2]){
+void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int posx1, int posy1, int posx2, int posy2, PIC Tiro, Fila lista){
 	int i;
+	Celula *p;
 
 	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
 	SetMask(w1, msk1);
@@ -37,8 +38,8 @@ void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int po
 	PutPic(w1, P2, 0, 0, 35, 35, posx2, posy2);
 	UnSetMask(w1);
 
-	for (i=0; i<proj; i++)
-		PutPic(w1, Tiro, 0, 0, 7, 7, projpos[i][0], projpos[i][1]);
+    for(p = lista->ini; p != NULL; p = p->next)
+		PutPic(w1, Tiro, 0, 0, 7, 7, p->projectile->posx, p->projectile->posy);
 }
 
 void inicia(Fila lista){
@@ -73,7 +74,7 @@ void insere (Fila lista, Object *nave, Projectile *model){
 }
 
 /*Apaga um projetil da lista */
-void apaga(Fila hash, Project *proj){
+void apaga(Fila hash, Projectile *proj){
 	Celula *p;
 	Celula *mata;
 
@@ -170,6 +171,8 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila li
         Fyp += resy(G5, p->projectile->posx, p->projectile->posy, nave2->posx, nave2->posy, 0);
         Fyp += resy(G6, p->projectile->posx, p->projectile->posy, 0, 0, 0);
         moving_eixo(Fxp, Fyp, p->projectile, frame);
+		  Fxp = 0;
+		  Fyp = 0;
     }
 
     colisao_nave_nave(nave1, nave2);
@@ -197,8 +200,11 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila lista, Projectile *mod
 		nave1->accel = 0;
 
 	/* tecla 'a' */
-	else if (key == 97)
-		nave1->dir = (nave1->dir + 11.25)%360;
+	else if (key == 97){
+		nave1->dir = nave1->dir + 11.25;
+		if (nave1->dir >= 360)
+			nave1->dir = nave1->dir - 360;
+	}
 
 	/* tecla 'd' */
 	else if (key == 100){
@@ -221,8 +227,11 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila lista, Projectile *mod
 		nave2->accel = 0;
 
 	/* tecla 'esquerda' */
-	else if (key == 65361)
-		nave2->dir = (nave2->dir + 11.25)%360;
+	else if (key == 65361){
+		nave2->dir = nave2->dir + 11.25;
+		if (nave2->dir >= 360)
+			nave2->dir = nave2->dir - 360;
+	}
 
 	/* tecla 'direita' */
 	else if (key == 65363){
@@ -379,7 +388,7 @@ int main() {
 		nave2->dir = 0;
 		nave1->accel = 0;
 		nave2->accel = 0;
-
+		nave1->life = nave2->life = 1 
 	/* FIM DA INICIALIZACAO */
 
 
