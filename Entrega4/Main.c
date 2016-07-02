@@ -65,13 +65,95 @@ void insere (Fila *lista, Object *nave, Projectile *model, int id){
     Projectile proj;
 
     /* Copia os parâmetros definidos no arquivo config e gera um projetil */
-    proj.dir = nave->dir;
-    proj.posx = nave->posx + 3;	// vc escreveu proj->posx = nave->posx + 3;
-    proj.posy = nave->posy + 3;	//acontece que proj nao e ponteiro, mas model é
-    proj.velx = model->velx; // vc cometeu esse erro na funçao
+    proj.velx = model->velx;
     proj.vely = model->vely;
     proj.time = model->time;
     proj.id = id;
+
+    if(nave.dir == 0){
+        proj.posxGraph = nave->posxGraph + 36;
+        proj.posyGraph = nave->posyGraph + 17.5;
+    }
+
+    if(nave.dir == 22.5){
+        proj.posxGraph = nave->posxGraph + 36;
+        proj.posyGraph = nave->posyGraph + 8.75;
+    }
+
+    if(nave.dir == 45){
+        proj.posxGraph = nave->posxGraph + 35.5;
+        proj.posyGraph = nave->posyGraph - 0.5;
+    }
+
+    if(nave.dir == 77.5){
+        proj.posxGraph = nave->posxGraph + 26.25;
+        proj.posyGraph = nave->posyGraph - 1;
+    }
+
+    if(nave.dir == 90){
+        proj.posxGraph = nave->posxGraph + 17.5;
+        proj.posyGraph = nave->posyGraph - 1;
+    }
+
+    if(nave.dir == 112.5){
+        proj.posxGraph = nave->posxGraph + 8.75;
+        proj.posyGraph = nave->posyGraph - 1;
+    }
+
+    if(nave.dir == 135){
+        proj.posxGraph = nave->posxGraph - 1;
+        proj.posyGraph = nave->posyGraph - 1;
+    }
+
+    if(nave.dir == 157.5){
+        proj.posxGraph = nave->posxGraph - 1;
+        proj.posyGraph = nave->posyGraph + 8.75;
+    }
+
+    if(nave.dir == 180){
+        proj.posxGraph = nave->posxGraph - 1;
+        proj.posyGraph = nave->posyGraph + 17.5;
+    }
+
+    if(nave.dir == 202.5){
+        proj.posxGraph = nave->posxGraph - 1;
+        proj.posyGraph = nave->posyGraph + 26.25;
+    }
+
+    if(nave.dir == 225){
+        proj.posxGraph = nave->posxGraph - 0.5;
+        proj.posyGraph = nave->posyGraph + 35.5;
+    }
+
+    if(nave.dir == 247.5){
+        proj.posxGraph = nave->posxGraph + 8.25;
+        proj.posyGraph = nave->posyGraph + 36;
+    }
+
+    if(nave.dir == 270){
+        proj.posxGraph = nave->posxGraph + 17.5;
+        proj.posyGraph = nave->posyGraph + 36;
+    }
+
+    if(nave.dir == 292.5){
+        proj.posxGraph = nave->posxGraph + 26.25;
+        proj.posyGraph = nave->posyGraph + 36;
+    }
+
+    if(nave.dir == 315){
+        proj.posxGraph = nave->posxGraph + 35.5;
+        proj.posyGraph = nave->posyGraph + 35.5;
+    }
+
+    if(nave.dir == 337.5){
+        proj.posxGraph = nave->posxGraph + 36;
+        proj.posyGraph = nave->posyGraph + 26.25;
+    }
+
+    if(nave.dir == 360){
+        proj.posxGraph = nave->posxGraph + 36;
+        proj.posyGraph = nave->posyGraph + 17.5;
+    }
 
     p = malloc(sizeof (*p));
     p->projectile = proj;
