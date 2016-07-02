@@ -26,6 +26,16 @@ int direcao (double teta){
 	return -1;
 }
 
+int escala (double pos){
+	int graphPos;
+
+	pos = pos + 25.6e6;
+	graphPos = (int)pos/32000;
+
+	return graphPos;
+}
+	
+
 void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, int posx1, int posy1, int posx2, int posy2, PIC Tiro, Fila lista){
 	int i;
 	Celula *p;
@@ -92,38 +102,38 @@ void apaga(Fila hash, Projectile *proj){
 
 /*Verifica colisao entre um pojetil(7x7) e uma nave(35x35) */
 void colisao_proj_nave(Projectile *proj, Object *nave){
-    if((proj->posx >= nave->posx && proj->posx <= nave->posx + 35 && proj->posy >= nave->posy && proj->posy <= nave->posy + 35)
-       || (proj->posx + 7 >= nave->posx && proj->posx + 7 <= nave->posx + 35 && proj->posy >= nave->posy && proj->posy <= nave->posy + 35)
-       || (proj->posx >= nave->posx && proj->posx <= nave->posx + 35 && proj->posy + 7 >= nave->posy && proj->posy + 7 <= nave->posy + 35)
-       || (proj->posx + 7 >= nave->posx && proj->posx + 7 <= nave->posx + 35 && proj->posy + 7 >= nave->posy && proj->posy + 7 <= nave->posy + 35))
+    if((proj->posxGraph >= nave->posxGraph && proj->posxGraph <= nave->posxGraph + 35 && proj->posyGraph >= nave->posyGraph && proj->posyGraph <= nave->posyGraph + 35)
+       || (proj->posxGraph + 7 >= nave->posxGraph && proj->posxGraph + 7 <= nave->posxGraph + 35 && proj->posyGraph >= nave->posyGraph && proj->posyGraph <= nave->posyGraph + 35)
+       || (proj->posxGraph >= nave->posxGraph && proj->posxGraph <= nave->posxGraph + 35 && proj->posyGraph + 7 >= nave->posyGraph && proj->posyGraph + 7 <= nave->posyGraph + 35)
+       || (proj->posxGraph + 7 >= nave->posxGraph && proj->posxGraph + 7 <= nave->posxGraph + 35 && proj->posyGraph + 7 >= nave->posyGraph && proj->posyGraph + 7 <= nave->posyGraph + 35))
         nave->life = 0;
 
 }
  /*Verifica colisao entre duas naves(35x35) */
 void colisao_nave_nave(Object *nave1, Object *nave2){
-    if((nave1->posx >= nave2->posx && nave1->posx <= nave2->posx + 10 && nave1->posy >= nave2->posy && nave1->posy <= nave2->posy + 10)
-       || (nave1->posx + 7 >= nave2->posx && nave1->posx + 7 <= nave2->posx + 10 && nave1->posy >= nave2->posy && nave1->posy <= nave2->posy + 10)
-       || (nave1->posx >= nave2->posx && nave1->posx <= nave2->posx + 10 && nave1->posy + 7 >= nave2->posy && nave1->posy + 7 <= nave2->posy + 10)
-       || (nave1->posx + 7 >= nave2->posx && nave1->posx + 7 <= nave2->posx + 10 && nave1->posy + 7 >= nave2->posy && nave1->posy + 7 <= nave2->posy + 10))
+    if((nave1->posxGraph >= nave2->posxGraph && nave1->posxGraph <= nave2->posxGraph + 10 && nave1->posyGraph >= nave2->posyGraph && nave1->posyGraph <= nave2->posyGraph + 10)
+       || (nave1->posxGraph + 7 >= nave2->posxGraph && nave1->posxGraph + 7 <= nave2->posxGraph + 10 && nave1->posyGraph >= nave2->posyGraph && nave1->posyGraph <= nave2->posyGraph + 10)
+       || (nave1->posxGraph >= nave2->posxGraph && nave1->posxGraph <= nave2->posxGraph + 10 && nave1->posyGraph + 7 >= nave2->posyGraph && nave1->posyGraph + 7 <= nave2->posyGraph + 10)
+       || (nave1->posxGraph + 7 >= nave2->posxGraph && nave1->posxGraph + 7 <= nave2->posxGraph + 10 && nave1->posyGraph + 7 >= nave2->posyGraph && nave1->posyGraph + 7 <= nave2->posyGraph + 10))
         nave1->life = 0;
         nave2->life = 0;
 }
 
 /*Verifica colisao entre nave(35x35) e palneta(206x206) */
 void colisao_nave_planeta(Object *planeta, Object * nave){
-    if((planeta->posx >= nave->posx && planeta->posx <= nave->posx + 35 && planeta->posy >= nave->posy && planeta->posy <= nave->posy + 35)
-       || (planeta->posx + 206 >= nave->posx && planeta->posx + 206 <= nave->posx + 35 && planeta->posy >= nave->posy && planeta->posy <= nave->posy + 35)
-       || (planeta->posx >= nave->posx && planeta->posx <= nave->posx + 35 && planeta->posy + 206 >= nave->posy && planeta->posy + 206 <= nave->posy + 35)
-       || (planeta->posx + 206 >= nave->posx && planeta->posx + 206 <= nave->posx + 35 && planeta->posy + 206 >= nave->posy && planeta->posy + 206 <= nave->posy + 35))
+    if((300 >= nave->posxGraph && 300 <= nave->posxGraph + 35 && 300 >= nave->posyGraph && 300 <= nave->posyGraph + 35)
+       || (300 + 206 >= nave->posxGraph && 300 + 206 <= nave->posxGraph + 35 && 300 >= nave->posyGraph && 300 <= nave->posyGraph + 35)
+       || (300 >= nave->posxGraph && 300 <= nave->posxGraph + 35 && 300 + 206 >= nave->posyGraph && 300 + 206 <= nave->posyGraph + 35)
+       || (300 + 206 >= nave->posxGraph && 300 + 206 <= nave->posxGraph + 35 && 300 + 206 >= nave->posyGraph && 300 + 206 <= nave->posyGraph + 35))
         nave->life = 0;
 }
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
 void colisao_proj_planeta(Fila lista, Projectile *proj, Object *planeta){
-    if((planeta->posx >= proj->posx && planeta->posx <= proj->posx + 7 && planeta->posy >= proj->posy && planeta->posy <= proj->posy + 7)
-       || (planeta->posx + 206 >= proj->posx && planeta->posx + 206 <= proj->posx + 7 && planeta->posy >= proj->posy && planeta->posy <= proj->posy + 7)
-       || (planeta->posx >= proj->posx && planeta->posx <= proj->posx + 7 && planeta->posy + 206 >= proj->posy && planeta->posy + 206 <= proj->posy + 7)
-       || (planeta->posx + 206 >= proj->posx && planeta->posx + 206 <= proj->posx + 7 && planeta->posy + 206 >= proj->posy && planeta->posy + 206 <= proj->posy + 7))
+    if((300 >= proj->posxGraph && 300 <= proj->posxGraph + 7 && 300 >= proj->posyGraph && 300 <= proj->posyGraph + 7)
+       || (300 + 206 >= proj->posxGraph && 300 + 206 <= proj->posxGraph + 7 && 300 >= proj->posyGraph && 300 <= proj->posyGraph + 7)
+       || (300 >= proj->posxGraph && 300 <= proj->posxGraph + 7 && 300 + 206 >= proj->posyGraph && 300 + 206 <= proj->posyGraph + 7)
+       || (300 + 206 >= proj->posxGraph && 300 + 206 <= proj->posxGraph + 7 && 300 + 206 >= proj->posyGraph && 300 + 206 <= proj->posyGraph + 7))
         apaga(lista, proj) = 0;
 }
 
@@ -149,6 +159,8 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila li
     Fx1 += resx(G2, nave1->posx, nave1->posy, 0, 0, nave1->accel);
     Fy1 += resy(G2, nave1->posx, nave1->posy, 0, 0, nave1->accel);
     moving_eixo(Fx1, Fy1, nave1, frame);
+	 nave1->posxGraph = escala(nave1->posx);
+	 nave1->posyGraph = escala(nave1->posy);
 
     /*desloca o eixo da nave 2 de acordo com forças da terra e da nave 1 */
     Fx2 += resx(-G1, nave1->posx, nave1->posy, nave2->posx, nave2->posy, nave2->accel);
@@ -157,6 +169,8 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila li
     Fx2 += resx(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
     Fy2 += resy(G3, nave2->posx, nave2->posy, 0, 0, nave2->accel);
     moving_eixo(Fx2, Fy2, nave2, frame);
+	 nave2->posxGraph = escala(nave2->posx);
+	 nave2->posyGraph = escala(nave2->posy);
 
     for(p = lista->ini; p != NULL; p = p->next){
         G4 = gravit(p->projectile->posx, p->projectile->posy, p->projectile->mass, nave1->posx, nave1->posy, nave1->mass);
@@ -171,6 +185,8 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila li
         Fyp += resy(G5, p->projectile->posx, p->projectile->posy, nave2->posx, nave2->posy, 0);
         Fyp += resy(G6, p->projectile->posx, p->projectile->posy, 0, 0, 0);
         moving_eixo(Fxp, Fyp, p->projectile, frame);
+		  p->projectile->posxGraph = escala(p->projectile->posx);
+		  p->projectile->posyGraph = escala(p->projectile->posy);
 		  Fxp = 0;
 		  Fyp = 0;
     }
@@ -257,14 +273,12 @@ int main() {
 	WINDOW *w1;
 	MASK msklua, msknave[16];
 	int key;
-	int projGraph[25][2];  //vai receber as posições dos projéteis, em [i][0] posição x e em [i][1] posição y
 
 	Object* planeta = malloc(sizeof	(*planeta));
 	Object* nave1 = malloc(sizeof (*nave1));
 	Object* nave2 = malloc(sizeof(*nave2));
 	double time;
 	double duration;
-	int projs;
 	Fila lista;
 	double frame;
 	int dir1, dir2;
@@ -413,7 +427,7 @@ int main() {
 
 		/* antes daqui é necessário tratar as posições pra deixar num int dentro da janela, mesma coisa para os projeteis */
 
-		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], posx1, posy1, posx2, posy2, projs, projGraph);
+		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], posx1, posy1, posx2, posy2, lista);
 
 		/* verificação de colisões */
 

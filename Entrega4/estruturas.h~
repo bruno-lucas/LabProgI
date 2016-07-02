@@ -29,8 +29,6 @@ typedef struct{
     double mass;
     double time;
     int accel;
-	 int posxGraph;
-	 int posyGraph;
 }Projectile;
 
 struct _Celula{
@@ -59,8 +57,6 @@ typedef struct {
    double resy;
    double dir;
    int accel;
-	int posxGraph;
-	int posyGraph;
 }Object;
 
 #endif
