@@ -65,13 +65,13 @@ void insere (Fila *lista, Object *nave, Projectile *model, int id){
     Projectile proj;
 
     /* Copia os parâmetros definidos no arquivo config e gera um projetil */
-    proj->dir = nave->dir;
-    proj->posx = nave->posx + 3;
-    proj->posy = nave->posy + 3;
-    proj->velx = model->velx;
-    proj->vely = model->vely;
-    proj->time = model->time;
-    proj->id = id;
+    proj.dir = nave->dir;
+    proj.posx = nave->posx + 3;	// vc escreveu proj->posx = nave->posx + 3; 
+    proj.posy = nave->posy + 3;	//acontece que proj nao e ponteiro, mas model é
+    proj.velx = model->velx; // vc cometeu esse erro na funçao
+    proj.vely = model->vely;
+    proj.time = model->time;
+    proj.id = id;
 
     p = malloc(sizeof (*p));
     p->projectile = proj;
@@ -200,7 +200,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 	for (p = lista->ini; p != NULL; p = p->next){
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
-		colisao_proj_planeta(lista, p->projectile, planeta);
+		colisao_proj_planeta(lista, p->projectile, planeta p->projectile.id);
 	}
 
 
