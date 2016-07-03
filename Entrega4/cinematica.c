@@ -41,9 +41,9 @@ void desloca_eixo (double * pos, double * vel, double acel, double frame) {
     // passo 1 -- modifica posição usando a fórmula do MUV
     (* pos) = (* pos) + (* vel)*frame + (acel*frame*frame)/2;
     if ((* pos) > 25.6e6)
-		(* pos) = (* pos) - 25.6e6;
+		(* pos) = (* pos) - 51.2e6;
 	 if ((* pos) < -25.6e6)
-		(* pos) = (* pos) + 25.6e6;
+		(* pos) = (* pos) + 51.2e6;
 
     // passo 2 -- modifica velocidade no eixo em questão
     (* vel) = (* vel) + acel*frame;
