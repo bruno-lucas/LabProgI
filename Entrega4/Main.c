@@ -60,19 +60,19 @@ void inicia(Fila *lista){
     lista->fim = NULL;
 }
 
-void insere (Fila *lista, Object *nave, Projectile *model, int id){
+void insere (Fila *lista, Object *nave, int id){
     Celula *p;
     Projectile proj;
 
     /* Copia os parâmetros definidos no arquivo config e gera um projetil */
-    proj.velx = model->velx;
-    proj.vely = model->vely;
-    proj.time = model->time;
+    proj.velx = nave->velx + 100;
+    proj.vely = nave->vely + 100;
+    proj.time = clock();
     proj.id = id;
 
     if(direcao(nave->dir) == 0){
         proj.posx = nave->posx + (36*32000 - 25.6e6);
-        proj.posyGraph = nave->posy + (17.5*32000 - 25.6e6);
+        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 1){
@@ -220,6 +220,7 @@ void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta){
 /*Calcula a posicao das naves de acordo com as forca as em acao */
 void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *lista){
 
+    time_t time2 = clock();
     Celula *p;
     double G1 /*gravidade entre naves */, G2 /*gravidade entre nave1 e planeta*/ ,G3 /*gravidade entre nave 2 e planeta*/;
     double G4 /*gravidade proj-nave1 */ , G5 /*gravidade proj-nave2*/, G6 /*gravidade proj-planeta*/;
@@ -276,6 +277,9 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
     colisao_nave_planeta(planeta, nave2);
 
 	for (p = lista->ini; p != NULL; p = p->next){
+        if(time2 - p->projectile.time >= 3){
+            apaga(lista, p->projectile);
+        }
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
 		colisao_proj_planeta(lista, p->projectile, planeta);
@@ -285,7 +289,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 }
 
 /* recebe a tecla lida e faz as mudanças necessárias */
-void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *model, int id){
+void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id){
 
 	/* tecla 'w' */
 	if (key == 119)
@@ -311,7 +315,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *mo
 
 	/*tecla 'espaco'*/
 	else if (key == 32){
-        insere(lista, nave1, model, id);
+        insere(lista, nave1, id);
 	}
 
 	/* tecla 'cima' */
@@ -340,7 +344,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *mo
 	/*tecla '0' do teclado numérico*/
 
 	else if (key == 65438){
-        insere(lista, nave2, model, id);
+        insere(lista, nave2, id);
 	}
 }
 
@@ -368,9 +372,8 @@ int main() {
 	float n;
 	char names[MAX];
 	time_t time1, time2;
-	float timedif;
-	Projectile *model;
 	time1 = clock();
+	time2 = clock();
 	Celula *p;
 	Celula *aux;
 
@@ -468,17 +471,6 @@ int main() {
 			   &projs,
 			   &duration
 			   );
-		/*Aloca o array de projeteis */
-		model = malloc(/*projs * */sizeof(Projectile));
-
-		/*Configura os projeteis */
-
-		fscanf(arquivo, "%lf %lf %lf %lf",
-				   &model->mass,
-				   &model->velx,
-				   &model->vely,
-				   &model->time
-				   );
 
 		fclose(arquivo);
 
@@ -490,13 +482,13 @@ int main() {
 	/* FIM DA INICIALIZACAO */
 
 
-	while (nave1->life != 0 && nave2->life != 0){
+	while (time2 - time1 <= duration || (nave1->life != 0 || nave2->life != 0)){
 
 		/* checando próxima tecla inserida (se houver) e tratando ela */
 		if (WCheckKBD(w1)){
 			key = WGetKey(w1);
 			key = WLastKeySym();
-			keyboard(key, nave1, nave2, lista, model, id);
+			keyboard(key, nave1, nave2, lista, id);
 		}
 
 
@@ -513,6 +505,8 @@ int main() {
 
 		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], nave1, nave2, Tiro, lista);
 
+		time2 = clock();
+
 	}
 
 
@@ -527,7 +521,6 @@ int main() {
 
 
 	/* Da free nos structs e arrays */
-	free(model);
 	free(planeta);
 	free(nave1);
 	free(nave2);
