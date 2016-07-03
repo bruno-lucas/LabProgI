@@ -60,95 +60,96 @@ void inicia(Fila *lista){
     lista->fim = NULL;
 }
 
-void insere (Fila *lista, Object *nave, Projectile *model, int id){
+void insere (Fila *lista, Object *nave, int id){
     Celula *p;
     Projectile proj;
 
     /* Copia os parâmetros definidos no arquivo config e gera um projetil */
-    proj.velx = model->velx;
-    proj.vely = model->vely;
-    proj.time = model->time;
+    proj.velx = nave->velx + 100;
+    proj.vely = nave->vely + 100;
+    proj.time = clock();
     proj.id = id;
 
     if(direcao(nave->dir) == 0){
-        proj.posxGraph = nave->posxGraph + 36;
-        proj.posyGraph = nave->posyGraph + 17.5;
+        proj.posx = nave->posx + (36*32000 - 25.6e6);
+        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 1){
-        proj.posxGraph = nave->posxGraph + 36;
-        proj.posyGraph = nave->posyGraph + 8.75;
+        proj.posx = nave->posx + (36*32000 - 25.6e6);
+        proj.posy = nave->posy + (8.75*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 2){
-        proj.posxGraph = nave->posxGraph + 35.5;
-        proj.posyGraph = nave->posyGraph - 0.5;
+        proj.posx = nave->posx + (35.5*32000 - 25.6e6);
+        proj.posy = nave->posy - (0.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 3){
-        proj.posxGraph = nave->posxGraph + 26.25;
-        proj.posyGraph = nave->posyGraph - 1;
+        proj.posx = nave->posx + (26.25*32000 - 25.6e6);
+        proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 4){
-        proj.posxGraph = nave->posxGraph + 17.5;
-        proj.posyGraph = nave->posyGraph - 1;
+        proj.posx = nave->posx + (17.5*32000 - 25.6e6);
+        proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 5){
-        proj.posxGraph = nave->posxGraph + 8.75;
-        proj.posyGraph = nave->posyGraph - 1;
+        proj.posx = nave->posx + (8.75*32000 - 25.6e6);
+        proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 6){
-        proj.posxGraph = nave->posxGraph - 1;
-        proj.posyGraph = nave->posyGraph - 1;
+        proj.posx = nave->posx - (1*32000 - 25.6e6);
+        proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 7){
-        proj.posxGraph = nave->posxGraph - 1;
-        proj.posyGraph = nave->posyGraph + 8.75;
+        proj.posx = nave->posx - (1*32000 - 25.6e6);
+        proj.posy = nave->posy + (8.75*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 8){
-        proj.posxGraph = nave->posxGraph - 1;
-        proj.posyGraph = nave->posyGraph + 17.5;
+        proj.posx = nave->posx - (1*32000 - 25.6e6);
+        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 9){
-        proj.posxGraph = nave->posxGraph - 1;
-        proj.posyGraph = nave->posyGraph + 26.25;
+        proj.posx = nave->posx - (1*32000 - 25.6e6);
+        proj.posy = nave->posy + (26.25*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 10){
-        proj.posxGraph = nave->posxGraph - 0.5;
-        proj.posyGraph = nave->posyGraph + 35.5;
+        proj.posx = nave->posx - (0.5*32000 - 25.6e6);
+        proj.posy = nave->posy + (35.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 11){
-        proj.posxGraph = nave->posxGraph + 8.25;
-        proj.posyGraph = nave->posyGraph + 36;
+        proj.posx = nave->posx + (8.25*32000 - 25.6e6);
+        proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 12){
-        proj.posxGraph = nave->posxGraph + 17.5;
-        proj.posyGraph = nave->posyGraph + 36;
+        proj.posx = nave->posx + (17.5*32000 - 25.6e6);
+        proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 13){
-        proj.posxGraph = nave->posxGraph + 26.25;
-        proj.posyGraph = nave->posyGraph + 36;
+        proj.posx = nave->posx + (26.25*32000 - 25.6e6);
+        proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 14){
-        proj.posxGraph = nave->posxGraph + 35.5;
-        proj.posyGraph = nave->posyGraph + 35.5;
+        proj.posx = nave->posx + (35.5*32000 - 25.6e6);
+        proj.posy = nave->posy + (35.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 15){
-        proj.posxGraph = nave->posxGraph + 36;
-        proj.posyGraph = nave->posyGraph + 26.25;
+        proj.posx = nave->posx + (36*32000 - 25.6e6);
+        proj.posy = nave->posy + (26.25*32000 - 25.6e6);
     }
+
 
     p = malloc(sizeof (*p));
     p->projectile = proj;
@@ -219,6 +220,7 @@ void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta){
 /*Calcula a posicao das naves de acordo com as forca as em acao */
 void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *lista){
 
+    time_t time2 = clock();
     Celula *p;
     double G1 /*gravidade entre naves */, G2 /*gravidade entre nave1 e planeta*/ ,G3 /*gravidade entre nave 2 e planeta*/;
     double G4 /*gravidade proj-nave1 */ , G5 /*gravidade proj-nave2*/, G6 /*gravidade proj-planeta*/;
@@ -275,6 +277,9 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
     colisao_nave_planeta(planeta, nave2);
 
 	for (p = lista->ini; p != NULL; p = p->next){
+        if(time2 - p->projectile.time >= 3){
+            apaga(lista, p->projectile);
+        }
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
 		colisao_proj_planeta(lista, p->projectile, planeta);
@@ -284,7 +289,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 }
 
 /* recebe a tecla lida e faz as mudanças necessárias */
-void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *model, int id){
+void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id){
 
 	/* tecla 'w' */
 	if (key == 119)
@@ -310,7 +315,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *mo
 
 	/*tecla 'espaco'*/
 	else if (key == 32){
-        insere(lista, nave1, model, id);
+        insere(lista, nave1, id);
 	}
 
 	/* tecla 'cima' */
@@ -339,7 +344,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, Projectile *mo
 	/*tecla '0' do teclado numérico*/
 
 	else if (key == 65438){
-        insere(lista, nave2, model, id);
+        insere(lista, nave2, id);
 	}
 }
 
@@ -352,6 +357,8 @@ int main() {
 	WINDOW *w1;
 	MASK msklua, msknave[16];
 	int key;
+	PIC P1WIN, P2WIN, DRAW;
+	MASK mskP1win, mskP2win, mskDraw;
 
 	Object* planeta = malloc(sizeof	(*planeta));
 	Object* nave1 = malloc(sizeof (*nave1));
@@ -367,9 +374,8 @@ int main() {
 	float n;
 	char names[MAX];
 	time_t time1, time2;
-	float timedif;
-	Projectile *model;
 	time1 = clock();
+	time2 = clock();
 	Celula *p;
 	Celula *aux;
 
@@ -380,6 +386,14 @@ int main() {
 		P1 = ReadPic(w1, "Sky.xpm", NULL); // pic do universo
 		P2 = ReadPic(w1, "Moon.xpm", NULL); // pic da lua
 		Tiro = ReadPic(w1, "tiro.xpm", NULL); // pic dos projeteis
+
+		mskP1win = NewMask(w1, 400, 200);
+		mskP2win = NewMask(w1, 400, 200);
+		mskDraw = NewMask(w1, 400, 200);
+
+		P1WIN = ReadPic(w1, "p1win.xpm", mskP1win);
+		P2WIN = ReadPic(w1, "p2win.xpm", mskP2win);
+		DRAW = ReadPic(w1, "draw.xpm", mskDraw);
 
 		for (i=0; i<16; i++)
 			msknave[i] = NewMask(w1, 35, 35);
@@ -467,17 +481,6 @@ int main() {
 			   &projs,
 			   &duration
 			   );
-		/*Aloca o array de projeteis */
-		model = malloc(/*projs * */sizeof(Projectile));
-
-		/*Configura os projeteis */
-
-		fscanf(arquivo, "%lf %lf %lf %lf",
-				   &model->mass,
-				   &model->velx,
-				   &model->vely,
-				   &model->time
-				   );
 
 		fclose(arquivo);
 
@@ -489,13 +492,13 @@ int main() {
 	/* FIM DA INICIALIZACAO */
 
 
-	while (nave1->life != 0 && nave2->life != 0){
+	while (time2 - time1 <= duration || (nave1->life != 0 || nave2->life != 0)){
 
 		/* checando próxima tecla inserida (se houver) e tratando ela */
 		if (WCheckKBD(w1)){
 			key = WGetKey(w1);
 			key = WLastKeySym();
-			keyboard(key, nave1, nave2, lista, model, id);
+			keyboard(key, nave1, nave2, lista, id);
 		}
 
 
@@ -512,21 +515,39 @@ int main() {
 
 		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], nave1, nave2, Tiro, lista);
 
+		time2 = clock();
+
+	}
+
+	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
+	if (nave1->life == 1 && nave2->life == 0){
+		SetMask(w1,mskP1win);
+		PutPic(w1, P1WIN, 0, 0, 400, 200, 300);
+		UnSetMask(w1);
+	}
+
+	else if (nave1->life == 0 && nave2->life == 1){
+		SetMask(w1,mskP2win);
+		PutPic(w1, P2WIN, 0, 0, 400, 200, 300);
+		UnSetMask(w1);
+	}
+
+	else {
+		SetMask(w1,mskDraw);
+		PutPic(w1, DRAW, 0, 0, 400, 200, 300);
+		UnSetMask(w1);
 	}
 
 
 
+	  puts("Tecle <enter>"); getchar();
 
 
 
 
 
-
-
-
-
+	CloseGraph();
 	/* Da free nos structs e arrays */
-	free(model);
 	free(planeta);
 	free(nave1);
 	free(nave2);

@@ -357,6 +357,8 @@ int main() {
 	WINDOW *w1;
 	MASK msklua, msknave[16];
 	int key;
+	PIC P1WIN, P2WIN, DRAW;
+	MASK mskP1win, mskP2win, mskDraw;
 
 	Object* planeta = malloc(sizeof	(*planeta));
 	Object* nave1 = malloc(sizeof (*nave1));
@@ -384,6 +386,14 @@ int main() {
 		P1 = ReadPic(w1, "Sky.xpm", NULL); // pic do universo
 		P2 = ReadPic(w1, "Moon.xpm", NULL); // pic da lua
 		Tiro = ReadPic(w1, "tiro.xpm", NULL); // pic dos projeteis
+
+		mskP1win = NewMask(w1, 400, 200);
+		mskP2win = NewMask(w1, 400, 200);
+		mskDraw = NewMask(w1, 400, 200);
+
+		P1WIN = ReadPic(w1, "p1win.xpm", mskP1win);
+		P2WIN = ReadPic(w1, "p2win.xpm", mskP2win);
+		DRAW = ReadPic(w1, "draw.xpm", mskDraw);
 
 		for (i=0; i<16; i++)
 			msknave[i] = NewMask(w1, 35, 35);
@@ -509,17 +519,34 @@ int main() {
 
 	}
 
+	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
+	if (nave1->life == 1 && nave2->life == 0){
+		SetMask(w1,mskP1win);
+		PutPic(w1, P1WIN, 0, 0, 400, 200, 200, 300);
+		UnSetMask(w1);
+	}
+
+	else if (nave1->life == 0 && nave2->life == 1){
+		SetMask(w1,mskP2win);
+		PutPic(w1, P2WIN, 0, 0, 400, 200, 200, 300);
+		UnSetMask(w1);
+	}
+
+	else {
+		SetMask(w1,mskDraw);
+		PutPic(w1, DRAW, 0, 0, 400, 200, 200, 300);
+		UnSetMask(w1);
+	}
+
+
+
+	  puts("Tecle <enter>"); getchar();
 
 
 
 
 
-
-
-
-
-
-
+	CloseGraph();
 	/* Da free nos structs e arrays */
 	free(planeta);
 	free(nave1);
