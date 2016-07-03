@@ -70,90 +70,86 @@ void insere (Fila *lista, Object *nave, Projectile *model, int id){
     proj.time = model->time;
     proj.id = id;
 
-    if(nave->dir == 0){
+    if(direcao(nave->dir) == 0){
         proj.posx = nave->posx + (36*32000 - 25.6e6);
         proj.posyGraph = nave->posy + (17.5*32000 - 25.6e6);
     }
 
-    if(nave->dir == 22.5){
+    if(direcao(nave->dir) == 1){
         proj.posx = nave->posx + (36*32000 - 25.6e6);
         proj.posy = nave->posy + (8.75*32000 - 25.6e6);
     }
 
-    if(nave->dir == 45){
+    if(direcao(nave->dir) == 2){
         proj.posx = nave->posx + (35.5*32000 - 25.6e6);
         proj.posy = nave->posy - (0.5*32000 - 25.6e6);
     }
 
-    if(nave->dir == 77.5){
+    if(direcao(nave->dir) == 3){
         proj.posx = nave->posx + (26.25*32000 - 25.6e6);
         proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
-    if(nave->dir == 90){
+    if(direcao(nave->dir) == 4){
         proj.posx = nave->posx + (17.5*32000 - 25.6e6);
         proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
-    if(nave->dir == 112.5){
+    if(direcao(nave->dir) == 5){
         proj.posx = nave->posx + (8.75*32000 - 25.6e6);
         proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
-    if(nave->dir == 135){
+    if(direcao(nave->dir) == 6){
         proj.posx = nave->posx - (1*32000 - 25.6e6);
         proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
-    if(nave->dir == 157.5){
+    if(direcao(nave->dir) == 7){
         proj.posx = nave->posx - (1*32000 - 25.6e6);
         proj.posy = nave->posy + (8.75*32000 - 25.6e6);
     }
 
-    if(nave->dir == 180){
+    if(direcao(nave->dir) == 8){
         proj.posx = nave->posx - (1*32000 - 25.6e6);
         proj.posy = nave->posy + (17.5*32000 - 25.6e6);
     }
 
-    if(nave->dir == 202.5){
+    if(direcao(nave->dir) == 9){
         proj.posx = nave->posx - (1*32000 - 25.6e6);
         proj.posy = nave->posy + (26.25*32000 - 25.6e6);
     }
 
-    if(nave->dir == 225){
+    if(direcao(nave->dir) == 10){
         proj.posx = nave->posx - (0.5*32000 - 25.6e6);
         proj.posy = nave->posy + (35.5*32000 - 25.6e6);
     }
 
-    if(nave->dir == 247.5){
+    if(direcao(nave->dir) == 11){
         proj.posx = nave->posx + (8.25*32000 - 25.6e6);
         proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
-    if(nave->dir == 270){
+    if(direcao(nave->dir) == 12){
         proj.posx = nave->posx + (17.5*32000 - 25.6e6);
         proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
-    if(nave->dir == 292.5){
+    if(direcao(nave->dir) == 13){
         proj.posx = nave->posx + (26.25*32000 - 25.6e6);
         proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
-    if(nave->dir == 315){
+    if(direcao(nave->dir) == 14){
         proj.posx = nave->posx + (35.5*32000 - 25.6e6);
         proj.posy = nave->posy + (35.5*32000 - 25.6e6);
     }
 
-    if(nave->dir == 337.5){
+    if(direcao(nave->dir) == 15){
         proj.posx = nave->posx + (36*32000 - 25.6e6);
         proj.posy = nave->posy + (26.25*32000 - 25.6e6);
     }
 
-    if(nave->dir == 360){
-        proj.posx = nave->posx + (36*32000 - 25.6e6);
-        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
-    }
 
     p = malloc(sizeof (*p));
     p->projectile = proj;

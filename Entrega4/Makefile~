@@ -9,7 +9,7 @@ CFLAGS= -Wall -g -O2 -lm
 all:	Main
 
 #gerando executável
-Main:	resultante.o cinematica.o  Main.o xwc.o
+Main:	resultante.o cinematica.o  Main.o
 	${CC} -o $@ $^ -lXpm -lX11 ${CFLAGS}
 
 resultante.o:	resultante.c estruturas.h
