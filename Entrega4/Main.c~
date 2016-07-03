@@ -522,19 +522,19 @@ int main() {
 	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
 	if (nave1->life == 1 && nave2->life == 0){
 		SetMask(w1,mskP1win);
-		PutPic(w1, P1WIN, 0, 0, 400, 200, 300);
+		PutPic(w1, P1WIN, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
 	}
 
 	else if (nave1->life == 0 && nave2->life == 1){
 		SetMask(w1,mskP2win);
-		PutPic(w1, P2WIN, 0, 0, 400, 200, 300);
+		PutPic(w1, P2WIN, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
 	}
 
 	else {
 		SetMask(w1,mskDraw);
-		PutPic(w1, DRAW, 0, 0, 400, 200, 300);
+		PutPic(w1, DRAW, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
 	}
 
