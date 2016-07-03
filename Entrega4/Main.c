@@ -33,7 +33,7 @@ int escala (double pos){
 	int graphPos;
 
 	pos = pos + 25.6e6;
-	graphPos = (int)pos/32000;
+	graphPos = (int)pos/64000;
 
 	return graphPos;
 }
@@ -49,7 +49,6 @@ void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, Object
 	SetMask(w1, msk2);
 	PutPic(w1, P2, 0, 0, 35, 35, nave2->posxGraph, nave2->posyGraph);
 	UnSetMask(w1);
-
     for(p = lista->ini; p != NULL; p = p->next)
 		PutPic(w1, Tiro, 0, 0, 7, 7, p->projectile.posxGraph, p->projectile.posyGraph);
 }
@@ -367,7 +366,7 @@ int main() {
 	double time;
 	int projs;
 	double duration;
-	Fila* lista;
+	Fila* lista = malloc(sizeof(*lista));
 	double frame;
 	int dir1, dir2;
 	int i;
@@ -379,6 +378,7 @@ int main() {
 	time2 = clock();
 	Celula *p;
 	Celula *aux;
+	
 
 	/* INICIALIZACAO DA PARTE GRAFICA */
 
@@ -433,6 +433,7 @@ int main() {
 		PutPic(P, w1, 0, 0, 801, 801, 0, 0);
 
 		InitKBD(w1);
+
 
 	/* FIM DA INICIALIZACAO DA PARTE GRAFICA */
 
@@ -491,6 +492,9 @@ int main() {
 		nave2->accel = 0;
 		nave1->life = nave2->life = 1;
 		frame = 0.1;
+		lista->ini = NULL;
+		lista->fim = NULL;
+
 	/* FIM DA INICIALIZACAO */
 
 
@@ -503,9 +507,7 @@ int main() {
 			keyboard(key, nave1, nave2, lista, id);
 		}
 
-
 		update(nave1, nave2, planeta, frame, lista);
-
 		/*programa espera um décimo de segundo para garantir jogabilidade */
 		usleep(100000);
 

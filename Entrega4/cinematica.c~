@@ -24,6 +24,7 @@ void moving_eixo (double Fx, double Fy, Object *nave, double frame) {
     desloca_eixo(&nave->posx, &nave->velx, ax, frame);
 
     ay = Fy/(nave->mass);
+	 	printf("%lf\n", ay);
     desloca_eixo(&nave->posy, &nave->vely, ay, frame);
 }
 
