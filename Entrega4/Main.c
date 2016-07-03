@@ -65,8 +65,9 @@ void insere (Fila *lista, Object *nave, int id){
     Projectile proj;
 
     /* Copia os parâmetros definidos no arquivo config e gera um projetil */
-    proj.velx = nave->velx + 100;
-    proj.vely = nave->vely + 100;
+    proj.velx = nave->velx * 1.2;
+    proj.vely = nave->vely * 1.2;
+	 proj.mass = nave->mass/100;
     proj.time = clock();
     proj.id = id;
 

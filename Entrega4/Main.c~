@@ -489,6 +489,7 @@ int main() {
 		nave1->accel = 0;
 		nave2->accel = 0;
 		nave1->life = nave2->life = 1;
+		frame = 0.1;
 	/* FIM DA INICIALIZACAO */
 
 
