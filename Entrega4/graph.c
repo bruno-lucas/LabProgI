@@ -1,18 +1,17 @@
-/*
-|---------------------------|
-|LaboratÛrio de ProgramaÁ„o |
-|---------------------------|
- */
-
-
-/*
-|----------------------------------------------|
-|Bruno Guilherme Ricci Lucas      n∫USP 4460596
-|AndrÈ Luiz Abdalla Silveira 	  n∫USP 8030353
-|Matheus Takeshi Yabiku		  n∫USP 7629949
-|----------------------------------------------|
- */
-
+-/*
+-|---------------------------|
+-|Laborat√≥rio de Programa√ßƒÉo |
+-|---------------------------|
+- */
+-
+-
+-/*
+-|--------------------------------------------------|
+-|Bruno Guilherme Ricci Lucas		n≈üUSP 4460596
+-|Andr√© Luiz Abdalla Silveira		n≈üUSP 8030353
+-|Matheus Takeshi Yabiku		n≈üUSP 7629949
+-|--------------------------------------------------|
+- */
 
 #include "graph.h"
 
@@ -63,10 +62,10 @@ void insere (Fila *lista, Object *nave, int id){
     Celula *p;
     Projectile proj;
 
-    /* Copia os par‚metros definidos no arquivo config e gera um projetil */
+    /* Copia os par√¢metros definidos no arquivo config e gera um projetil */
     proj.velx = nave->velx * 1.2;
     proj.vely = nave->vely * 1.2;
-	 proj.mass = nave->mass/100;
+	proj.mass = nave->mass/100;
     proj.time = clock();
     proj.id = id;
 
@@ -154,31 +153,27 @@ void insere (Fila *lista, Object *nave, int id){
 
     p = malloc(sizeof (*p));
     p->projectile = proj;
-    p->num = lista->fim->num;
 
-    lista->fim->next = p;
-    lista->fim = lista->fim->next;
+    p->next = lista->ini; //p next recebe a primeira celula da lista 
+    lista->ini = p; // p √© o novo 1o elem
 
-    if(lista->ini == NULL){
-        lista->ini = lista->fim;
-    }
     id++;
 }
 
 /*Apaga um projetil da lista */
 void apaga(Fila *hash, Projectile proj){
-	Celula *p;
+	Celula *p = hash->ini;
 	Celula *mata;
     /* Busca um projetil usando seu identificador (int id) e o apaga da lista */
-	for (p = hash->ini; p->next->projectile.id != proj.id; p = p->next){
-		if(p == hash->fim)
-			return;
-	}
-
-	mata = p->next;
-	p->next = p->next->next;
-
-	free(mata);
+    while (p != NULL) {
+        if (p->projectile.id == proj.id) {
+            mata = p;
+            p = p->next;
+            break;
+        }
+        p = p->next;
+    }
+    free(mata);
 }
 
 /* As colisoes serao feitas por retangulos, ou seja, sera verificado se um dos vertices de uma imagem se encontra dentro de outra */
@@ -220,7 +215,7 @@ void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta){
 }
 
 
-/* recebe a tecla lida e faz as mudanÁas necess·rias */
+/* recebe a tecla lida e faz as mudan√ßas necess√°rias */
 void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id){
 
 	/* tecla 'w' */
@@ -273,7 +268,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id){
 	}
 
 
-	/*tecla '0' do teclado numÈrico*/
+	/*tecla '0' do teclado num√©rico*/
 
 	else if (key == 65438){
         insere(lista, nave2, id);
