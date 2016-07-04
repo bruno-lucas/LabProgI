@@ -1,3 +1,6 @@
+#ifndef XWC_H
+#define XWC_H
+
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/XKBlib.h>
@@ -135,3 +138,5 @@ KeyCode WGetKey(WINDOW *w);
 
 /* Retorna o KeySym da última tecla lida */
 KeySym WLastKeySym();
+
+#endif
