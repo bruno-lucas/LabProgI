@@ -1,16 +1,16 @@
 
 /*
 |---------------------------|
-|Laboratório de Programação |
+|LaboratÃ³rio de ProgramaÃ§Ã£o |
 |---------------------------|
  */
 
 
 /*
 |----------------------------------------------|
-|Bruno Guilherme Ricci Lucas      nºUSP 4460596|
-|André Luiz Abdalla Silveira 	  nºUSP 8030353|
-|Matheus Takeshi Yabiku		  nºUSP 7629949    |
+|Bruno Guilherme Ricci Lucas      nÂºUSP 4460596|
+|AndrÃ© Luiz Abdalla Silveira 	  nÂºUSP 8030353|
+|Matheus Takeshi Yabiku		  nÂºUSP 7629949    |
 |----------------------------------------------|
  */
 
@@ -36,7 +36,6 @@ typedef struct{
 
 struct _Celula{
 	Projectile projectile;
-	int num;
 	struct _Celula *next;
 };
 
@@ -44,7 +43,6 @@ typedef struct _Celula Celula;
 
 typedef struct{
     Celula *ini;
-    Celula *fim;
     }Fila;
 
 typedef struct {
