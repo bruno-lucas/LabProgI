@@ -1,10 +1,3 @@
-#Makefile realtivo ao projeto de LabProg 1
-# componentes	cinematica.c
-#		Cinematica.h
-#		Main.c
-#		resultante.c
-#		Resultante.h
-#		estruturas.h
 #pegando as variáveis <-- para referencia
 # $@ --- alvo
 # $< --- 1a dependência
@@ -12,31 +5,31 @@
 # $+ --- lista de dependência
 # $? --- lista de dependência mais "recentes"
 
-CFLAGS= -Wall -g  -g -O2 -lm
+CFLAGS= -Wall -g  -lm
 
 #gerando executável
-game:	resultante.o cinematica.o  Main.o
-	${CC} ${CFLAGS} -o $@ $^
+Main:	resultante.o cinematica.o xwc.o graph.o Main.o
+	${CC} ${CFLAGS} -o $@ $^ -lm -lXpm -lX11
 
-resultante.o:	resultante.c
+resultante.o:	resultante.c estruturas.h
+	${CC} -c $^ ${CFLAGS} -lm
 
-cinematica.o:	cinematica.c 
+cinematica.o:	cinematica.c estruturas.h
+
+xwc.o: xwc.c 
+	${CC} -c $^ -lXpm -lX11 ${CFLAGS}
+
+graph.o: graph.c estruturas.h
+	${CC} -c $^ -lXpm -lX11 ${CFLAGS}
 
 Main.o:	Main.c
-	${CC} -c $<
+	${CC} -c $^ -lXpm -lX11
 
-#limpando a 'bagunça'
-ifndef game
 clean:	
 	rm *.o
-else
-clean:	
-	rm *.o
-	rm game
-endif
 
 # sei que já tem o zip e tals, mas colocar um método pra
-#	imprimir é uma prática que eu curto
+#	imprimir é uma prática interessnate
 empacotar:	
 	@mkdir entrega
 	cp  *.c ./entrega
@@ -46,4 +39,3 @@ empacotar:
 	cp  Makefile ./entrega
 	tar -cvf entrega.tar entrega
 	rm -rf ./entrega
-
