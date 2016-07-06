@@ -227,7 +227,6 @@ int main() {
 		nave1->life = nave2->life = 1;
 		frame = 0.1;
 		lista->ini = NULL;
-		lista->fim = NULL;
 
 	/* FIM DA INICIALIZACAO */
 
