@@ -77,7 +77,7 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
     colisao_nave_planeta(planeta, nave2);
 
 	for (p = lista->ini; p != NULL; p = p->next){
-        timedif = difftime(time2, p->projectile.time) * 1000.0;
+        timedif = difftime(time2, p->projectile.time) * 1000.0; /* Tempo limite dos projeteis será de 3 segundos antes de sumirem */
         if(timedif >= 3.0){
             apaga(lista, p->projectile);
         }

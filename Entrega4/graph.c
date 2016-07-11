@@ -198,10 +198,10 @@ void colisao_nave_nave(Object *nave1, Object *nave2){
 
 /*Verifica colisao entre nave(35x35) e planeta(206x206) */
 void colisao_nave_planeta(Object *planeta, Object * nave){
-    if((300 >= nave->posxGraph && 300 <= nave->posxGraph + 35 && 300 >= nave->posyGraph && 300 <= nave->posyGraph + 35)
-       || (300 + 206 >= nave->posxGraph && 300 + 206 <= nave->posxGraph + 35 && 300 >= nave->posyGraph && 300 <= nave->posyGraph + 35)
-       || (300 >= nave->posxGraph && 300 <= nave->posxGraph + 35 && 300 + 206 >= nave->posyGraph && 300 + 206 <= nave->posyGraph + 35)
-       || (300 + 206 >= nave->posxGraph && 300 + 206 <= nave->posxGraph + 35 && 300 + 206 >= nave->posyGraph && 300 + 206 <= nave->posyGraph + 35))
+    if((nave->posxGraph >= planeta->posxGraph && nave->posxGraph <= planeta->posxGraph + 206 && nave->posyGraph >= planeta->posyGraph && nave->posyGraph <= planeta->posyGraph + 206)
+       || (nave->posxGraph + 35 >= planeta->posxGraph && nave->posxGraph + 35 <= planeta->posxGraph + 206 &&  nave->posyGraph >= planeta->posyGraph && nave->posyGraph <= planeta->posyGraph + 206)
+       || (nave->posxGraph >= planeta->posxGraph && nave->posxGraph <= planeta->posxGraph + 206 && nave->posyGraph + 35 >= planeta->posyGraph && nave->posyGraph + 35 <= planeta->posyGraph + 206)
+       || (nave->posxGraph + 35 >= planeta->posxGraph && nave->posxGraph + 35 <= planeta->posxGraph + 206 && nave->posyGraph + 35 >= planeta->posyGraph && nave->posyGraph + 35 <= planeta->posyGraph + 206))
         nave->life = 0;
 }
 
