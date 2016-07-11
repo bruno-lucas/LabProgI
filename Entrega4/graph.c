@@ -7,9 +7,9 @@
 
 /*
 -|--------------------------------------------------|
--|Bruno Guilherme Ricci Lucas		nşUSP 4460596
--|André Luiz Abdalla Silveira		nşUSP 8030353
--|Matheus Takeshi Yabiku		nşUSP 7629949
+-|Bruno Guilherme Ricci Lucas		nUSP 4460596
+-|André Luiz Abdalla Silveira		nUSP 8030353
+-|Matheus Takeshi Yabiku		nUSP 7629949
 -|--------------------------------------------------|
 - */
 
@@ -188,10 +188,10 @@ void colisao_proj_nave(Projectile proj, Object *nave){
 }
  /*Verifica colisao entre duas naves(35x35) */
 void colisao_nave_nave(Object *nave1, Object *nave2){
-    if((nave1->posxGraph >= nave2->posxGraph && nave1->posxGraph <= nave2->posxGraph + 10 && nave1->posyGraph >= nave2->posyGraph && nave1->posyGraph <= nave2->posyGraph + 10)
-       || (nave1->posxGraph + 7 >= nave2->posxGraph && nave1->posxGraph + 7 <= nave2->posxGraph + 10 && nave1->posyGraph >= nave2->posyGraph && nave1->posyGraph <= nave2->posyGraph + 10)
-       || (nave1->posxGraph >= nave2->posxGraph && nave1->posxGraph <= nave2->posxGraph + 10 && nave1->posyGraph + 7 >= nave2->posyGraph && nave1->posyGraph + 7 <= nave2->posyGraph + 10)
-       || (nave1->posxGraph + 7 >= nave2->posxGraph && nave1->posxGraph + 7 <= nave2->posxGraph + 10 && nave1->posyGraph + 7 >= nave2->posyGraph && nave1->posyGraph + 7 <= nave2->posyGraph + 10))
+    if((nave1->posxGraph >= nave2->posxGraph && nave1->posxGraph <= nave2->posxGraph + 35 && nave1->posyGraph >= nave2->posyGraph && nave1->posyGraph <= nave2->posyGraph + 35)
+       || (nave1->posxGraph + 35 >= nave2->posxGraph && nave1->posxGraph + 35 <= nave2->posxGraph + 35 && nave1->posyGraph >= nave2->posyGraph && nave1->posyGraph <= nave2->posyGraph + 35)
+       || (nave1->posxGraph >= nave2->posxGraph && nave1->posxGraph <= nave2->posxGraph + 35 && nave1->posyGraph + 35 >= nave2->posyGraph && nave1->posyGraph + 35 <= nave2->posyGraph + 35)
+       || (nave1->posxGraph + 35 >= nave2->posxGraph && nave1->posxGraph + 35 <= nave2->posxGraph + 35 && nave1->posyGraph + 35 >= nave2->posyGraph && nave1->posyGraph + 35 <= nave2->posyGraph + 35))
         nave1->life = 0;
         nave2->life = 0;
 }
