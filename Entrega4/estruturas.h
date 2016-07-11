@@ -16,6 +16,7 @@
 
 #ifndef estruturas_H
 #define estruturas_H
+#include<time.h>
 
 #define G 6.67e-11
 #define MAX 50
@@ -27,7 +28,7 @@ typedef struct{
     double vely;
     double dir;
     double mass;
-    double time;
+    time_t time;
     int accel;
 	 int posxGraph;
 	 int posyGraph;

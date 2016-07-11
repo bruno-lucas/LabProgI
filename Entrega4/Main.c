@@ -17,6 +17,7 @@
 void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *lista){
 
     time_t time2 = clock();
+    double timedif;
     Celula *p;
     double G1 /*gravidade entre naves */, G2 /*gravidade entre nave1 e planeta*/ ,G3 /*gravidade entre nave 2 e planeta*/;
     double G4 /*gravidade proj-nave1 */ , G5 /*gravidade proj-nave2*/, G6 /*gravidade proj-planeta*/;
@@ -27,6 +28,9 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
     G1 = gravit(nave1->posx, nave1->posy, nave1->mass, nave2->posx, nave2->posy, nave2->mass);
     G2 = gravit(nave1->posx, nave1->posy, nave1->mass, planeta->posx, planeta->posy, planeta->mass);
     G3 = gravit(nave2->posx, nave2->posy, nave2->mass, planeta->posx, planeta->posy, planeta->mass);
+    
+    planeta->posxGraph = escala(planeta->posx);
+    planeta->posyGraph = escala(planeta->posy);
 
 
     /*desloca o eixo da nave 1 de acordo com forças da terra e da nave 2*/
@@ -73,7 +77,8 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
     colisao_nave_planeta(planeta, nave2);
 
 	for (p = lista->ini; p != NULL; p = p->next){
-        if(time2 - p->projectile.time >= 3){
+        timedif = difftime(time2, p->projectile.time) * 1000.0;
+        if(timedif >= 3.0){
             apaga(lista, p->projectile);
         }
 		colisao_proj_nave(p->projectile, nave1);
@@ -108,8 +113,7 @@ int main() {
 	float n;
 	char names[MAX];
 	time_t time1, time2;
-	time1 = clock();
-	time2 = clock();
+	time = clock();
 	Celula *p;
 	Celula *aux;
 
@@ -231,7 +235,7 @@ int main() {
 	/* FIM DA INICIALIZACAO */
 
 
-	while (time2 - time1 <= duration || (nave1->life != 0 || nave2->life != 0)){
+	while (nave1->life != 0 || nave2->life != 0){
 
 		/* checando próxima tecla inserida (se houver) e tratando ela */
 		if (WCheckKBD(w1)){
@@ -251,9 +255,7 @@ int main() {
 		/* antes daqui é necessário tratar as posições pra deixar num int dentro da janela, mesma coisa para os projeteis */
 
 		imprimetela(w1, P, Nave[dir1], msknave[dir1], Nave[dir2], msknave[dir2], nave1, nave2, Tiro, lista);
-
-		time2 = clock();
-
+		
 	}
 
 	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
@@ -274,6 +276,7 @@ int main() {
 		PutPic(w1, DRAW, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
 	}
+
 
 
 

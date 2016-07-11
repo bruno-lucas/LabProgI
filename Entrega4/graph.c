@@ -62,7 +62,7 @@ void insere (Fila *lista, Object *nave, int id){
     Celula *p;
     Projectile proj;
 
-    /* Copia os parâmetros definidos no arquivo config e gera um projetil */
+    /* Gera um projetil */
     proj.velx = nave->velx * 1.2;
     proj.vely = nave->vely * 1.2;
 	proj.mass = nave->mass/100;
@@ -154,15 +154,15 @@ void insere (Fila *lista, Object *nave, int id){
     p = malloc(sizeof (*p));
     p->projectile = proj;
 
-    p->next = lista->ini; //p next recebe a primeira celula da lista 
-    lista->ini = p; // p é o novo 1o elem
+    p->next = lista->ini; /*p next recebe a primeira celula da lista */
+    lista->ini = p; /* p é o novo 1o elem */
 
     id++;
 }
 
 /*Apaga um projetil da lista */
-void apaga(Fila *hash, Projectile proj){
-	Celula *p = hash->ini;
+void apaga(Fila *lista, Projectile proj){
+	Celula *p = lista->ini;
 	Celula *mata;
     /* Busca um projetil usando seu identificador (int id) e o apaga da lista */
     while (p != NULL) {
@@ -196,7 +196,7 @@ void colisao_nave_nave(Object *nave1, Object *nave2){
         nave2->life = 0;
 }
 
-/*Verifica colisao entre nave(35x35) e palneta(206x206) */
+/*Verifica colisao entre nave(35x35) e planeta(206x206) */
 void colisao_nave_planeta(Object *planeta, Object * nave){
     if((300 >= nave->posxGraph && 300 <= nave->posxGraph + 35 && 300 >= nave->posyGraph && 300 <= nave->posyGraph + 35)
        || (300 + 206 >= nave->posxGraph && 300 + 206 <= nave->posxGraph + 35 && 300 >= nave->posyGraph && 300 <= nave->posyGraph + 35)
