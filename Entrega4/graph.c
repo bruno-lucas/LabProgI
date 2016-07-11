@@ -207,10 +207,10 @@ void colisao_nave_planeta(Object *planeta, Object * nave){
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
 void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta){
-    if((300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
-       || (300 + 206 >= proj.posxGraph && 300 + 206 <= proj.posxGraph + 7 && 300 >= proj.posyGraph && 300 <= proj.posyGraph + 7)
-       || (300 >= proj.posxGraph && 300 <= proj.posxGraph + 7 && 300 + 206 >= proj.posyGraph && 300 + 206 <= proj.posyGraph + 7)
-       || (300 + 206 >= proj.posxGraph && 300 + 206 <= proj.posxGraph + 7 && 300 + 206 >= proj.posyGraph && 300 + 206 <= proj.posyGraph + 7))
+    if((proj.posxGraph >= planeta->posxGraph && proj.posxGraph <= planeta->posxGraph + 206 && proj.posyGraph >= planeta->posyGraph && proj.posyGraph <= planeta->posyGraph + 206)
+       || (proj.posxGraph + 7 >= planeta->posxGraph && proj.posxGraph + 7 <= planeta->posxGraph + 206 &&  proj.posyGraph >= planeta->posyGraph && proj.posyGraph <= planeta->posyGraph + 206)
+       || (proj.posxGraph >= planeta->posxGraph && proj.posxGraph <= planeta->posxGraph + 206 && proj.posyGraph + 7 >= planeta->posyGraph && proj.posyGraph + 7 <= planeta->posyGraph + 206)
+       || (proj.posxGraph + 7 >= planeta->posxGraph && proj.posxGraph + 7 <= planeta->posxGraph + 206 && proj.posyGraph + 7 >= planeta->posyGraph && proj.posyGraph + 7 <= planeta->posyGraph + 206))
         apaga(lista, proj);
 }
 
