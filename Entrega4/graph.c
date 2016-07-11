@@ -71,83 +71,83 @@ void insere (Fila *lista, Object *nave, int id){
 
     /*Coloca a posicao inicial do projetil de acordo com a imagem da nave, para que o projetil saia sempre da ponta */
     if(direcao(nave->dir) == 0){
-        proj.posx = nave->posx + (36*32000 - 25.6e6);
-        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 36;
+        proj.posyGraph = nave->posyGraph + 17.5;
     }
 
     if(direcao(nave->dir) == 1){
-        proj.posx = nave->posx + (36*32000 - 25.6e6);
-        proj.posy = nave->posy + (8.75*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 36;
+        proj.posyGraph = nave->posyGraph + 8.75;
     }
 
     if(direcao(nave->dir) == 2){
-        proj.posx = nave->posx + (35.5*32000 - 25.6e6);
-        proj.posy = nave->posy - (0.5*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 35.5;
+        proj.posyGraph = nave->posyGraph - 0.5;
     }
 
     if(direcao(nave->dir) == 3){
-        proj.posx = nave->posx + (26.25*32000 - 25.6e6);
-        proj.posy = nave->posy - (1*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 26.25;
+        proj.posyGraph = nave->posyGraph - 1;
     }
 
     if(direcao(nave->dir) == 4){
-        proj.posx = nave->posx + (17.5*32000 - 25.6e6);
-        proj.posy = nave->posy - (1*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 17.5;
+        proj.posyGraph = nave->posyGraph - 1;
     }
 
     if(direcao(nave->dir) == 5){
-        proj.posx = nave->posx + (8.75*32000 - 25.6e6);
-        proj.posy = nave->posy - (1*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 8.75;
+        proj.posyGraph = nave->posyGraph - 1;
     }
 
     if(direcao(nave->dir) == 6){
-        proj.posx = nave->posx - (1*32000 - 25.6e6);
-        proj.posy = nave->posy - (1*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph - 1;
+        proj.posyGraph = nave->posyGraph - 1;
     }
 
     if(direcao(nave->dir) == 7){
-        proj.posx = nave->posx - (1*32000 - 25.6e6);
-        proj.posy = nave->posy + (8.75*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph - 1;
+        proj.posyGraph = nave->posyGraph + 8.75;
     }
 
     if(direcao(nave->dir) == 8){
-        proj.posx = nave->posx - (1*32000 - 25.6e6);
-        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph - 1;
+        proj.posyGraph = nave->posyGraph + 17.5;
     }
 
     if(direcao(nave->dir) == 9){
-        proj.posx = nave->posx - (1*32000 - 25.6e6);
-        proj.posy = nave->posy + (26.25*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph - 1;
+        proj.posyGraph = nave->posyGraph + 26.25;
     }
 
     if(direcao(nave->dir) == 10){
-        proj.posx = nave->posx - (0.5*32000 - 25.6e6);
-        proj.posy = nave->posy + (35.5*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph - 0.5;
+        proj.posyGraph = nave->posyGraph + 35.5;
     }
 
     if(direcao(nave->dir) == 11){
-        proj.posx = nave->posx + (8.25*32000 - 25.6e6);
-        proj.posy = nave->posy + (36*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 8.25;
+        proj.posyGraph = nave->posyGraph + 36;
     }
 
     if(direcao(nave->dir) == 12){
-        proj.posx = nave->posx + (17.5*32000 - 25.6e6);
-        proj.posy = nave->posy + (36*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 17.5;
+        proj.posyGraph = nave->posyGraph + 36;
     }
 
     if(direcao(nave->dir) == 13){
-        proj.posx = nave->posx + (26.25*32000 - 25.6e6);
-        proj.posy = nave->posy + (36*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 26.25;
+        proj.posyGraph = nave->posyGraph + 36;
     }
 
     if(direcao(nave->dir) == 14){
-        proj.posx = nave->posx + (35.5*32000 - 25.6e6);
-        proj.posy = nave->posy + (35.5*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 35.5;
+        proj.posyGraph = nave->posyGraph + 35.5;
     }
 
     if(direcao(nave->dir) == 15){
-        proj.posx = nave->posx + (36*32000 - 25.6e6);
-        proj.posy = nave->posy + (26.25*32000 - 25.6e6);
+        proj.posxGraph = nave->posxGraph + 36;
+        proj.posyGraph = nave->posyGraph + 26.25;
     }
 
 
@@ -156,12 +156,11 @@ void insere (Fila *lista, Object *nave, int id){
 
     p->next = lista->ini; /*p next recebe a primeira celula da lista */
     lista->ini = p; /* p é o novo 1o elem */
-
     id++;
 }
 
 /*Apaga um projetil da lista */
-void apaga(Fila *lista, Projectile proj){
+void apaga(Fila *lista, Projectile proj, int id){
 	Celula *p = lista->ini;
 	Celula *mata;
     /* Busca um projetil usando seu identificador (int id) e o apaga da lista */
@@ -169,6 +168,7 @@ void apaga(Fila *lista, Projectile proj){
         if (p->projectile.id == proj.id) {
             mata = p;
             p = p->next;
+            id --;
             break;
         }
         p = p->next;
@@ -206,12 +206,12 @@ void colisao_nave_planeta(Object *planeta, Object * nave){
 }
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
-void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta){
+void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, int id){
     if((proj.posxGraph >= planeta->posxGraph && proj.posxGraph <= planeta->posxGraph + 206 && proj.posyGraph >= planeta->posyGraph && proj.posyGraph <= planeta->posyGraph + 206)
        || (proj.posxGraph + 7 >= planeta->posxGraph && proj.posxGraph + 7 <= planeta->posxGraph + 206 &&  proj.posyGraph >= planeta->posyGraph && proj.posyGraph <= planeta->posyGraph + 206)
        || (proj.posxGraph >= planeta->posxGraph && proj.posxGraph <= planeta->posxGraph + 206 && proj.posyGraph + 7 >= planeta->posyGraph && proj.posyGraph + 7 <= planeta->posyGraph + 206)
        || (proj.posxGraph + 7 >= planeta->posxGraph && proj.posxGraph + 7 <= planeta->posxGraph + 206 && proj.posyGraph + 7 >= planeta->posyGraph && proj.posyGraph + 7 <= planeta->posyGraph + 206))
-        apaga(lista, proj);
+        apaga(lista, proj, id);
 }
 
 

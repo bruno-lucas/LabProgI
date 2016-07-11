@@ -14,7 +14,7 @@
 #define MAX 50
 
 /*Calcula a posicao das naves de acordo com as forca as em acao */
-void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *lista){
+void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *lista, int id){
 
     time_t time2 = clock();
     double timedif;
@@ -78,12 +78,12 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 
 	for (p = lista->ini; p != NULL; p = p->next){
         timedif = difftime(time2, p->projectile.time) * 1000.0; /* Tempo limite dos projeteis será de 3 segundos antes de sumirem */
-        if(timedif >= 3.0){
-            apaga(lista, p->projectile);
+        if((timedif >= 3.0) && id > 0){
+            apaga(lista, p->projectile, id);
         }
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
-		colisao_proj_planeta(lista, p->projectile, planeta);
+		colisao_proj_planeta(lista, p->projectile, planeta, id);
 	}
 
 
@@ -244,7 +244,7 @@ int main() {
 			keyboard(key, nave1, nave2, lista, id);
 		}
 
-		update(nave1, nave2, planeta, frame, lista);
+		update(nave1, nave2, planeta, frame, lista, id);
 		/*programa espera um décimo de segundo para garantir jogabilidade */
 		usleep(100000);
 
