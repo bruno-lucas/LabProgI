@@ -71,83 +71,83 @@ void insere (Fila *lista, Object *nave, int id){
 
     /*Coloca a posicao inicial do projetil de acordo com a imagem da nave, para que o projetil saia sempre da ponta */
     if(direcao(nave->dir) == 0){
-        proj.posxGraph = nave->posxGraph + 36;
-        proj.posyGraph = nave->posyGraph + 17.5;
+        proj.posx = nave->posx + (36*32000 - 25.6e6);
+        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 1){
-        proj.posxGraph = nave->posxGraph + 36;
-        proj.posyGraph = nave->posyGraph + 8.75;
+        proj.posx = nave->posx + (36*32000 - 25.6e6);
+        proj.posy = nave->posy + (8.75*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 2){
-        proj.posxGraph = nave->posxGraph + 35.5;
-        proj.posyGraph = nave->posyGraph - 0.5;
+        proj.posx = nave->posx + (35.5*32000 - 25.6e6);
+        proj.posy = nave->posy - (0.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 3){
-        proj.posxGraph = nave->posxGraph + 26.25;
-        proj.posyGraph = nave->posyGraph - 1;
+        proj.posx = nave->posx + (26.25*32000 - 25.6e6);
+        proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 4){
-        proj.posxGraph = nave->posxGraph + 17.5;
-        proj.posyGraph = nave->posyGraph - 1;
+        proj.posx = nave->posx + (17.5*32000 - 25.6e6);
+        proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 5){
-        proj.posxGraph = nave->posxGraph + 8.75;
-        proj.posyGraph = nave->posyGraph - 1;
+        proj.posx = nave->posx + (8.75*32000 - 25.6e6);
+        proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 6){
-        proj.posxGraph = nave->posxGraph - 1;
-        proj.posyGraph = nave->posyGraph - 1;
+        proj.posx = nave->posx - (1*32000 - 25.6e6);
+        proj.posy = nave->posy - (1*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 7){
-        proj.posxGraph = nave->posxGraph - 1;
-        proj.posyGraph = nave->posyGraph + 8.75;
+        proj.posx = nave->posx - (1*32000 - 25.6e6);
+        proj.posy = nave->posy + (8.75*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 8){
-        proj.posxGraph = nave->posxGraph - 1;
-        proj.posyGraph = nave->posyGraph + 17.5;
+        proj.posx = nave->posx - (1*32000 - 25.6e6);
+        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 9){
-        proj.posxGraph = nave->posxGraph - 1;
-        proj.posyGraph = nave->posyGraph + 26.25;
+        proj.posx = nave->posx - (1*32000 - 25.6e6);
+        proj.posy = nave->posy + (26.25*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 10){
-        proj.posxGraph = nave->posxGraph - 0.5;
-        proj.posyGraph = nave->posyGraph + 35.5;
+        proj.posx = nave->posx - (0.5*32000 - 25.6e6);
+        proj.posy = nave->posy + (35.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 11){
-        proj.posxGraph = nave->posxGraph + 8.25;
-        proj.posyGraph = nave->posyGraph + 36;
+        proj.posx = nave->posx + (8.25*32000 - 25.6e6);
+        proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 12){
-        proj.posxGraph = nave->posxGraph + 17.5;
-        proj.posyGraph = nave->posyGraph + 36;
+        proj.posx = nave->posx + (17.5*32000 - 25.6e6);
+        proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 13){
-        proj.posxGraph = nave->posxGraph + 26.25;
-        proj.posyGraph = nave->posyGraph + 36;
+        proj.posx = nave->posx + (26.25*32000 - 25.6e6);
+        proj.posy = nave->posy + (36*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 14){
-        proj.posxGraph = nave->posxGraph + 35.5;
-        proj.posyGraph = nave->posyGraph + 35.5;
+        proj.posx = nave->posx + (35.5*32000 - 25.6e6);
+        proj.posy = nave->posy + (35.5*32000 - 25.6e6);
     }
 
     if(direcao(nave->dir) == 15){
-        proj.posxGraph = nave->posxGraph + 36;
-        proj.posyGraph = nave->posyGraph + 26.25;
+        proj.posx = nave->posx + (36*32000 - 25.6e6);
+        proj.posy = nave->posy + (26.25*32000 - 25.6e6);
     }
 
 
