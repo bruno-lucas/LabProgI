@@ -15,6 +15,7 @@
 
 #include "graph.h"
 
+
 /* a biblioteca graph ira cuidar da parte grafica do jogo em geral, e dos controles */
 int direcao (double teta){
 	double section;
@@ -63,91 +64,121 @@ void insere (Fila *lista, Object *nave, int id, int total){
     Projectile proj;
 
     /* Gera um projetil */
-    proj.velx = nave->velx * 1.2;
-    proj.vely = nave->vely * 1.2;
 	proj.mass = nave->mass/100;
     proj.time = clock();
     proj.id = id;
 
     /*Coloca a posicao inicial do projetil de acordo com a imagem da nave, para que o projetil saia sempre da ponta */
     if(direcao(nave->dir) == 0){
-        proj.posx = nave->posx + (36*32000 - 25.6e6);
-        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
+        proj.posx = nave->posx + (36*64000);
+        proj.posy = nave->posy + (17.5*64000);
+        proj.velx = nave->velx + 10000000;
+		proj.vely = nave->vely + 0;
     }
 
     if(direcao(nave->dir) == 1){
-        proj.posx = nave->posx + (36*32000 - 25.6e6);
-        proj.posy = nave->posy + (8.75*32000 - 25.6e6);
+        proj.posx = nave->posx + (36*64000);
+        proj.posy = nave->posy + (8.75*64000);
+        proj.velx = nave->velx + 7500000;
+		proj.vely = nave->vely - 2500000;
     }
 
     if(direcao(nave->dir) == 2){
-        proj.posx = nave->posx + (35.5*32000 - 25.6e6);
-        proj.posy = nave->posy - (0.5*32000 - 25.6e6);
+        proj.posx = nave->posx + (35.5*64000);
+        proj.posy = nave->posy - (0.5*64000);
+        proj.velx = nave->velx + 6000000;
+		proj.vely = nave->vely - 4000000;
     }
 
     if(direcao(nave->dir) == 3){
-        proj.posx = nave->posx + (26.25*32000 - 25.6e6);
-        proj.posy = nave->posy - (1*32000 - 25.6e6);
+        proj.posx = nave->posx + (26.25*64000);
+        proj.posy = nave->posy - (0.5*64000);
+        proj.velx = nave->velx + 4000000;
+		proj.vely = nave->vely - 6000000;
     }
 
     if(direcao(nave->dir) == 4){
-        proj.posx = nave->posx + (17.5*32000 - 25.6e6);
-        proj.posy = nave->posy - (1*32000 - 25.6e6);
+        proj.posx = nave->posx + (18*64000);
+        proj.posy = nave->posy + (1*64000);
+        proj.velx = nave->velx + 0;
+		proj.vely = nave->vely - 10000000;
     }
 
     if(direcao(nave->dir) == 5){
-        proj.posx = nave->posx + (8.75*32000 - 25.6e6);
-        proj.posy = nave->posy - (1*32000 - 25.6e6);
+        proj.posx = nave->posx + (8.75*64000);
+        proj.posy = nave->posy - (1*64000);
+        proj.velx = nave->velx - 2500000;
+        proj.vely = nave->vely - 7500000; 
     }
 
     if(direcao(nave->dir) == 6){
-        proj.posx = nave->posx - (1*32000 - 25.6e6);
-        proj.posy = nave->posy - (1*32000 - 25.6e6);
+        proj.posx = nave->posx - (1*64000);
+        proj.posy = nave->posy - (1*64000);
+        proj.velx = nave->velx - 4000000;
+        proj.vely = nave->vely - 6000000;
     }
 
     if(direcao(nave->dir) == 7){
-        proj.posx = nave->posx - (1*32000 - 25.6e6);
-        proj.posy = nave->posy + (8.75*32000 - 25.6e6);
+        proj.posx = nave->posx - (1*64000);
+        proj.posy = nave->posy + (8.75*64000);
+        proj.velx = nave->velx - 6000000;
+        proj.vely = nave->vely - 4000000;
     }
 
     if(direcao(nave->dir) == 8){
-        proj.posx = nave->posx - (1*32000 - 25.6e6);
-        proj.posy = nave->posy + (17.5*32000 - 25.6e6);
+        proj.posx = nave->posx - (1*64000);
+        proj.posy = nave->posy + (17.5*64000);
+        proj.velx = nave->velx - 10000000;
+        proj.vely = nave->vely + 0;
     }
 
     if(direcao(nave->dir) == 9){
-        proj.posx = nave->posx - (1*32000 - 25.6e6);
-        proj.posy = nave->posy + (26.25*32000 - 25.6e6);
+        proj.posx = nave->posx - (1*64000);
+        proj.posy = nave->posy + (26.25*64000);
+        proj.velx = nave->velx - 7500000;
+        proj.vely = nave->vely + 2500000;
     }
 
     if(direcao(nave->dir) == 10){
-        proj.posx = nave->posx - (0.5*32000 - 25.6e6);
-        proj.posy = nave->posy + (35.5*32000 - 25.6e6);
+        proj.posx = nave->posx - (0.5*64000);
+        proj.posy = nave->posy + (35.5*64000);
+        proj.velx = nave->velx - 6000000;
+        proj.vely = nave->vely + 4000000;
     }
 
     if(direcao(nave->dir) == 11){
-        proj.posx = nave->posx + (8.25*32000 - 25.6e6);
-        proj.posy = nave->posy + (36*32000 - 25.6e6);
+        proj.posx = nave->posx + (8.25*64000);
+        proj.posy = nave->posy + (36*64000);
+        proj.velx = nave->velx - 4000000;
+        proj.vely = nave->vely + 6000000;
     }
 
     if(direcao(nave->dir) == 12){
-        proj.posx = nave->posx + (17.5*32000 - 25.6e6);
-        proj.posy = nave->posy + (36*32000 - 25.6e6);
+        proj.posx = nave->posx + (17.5*64000);
+        proj.posy = nave->posy + (36*64000);
+        proj.velx = nave->velx + 0;
+        proj.vely = nave->vely + 10000000;
     }
 
     if(direcao(nave->dir) == 13){
-        proj.posx = nave->posx + (26.25*32000 - 25.6e6);
-        proj.posy = nave->posy + (36*32000 - 25.6e6);
+        proj.posx = nave->posx + (26.25*64000);
+        proj.posy = nave->posy + (36*64000);
+        proj.velx = nave->velx + 2500000;
+        proj.vely = nave->vely + 7500000;
     }
 
     if(direcao(nave->dir) == 14){
-        proj.posx = nave->posx + (35.5*32000 - 25.6e6);
-        proj.posy = nave->posy + (35.5*32000 - 25.6e6);
+        proj.posx = nave->posx + (35.5*64000);
+        proj.posy = nave->posy + (35.5*64000);
+        proj.velx = nave->velx + 4000000;
+        proj.vely = nave->vely + 6000000;
     }
 
     if(direcao(nave->dir) == 15){
-        proj.posx = nave->posx + (36*32000 - 25.6e6);
-        proj.posy = nave->posy + (26.25*32000 - 25.6e6);
+        proj.posx = nave->posx + (36*64000);
+        proj.posy = nave->posy + (26.25*64000);
+        proj.velx = nave->velx + 6000000;
+        proj.vely = nave->vely + 4000000;
     }
 
 

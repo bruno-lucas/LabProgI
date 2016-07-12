@@ -20,7 +20,8 @@
 
 #include "estruturas.h"
 #include "xwc.h"
-
+extern int id;
+extern int total;
 
 int direcao (double teta);
 

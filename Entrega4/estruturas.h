@@ -21,6 +21,7 @@
 #define G 6.67e-11
 #define MAX 50
 
+
 typedef struct{
     double posx;
     double posy;

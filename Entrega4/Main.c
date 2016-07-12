@@ -88,7 +88,6 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 
 }
 
-
 int main() {
 	PIC P1, P2, P, Tiro;
 	PIC Nave[16];
@@ -106,8 +105,6 @@ int main() {
 	double frame;
 	int dir1, dir2;
 	int i;
-	int id = 0;
-	int total = 0;
 	printf("comeco \n");
 	float n;
 	char names[MAX];
@@ -115,6 +112,9 @@ int main() {
 	time = clock();
 	Celula *p;
 	Celula *aux;
+	int total = 0;
+	int id = 0;
+	
 
 
 	/* INICIALIZACAO DA PARTE GRAFICA */
@@ -216,8 +216,8 @@ int main() {
 
 		fclose(arquivo);
 
-		nave1->dir = 180;
-		nave2->dir = 0;
+		nave1->dir = 0;
+		nave2->dir = 180;
 		nave1->accel = 0;
 		nave2->accel = 0;
 		nave1->life = 1;
