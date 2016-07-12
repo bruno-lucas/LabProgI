@@ -78,14 +78,13 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 
 	for (p = lista->ini; p != NULL; p = p->next){
         timedif = difftime(time2, p->projectile.time) * 1000.0; /* Tempo limite dos projeteis será de 3 segundos antes de sumirem */
-        if((timedif >= 3.0) && id > 0){
-            apaga(lista, p->projectile, id, total);
-        }
+        if((timedif >= 3000.0) && total > 0){
+            apaga(lista, p->projectile, total);
+        } 
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
-		colisao_proj_planeta(lista, p->projectile, planeta, id, total);
+		colisao_proj_planeta(lista, p->projectile, planeta, total);
 	}
-
 
 }
 
@@ -109,6 +108,7 @@ int main() {
 	int i;
 	int id = 0;
 	int total = 0;
+	printf("comeco \n");
 	float n;
 	char names[MAX];
 	time_t time1, time2;
@@ -222,7 +222,6 @@ int main() {
 		nave2->accel = 0;
 		nave1->life = 1;
 		nave2->life = 1;
-		printf("%d \n", nave2->life);
 		frame = 0.1;
 		lista->ini = NULL;
 
@@ -230,8 +229,6 @@ int main() {
 
 
 	while (nave1->life != 0 && nave2->life != 0){
-		
-		printf("%d \n", nave2->life);
 
 		/* checando próxima tecla inserida (se houver) e tratando ela */
 		if (WCheckKBD(w1)){
@@ -241,7 +238,9 @@ int main() {
 		}
 
 		update(nave1, nave2, planeta, frame, lista, id, total);
-		printf("%d \n", nave2->life);
+		printf("update \n");
+		printf("total %d \n", total);
+		printf("id %d \n", id);
 		/*programa espera um décimo de segundo para garantir jogabilidade */
 		usleep(100000);
 
@@ -257,21 +256,18 @@ int main() {
 
 	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
 	if (nave1->life == 1 && nave2->life == 0){
-		printf("%d \n", nave2->life);
 		SetMask(w1,mskP1win);
 		PutPic(w1, P1WIN, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
 	}
 
 	else if (nave1->life == 0 && nave2->life == 1){
-		printf("%d \n", nave2->life);
 		SetMask(w1,mskP2win);
 		PutPic(w1, P2WIN, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
 	}
 
 	else {
-		printf("%d \n", nave2->life);
 		SetMask(w1,mskDraw);
 		PutPic(w1, DRAW, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
