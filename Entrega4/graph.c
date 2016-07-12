@@ -58,7 +58,7 @@ void imprimetela(WINDOW *w1, PIC P, PIC P1, MASK msk1, PIC P2, MASK msk2, Object
 }
 
 
-void insere (Fila *lista, Object *nave, int id){
+void insere (Fila *lista, Object *nave, int id, int total){
     Celula *p;
     Projectile proj;
 
@@ -157,10 +157,11 @@ void insere (Fila *lista, Object *nave, int id){
     p->next = lista->ini; /*p next recebe a primeira celula da lista */
     lista->ini = p; /* p é o novo 1o elem */
     id++;
+    total ++;
 }
 
 /*Apaga um projetil da lista */
-void apaga(Fila *lista, Projectile proj, int id){
+void apaga(Fila *lista, Projectile proj, int id, int total){
 	Celula *p = lista->ini;
 	Celula *mata;
     /* Busca um projetil usando seu identificador (int id) e o apaga da lista */
@@ -168,7 +169,7 @@ void apaga(Fila *lista, Projectile proj, int id){
         if (p->projectile.id == proj.id) {
             mata = p;
             p = p->next;
-            id --;
+            total --;
             break;
         }
         p = p->next;
@@ -191,9 +192,10 @@ void colisao_nave_nave(Object *nave1, Object *nave2){
     if((nave1->posxGraph >= nave2->posxGraph && nave1->posxGraph <= nave2->posxGraph + 35 && nave1->posyGraph >= nave2->posyGraph && nave1->posyGraph <= nave2->posyGraph + 35)
        || (nave1->posxGraph + 35 >= nave2->posxGraph && nave1->posxGraph + 35 <= nave2->posxGraph + 35 && nave1->posyGraph >= nave2->posyGraph && nave1->posyGraph <= nave2->posyGraph + 35)
        || (nave1->posxGraph >= nave2->posxGraph && nave1->posxGraph <= nave2->posxGraph + 35 && nave1->posyGraph + 35 >= nave2->posyGraph && nave1->posyGraph + 35 <= nave2->posyGraph + 35)
-       || (nave1->posxGraph + 35 >= nave2->posxGraph && nave1->posxGraph + 35 <= nave2->posxGraph + 35 && nave1->posyGraph + 35 >= nave2->posyGraph && nave1->posyGraph + 35 <= nave2->posyGraph + 35))
+       || (nave1->posxGraph + 35 >= nave2->posxGraph && nave1->posxGraph + 35 <= nave2->posxGraph + 35 && nave1->posyGraph + 35 >= nave2->posyGraph && nave1->posyGraph + 35 <= nave2->posyGraph + 35)){
         nave1->life = 0;
         nave2->life = 0;
+    }
 }
 
 /*Verifica colisao entre nave(35x35) e planeta(206x206) */
@@ -206,17 +208,19 @@ void colisao_nave_planeta(Object *planeta, Object * nave){
 }
 
 /*Verifica colisao entre projetil(7x7) e planeta(206x206) */
-void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, int id){
+void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, int id, int total){
     if((proj.posxGraph >= planeta->posxGraph && proj.posxGraph <= planeta->posxGraph + 206 && proj.posyGraph >= planeta->posyGraph && proj.posyGraph <= planeta->posyGraph + 206)
        || (proj.posxGraph + 7 >= planeta->posxGraph && proj.posxGraph + 7 <= planeta->posxGraph + 206 &&  proj.posyGraph >= planeta->posyGraph && proj.posyGraph <= planeta->posyGraph + 206)
        || (proj.posxGraph >= planeta->posxGraph && proj.posxGraph <= planeta->posxGraph + 206 && proj.posyGraph + 7 >= planeta->posyGraph && proj.posyGraph + 7 <= planeta->posyGraph + 206)
-       || (proj.posxGraph + 7 >= planeta->posxGraph && proj.posxGraph + 7 <= planeta->posxGraph + 206 && proj.posyGraph + 7 >= planeta->posyGraph && proj.posyGraph + 7 <= planeta->posyGraph + 206))
-        apaga(lista, proj, id);
+       || (proj.posxGraph + 7 >= planeta->posxGraph && proj.posxGraph + 7 <= planeta->posxGraph + 206 && proj.posyGraph + 7 >= planeta->posyGraph && proj.posyGraph + 7 <= planeta->posyGraph + 206)){
+       if(id > 0) 
+        apaga(lista, proj, id, total);
+    }
 }
 
 
 /* recebe a tecla lida e faz as mudanças necessárias */
-void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id){
+void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int total){
 
 	/* tecla 'w' */
 	if (key == 119)
@@ -242,7 +246,7 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id){
 
 	/*tecla 'espaco'*/
 	else if (key == 32){
-        insere(lista, nave1, id);
+        insere(lista, nave1, id, total);
 	}
 
 	/* tecla 'cima' */
@@ -271,6 +275,6 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id){
 	/*tecla '0' do teclado numérico*/
 
 	else if (key == 65438){
-        insere(lista, nave2, id);
+        insere(lista, nave2, id, total);
 	}
 }

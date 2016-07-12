@@ -14,7 +14,7 @@
 #define MAX 50
 
 /*Calcula a posicao das naves de acordo com as forca as em acao */
-void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *lista, int id){
+void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *lista, int id, int total){
 
     time_t time2 = clock();
     double timedif;
@@ -79,11 +79,11 @@ void update(Object *nave1, Object *nave2, Object *planeta, double frame, Fila *l
 	for (p = lista->ini; p != NULL; p = p->next){
         timedif = difftime(time2, p->projectile.time) * 1000.0; /* Tempo limite dos projeteis será de 3 segundos antes de sumirem */
         if((timedif >= 3.0) && id > 0){
-            apaga(lista, p->projectile, id);
+            apaga(lista, p->projectile, id, total);
         }
 		colisao_proj_nave(p->projectile, nave1);
 		colisao_proj_nave(p->projectile, nave2);
-		colisao_proj_planeta(lista, p->projectile, planeta, id);
+		colisao_proj_planeta(lista, p->projectile, planeta, id, total);
 	}
 
 
@@ -103,13 +103,12 @@ int main() {
 	Object* nave1 = malloc(sizeof (*nave1));
 	Object* nave2 = malloc(sizeof(*nave2));
 	double time;
-	int projs;
-	double duration;
 	Fila* lista = malloc(sizeof(*lista));
 	double frame;
 	int dir1, dir2;
 	int i;
 	int id = 0;
+	int total = 0;
 	float n;
 	char names[MAX];
 	time_t time1, time2;
@@ -121,10 +120,10 @@ int main() {
 	/* INICIALIZACAO DA PARTE GRAFICA */
 
 		w1 = InitGraph(801,801, "NightSky");
-		P = NewPic(w1, 801, 801); // será a pic que mantém o estado da janela (universo + lua)
-		P1 = ReadPic(w1, "Sky.xpm", NULL); // pic do universo
-		P2 = ReadPic(w1, "Moon.xpm", NULL); // pic da lua
-		Tiro = ReadPic(w1, "tiro.xpm", NULL); // pic dos projeteis
+		P = NewPic(w1, 801, 801); /* será a pic que mantém o estado da janela (universo + lua) */
+		P1 = ReadPic(w1, "Sky.xpm", NULL); /* pic do universo */
+		P2 = ReadPic(w1, "Moon.xpm", NULL); /* pic da lua */
+		Tiro = ReadPic(w1, "tiro.xpm", NULL); /* pic dos projeteis */
 
 		mskP1win = NewMask(w1, 400, 200);
 		mskP2win = NewMask(w1, 400, 200);
@@ -215,36 +214,34 @@ int main() {
 		memset(nave2->name, 0, MAX);
 		strncpy(nave2->name, names, MAX-1);
 
-
-		/*Recebe a linha 3*/
-		fscanf(arquivo, "%d %lf",
-			   &projs,
-			   &duration
-			   );
-
 		fclose(arquivo);
 
 		nave1->dir = 180;
 		nave2->dir = 0;
 		nave1->accel = 0;
 		nave2->accel = 0;
-		nave1->life = nave2->life = 1;
+		nave1->life = 1;
+		nave2->life = 1;
+		printf("%d \n", nave2->life);
 		frame = 0.1;
 		lista->ini = NULL;
 
 	/* FIM DA INICIALIZACAO */
 
 
-	while (nave1->life != 0 || nave2->life != 0){
+	while (nave1->life != 0 && nave2->life != 0){
+		
+		printf("%d \n", nave2->life);
 
 		/* checando próxima tecla inserida (se houver) e tratando ela */
 		if (WCheckKBD(w1)){
 			key = WGetKey(w1);
 			key = WLastKeySym();
-			keyboard(key, nave1, nave2, lista, id);
+			keyboard(key, nave1, nave2, lista, id, total);
 		}
 
-		update(nave1, nave2, planeta, frame, lista, id);
+		update(nave1, nave2, planeta, frame, lista, id, total);
+		printf("%d \n", nave2->life);
 		/*programa espera um décimo de segundo para garantir jogabilidade */
 		usleep(100000);
 
@@ -260,18 +257,21 @@ int main() {
 
 	PutPic(w1, P, 0, 0, 801, 801, 0, 0);
 	if (nave1->life == 1 && nave2->life == 0){
+		printf("%d \n", nave2->life);
 		SetMask(w1,mskP1win);
 		PutPic(w1, P1WIN, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
 	}
 
 	else if (nave1->life == 0 && nave2->life == 1){
+		printf("%d \n", nave2->life);
 		SetMask(w1,mskP2win);
 		PutPic(w1, P2WIN, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
 	}
 
 	else {
+		printf("%d \n", nave2->life);
 		SetMask(w1,mskDraw);
 		PutPic(w1, DRAW, 0, 0, 400, 200, 200, 300);
 		UnSetMask(w1);
