@@ -323,43 +323,43 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
                 case 5:
                     sen = SIN_2250;
                     coss = sqrt(1.0 - pow(sen, 2));
-                    nave1->velx = v1 * coss;
+                    nave1->velx = v1 * coss * (-1);
                     nave1->vely = v1 * sen;
                     break;
                 case 6:
                     sen = SIN_2025;
                     coss = sqrt(1.0 - pow(sen, 2));
-                    nave1->velx = v1 * coss;
+                    nave1->velx = v1 * coss * (-1);
                     nave1->vely = v1 * sen;
                     break;
                 case 7:
                     sen = SIN_1800;
                     coss = sqrt(1.0 - pow(sen, 2));
-                    nave1->velx = v1 * coss;
+                    nave1->velx = v1 * coss * (-1);
                     nave1->vely = v1 * sen;
                     break;
                 case 8:
                     sen = SIN_1575;
                     coss = sqrt(1.0 - pow(sen, 2));
-                    nave1->velx = v1 * coss;
+                    nave1->velx = v1 * coss * (-1);
                     nave1->vely = v1 * sen;
                     break;
                 case 9:
                     sen = SIN_1350;
                     coss = sqrt(1.0 - pow(sen, 2));
-                    nave1->velx = v1 * coss;
+                    nave1->velx = v1 * coss * (-1);
                     nave1->vely = v1 * sen;
                     break;
                 case 10:
                     sen = SIN_1125;
                     coss = sqrt(1.0 - pow(sen, 2));
-                    nave1->velx = v1 * coss;
+                    nave1->velx = v1 * coss * (-1);
                     nave1->vely = v1 * sen;
                     break;
                 case 11:
                     sen = SIN_900;
                     coss = sqrt(1.0 - pow(sen, 2));
-                    nave1->velx = v1 * coss;
+                    nave1->velx = v1 * coss * (-1);
                     nave1->vely = v1 * sen;
                     break;
                 case 12:
@@ -528,19 +528,19 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
             v2 = sqrt(pow(nave2->velx, 2) + pow(nave2->vely, 2));
             switch (new){
                 case 0:
-                    sen = SIN_2025;
+                    sen = SIN_3375;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 1:
-                    sen = SIN_2250;
+                    sen = SIN_3150;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 2:
-                    sen = SIN_2475;
+                    sen = SIN_2925;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
@@ -552,43 +552,43 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
                     nave2->vely = v2 * sen;
                     break;
                 case 4:
-                    sen = SIN_2925;
+                    sen = SIN_2475;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 5:
-                    sen = SIN_3150;
+                    sen = SIN_2250;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 6:
-                    sen = SIN_3375;
+                    sen = SIN_2025;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 7:
-                    sen = SIN_00;
+                    sen = SIN_1800;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 8:
-                    sen = SIN_225;
+                    sen = SIN_1575;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 9:
-                    sen = SIN_450;
+                    sen = SIN_1350;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 10:
-                    sen = SIN_675;
+                    sen = SIN_1125;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
@@ -600,47 +600,31 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
                     nave2->vely = v2 * sen;
                     break;
                 case 12:
-                    sen = SIN_1125;
+                    sen = SIN_675;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 13:
-                    sen = SIN_1350;
+                    sen = SIN_450;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 14:
-                    sen = SIN_1575;
+                    sen = SIN_225;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 15:
-                    sen = SIN_1800;
+                    sen = SIN_00;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 default:
-                    printf("Nothing to do\n");
-                    /*sen = SIN_00;
-                    sen = SIN_225;
-                    sen = SIN_450;
-                    sen = SIN_675;
-                    sen = SIN_900;
-                    sen = SIN_1125;
-                    sen = SIN_1350;
-                    sen = SIN_1575;
-                    sen = SIN_1800;
-                    sen = SIN_2025;
-                    sen = SIN_2250;
-                    sen = SIN_2475;
-                    sen = SIN_2700;
-                    sen = SIN_2925;
-                    sen = SIN_3150;
-                    sen = SIN_3375;*/                    
+                    printf("Nothing to do\n");                
             }
         }
     }
@@ -656,19 +640,19 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
             v2 = sqrt(pow(nave2->velx, 2) + pow(nave2->vely, 2));
             switch (new){
                 case 0:
-                    sen = SIN_2025;
+                    sen = SIN_3375;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 1:
-                    sen = SIN_2250;
+                    sen = SIN_3150;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 2:
-                    sen = SIN_2475;
+                    sen = SIN_2925;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
@@ -680,43 +664,43 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
                     nave2->vely = v2 * sen;
                     break;
                 case 4:
-                    sen = SIN_2925;
+                    sen = SIN_2475;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 5:
-                    sen = SIN_3150;
+                    sen = SIN_2250;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 6:
-                    sen = SIN_3375;
+                    sen = SIN_2025;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 7:
-                    sen = SIN_00;
+                    sen = SIN_1800;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 8:
-                    sen = SIN_225;
+                    sen = SIN_1575;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 9:
-                    sen = SIN_450;
+                    sen = SIN_1350;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 10:
-                    sen = SIN_675;
+                    sen = SIN_1125;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
@@ -728,47 +712,31 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
                     nave2->vely = v2 * sen;
                     break;
                 case 12:
-                    sen = SIN_1125;
+                    sen = SIN_675;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 13:
-                    sen = SIN_1350;
+                    sen = SIN_450;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 14:
-                    sen = SIN_1575;
+                    sen = SIN_225;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 case 15:
-                    sen = SIN_1800;
+                    sen = SIN_00;
                     coss = sqrt(1.0 - pow(sen, 2));
                     nave2->velx = v2 * coss;
                     nave2->vely = v2 * sen;
                     break;
                 default:
                     printf("Nothing to do\n");
-                    /*sen = SIN_00;
-                    sen = SIN_225;
-                    sen = SIN_450;
-                    sen = SIN_675;
-                    sen = SIN_900;
-                    sen = SIN_1125;
-                    sen = SIN_1350;
-                    sen = SIN_1575;
-                    sen = SIN_1800;
-                    sen = SIN_2025;
-                    sen = SIN_2250;
-                    sen = SIN_2475;
-                    sen = SIN_2700;
-                    sen = SIN_2925;
-                    sen = SIN_3150;
-                    sen = SIN_3375;*/                    
             }
         }
     }
