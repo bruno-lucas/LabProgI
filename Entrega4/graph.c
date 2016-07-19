@@ -299,9 +299,9 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
 
     /* tecla 'esquerda' */
     else if (key == 65361){
-        nave2->dir += 11.25;
-        if (nave2->dir >= 360)
-            nave2->dir -= 360;
+        nave2->dir -= 11.25;
+        if (nave2->dir < 0)
+            nave2->dir += 360;
         v2 = sqrt(pow(nave2->velx, 2) + pow(nave2->vely, 2));
         nave2->vely = v2 * sin((nave2->dir)*PI/180.0);
         nave2->velx = v2 * cos((nave2->dir)*PI/180.0);
@@ -309,9 +309,9 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
 
     /* tecla 'direita' */
     else if (key == 65363){
-        nave2->dir -= 11.25;
-        if (nave2->dir < 0)
-            nave2->dir += 360;
+        nave2->dir += 11.25;
+        if (nave2->dir >= 360)
+            nave2->dir -= 360;
         v2 = sqrt(pow(nave2->velx, 2) + pow(nave2->vely, 2));
         nave2->vely = v2 * sin((nave2->dir)*PI/180.0);
         nave2->velx = v2 * cos((nave2->dir)*PI/180.0);
