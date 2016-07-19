@@ -16,11 +16,18 @@ resultante.o:	resultante.c estruturas.h
 
 cinematica.o:	cinematica.c estruturas.h
 
-xwc.o: xwc.c 
+#ignorar e deletar o teste
+teste.o:	teste.c
 	${CC} -c $^ -lXpm -lX11 ${CFLAGS}
 
-graph.o: graph.c estruturas.h
+teste:	teste.o xwc.o
+	${CC} ${CFLAGS} -o $@ $^ -lm -lXpm -lX11
+
+xwc.o:	xwc.c 
 	${CC} -c $^ -lXpm -lX11 ${CFLAGS}
+
+graph.o:	graph.c estruturas.h
+	${CC} -c $^ -lXpm -lX11 ${CFLAGS} -lm
 
 Main.o:	Main.c
 	${CC} -c $^ -lXpm -lX11

@@ -9,11 +9,27 @@
 -|--------------------------------------------------|
 -|Bruno Guilherme Ricci Lucas		nUSP 4460596
 -|André Luiz Abdalla Silveira		nUSP 8030353
--|Matheus Takeshi Yabiku		nUSP 7629949
+-|Matheus Takeshi Yabiku		    nUSP 7629949
 -|--------------------------------------------------|
 - */
 
 #include "graph.h"
+#define SIN_00 0.000000
+#define SIN_225 0.382683
+#define SIN_450 0.707106
+#define SIN_675 0.923879
+#define SIN_900 1.000000
+#define SIN_1125 0.923879
+#define SIN_1350 0.707106
+#define SIN_1575 0.382683
+#define SIN_1800 0.000000
+#define SIN_2025 -0.382683
+#define SIN_2250 -0.707106
+#define SIN_2475 -0.923879
+#define SIN_2700 -1.000000
+#define SIN_2925 -0.923879
+#define SIN_3150 -0.707106
+#define SIN_3375 -0.382683
 
 
 /* a biblioteca graph ira cuidar da parte grafica do jogo em geral, e dos controles */
@@ -189,8 +205,6 @@ void insere (Fila *lista, Object *nave, int id, int total){
     lista->ini = p; /* p é o novo 1o elem */
     id++;
     total ++;
-    printf("total %d \n", total);
-    printf("id %d \n", id);
 }
 
 /*Apaga um projetil da lista */
@@ -208,7 +222,6 @@ void apaga(Fila *lista, Projectile proj, int total){
         p = p->next;
     }
     free(mata);
-    printf("apaga");
 }
 
 /* As colisoes serao feitas por retangulos, ou seja, sera verificado se um dos vertices de uma imagem se encontra dentro de outra */
@@ -247,7 +260,6 @@ void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, int tot
        || (proj.posxGraph + 7 >= 297 && proj.posxGraph + 7 <= 297 + 206 &&  proj.posyGraph >= 297 && proj.posyGraph <= 297 + 206)
        || (proj.posxGraph >= 297 && proj.posxGraph <= 297 + 206 && proj.posyGraph + 7 >= 297 && proj.posyGraph + 7 <= 297 + 206)
        || (proj.posxGraph + 7 >= 297 && proj.posxGraph + 7 <= 297 + 206 && proj.posyGraph + 7 >= 297 && proj.posyGraph + 7 <= 297 + 206)){
-       printf("Colide!");
        if(total > 0){ 
         apaga(lista, proj, total);
 	   }
@@ -257,27 +269,239 @@ void colisao_proj_planeta(Fila *lista, Projectile proj, Object *planeta, int tot
 
 /* recebe a tecla lida e faz as mudanças necessárias */
 void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int total){
+    int old, new;
+    double v1, v2, sen, coss;
 
 	/* tecla 'w' */
 	if (key == 119)
 		nave1->accel = 1;
 
-	/* tecla 's' */
+	/* tecla 's' 
 	else if (key == 115)
-		nave1->accel = 0;
+		nave1->accel = 0;*/
 
 	/* tecla 'a' */
 	else if (key == 97){
+        old = direcao(nave1->dir);
 		nave1->dir = nave1->dir + 11.25;
 		if (nave1->dir >= 360)
 			nave1->dir = nave1->dir - 360;
+        new = direcao(nave1->dir);
+        if(new != old) {
+            v1 = sqrt(pow(nave1->velx, 2) + pow(nave1->vely, 2));
+            switch (new){
+                case 0:
+                    sen = SIN_3375;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 1:
+                    sen = SIN_3150;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 2:
+                    sen = SIN_2925;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 3:
+                    sen = SIN_2700;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 4:
+                    sen = SIN_2475;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 5:
+                    sen = SIN_2250;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 6:
+                    sen = SIN_2025;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 7:
+                    sen = SIN_1800;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 8:
+                    sen = SIN_1575;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 9:
+                    sen = SIN_1350;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 10:
+                    sen = SIN_1125;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 11:
+                    sen = SIN_900;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 12:
+                    sen = SIN_675;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 13:
+                    sen = SIN_450;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 14:
+                    sen = SIN_225;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 15:
+                    sen = SIN_00;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                default:
+                    printf("Nothing to do\n");
+            }
+        }
 	}
 
 	/* tecla 'd' */
 	else if (key == 100){
+        old = direcao(nave1->dir);
 		nave1->dir -= 11.25;
 		if (nave1->dir < 0)
 			nave1->dir += 360;
+        new = direcao(nave1->dir);
+        if(new != old) {
+            v1 = sqrt(pow(nave1->velx, 2) + pow(nave1->vely, 2));
+            switch (new){
+                case 0:
+                    sen = SIN_3375;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 1:
+                    sen = SIN_3150;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 2:
+                    sen = SIN_2925;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 3:
+                    sen = SIN_2700;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 4:
+                    sen = SIN_2475;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 5:
+                    sen = SIN_2250;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 6:
+                    sen = SIN_2025;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 7:
+                    sen = SIN_1800;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 8:
+                    sen = SIN_1575;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 9:
+                    sen = SIN_1350;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 10:
+                    sen = SIN_1125;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 11:
+                    sen = SIN_900;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 12:
+                    sen = SIN_675;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 13:
+                    sen = SIN_450;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 14:
+                    sen = SIN_225;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                case 15:
+                    sen = SIN_00;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave1->velx = v1 * coss;
+                    nave1->vely = v1 * sen;
+                    break;
+                default:
+                    printf("Nothing to do\n");
+            }
+        }
 	}
 
 	/*tecla 'espaco'*/
@@ -295,17 +519,259 @@ void keyboard(int key, Object *nave1, Object *nave2, Fila *lista, int id, int to
 
 	/* tecla 'esquerda' */
 	else if (key == 65361){
-		nave2->dir = nave2->dir + 11.25;
-		if (nave2->dir >= 360)
-			nave2->dir = nave2->dir - 360;
-	}
+        old = direcao(nave2->dir);
+        nave2->dir = nave2->dir + 11.25;
+        if (nave2->dir >= 360)
+            nave2->dir = nave2->dir - 360;
+        new = direcao(nave2->dir);
+        if(new != old) {
+            v2 = sqrt(pow(nave2->velx, 2) + pow(nave2->vely, 2));
+            switch (new){
+                case 0:
+                    sen = SIN_2025;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 1:
+                    sen = SIN_2250;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 2:
+                    sen = SIN_2475;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 3:
+                    sen = SIN_2700;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 4:
+                    sen = SIN_2925;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 5:
+                    sen = SIN_3150;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 6:
+                    sen = SIN_3375;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 7:
+                    sen = SIN_00;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 8:
+                    sen = SIN_225;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 9:
+                    sen = SIN_450;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 10:
+                    sen = SIN_675;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 11:
+                    sen = SIN_900;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 12:
+                    sen = SIN_1125;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 13:
+                    sen = SIN_1350;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 14:
+                    sen = SIN_1575;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 15:
+                    sen = SIN_1800;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                default:
+                    printf("Nothing to do\n");
+                    /*sen = SIN_00;
+                    sen = SIN_225;
+                    sen = SIN_450;
+                    sen = SIN_675;
+                    sen = SIN_900;
+                    sen = SIN_1125;
+                    sen = SIN_1350;
+                    sen = SIN_1575;
+                    sen = SIN_1800;
+                    sen = SIN_2025;
+                    sen = SIN_2250;
+                    sen = SIN_2475;
+                    sen = SIN_2700;
+                    sen = SIN_2925;
+                    sen = SIN_3150;
+                    sen = SIN_3375;*/                    
+            }
+        }
+    }
 
-	/* tecla 'direita' */
-	else if (key == 65363){
-		nave2->dir -= 11.25;
-		if (nave2->dir < 0)
-			nave2->dir += 360;
-	}
+    /* tecla 'direita' */
+    else if (key == 65363){
+        old = direcao(nave2->dir);
+        nave2->dir -= 11.25;
+        if (nave2->dir < 0)
+            nave2->dir += 360;
+        new = direcao(nave2->dir);
+        if(new != old) {
+            v2 = sqrt(pow(nave2->velx, 2) + pow(nave2->vely, 2));
+            switch (new){
+                case 0:
+                    sen = SIN_2025;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 1:
+                    sen = SIN_2250;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 2:
+                    sen = SIN_2475;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 3:
+                    sen = SIN_2700;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 4:
+                    sen = SIN_2925;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 5:
+                    sen = SIN_3150;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 6:
+                    sen = SIN_3375;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 7:
+                    sen = SIN_00;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 8:
+                    sen = SIN_225;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 9:
+                    sen = SIN_450;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 10:
+                    sen = SIN_675;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 11:
+                    sen = SIN_900;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 12:
+                    sen = SIN_1125;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 13:
+                    sen = SIN_1350;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 14:
+                    sen = SIN_1575;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                case 15:
+                    sen = SIN_1800;
+                    coss = sqrt(1.0 - pow(sen, 2));
+                    nave2->velx = v2 * coss;
+                    nave2->vely = v2 * sen;
+                    break;
+                default:
+                    printf("Nothing to do\n");
+                    /*sen = SIN_00;
+                    sen = SIN_225;
+                    sen = SIN_450;
+                    sen = SIN_675;
+                    sen = SIN_900;
+                    sen = SIN_1125;
+                    sen = SIN_1350;
+                    sen = SIN_1575;
+                    sen = SIN_1800;
+                    sen = SIN_2025;
+                    sen = SIN_2250;
+                    sen = SIN_2475;
+                    sen = SIN_2700;
+                    sen = SIN_2925;
+                    sen = SIN_3150;
+                    sen = SIN_3375;*/                    
+            }
+        }
+    }
 
 
 	/*tecla '0' do teclado numérico*/

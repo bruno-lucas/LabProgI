@@ -218,8 +218,8 @@ int main() {
 
 		nave1->dir = 0;
 		nave2->dir = 180;
-		nave1->accel = 0;
-		nave2->accel = 0;
+		nave1->accel = 1;
+		nave2->accel = -1;
 		nave1->life = 1;
 		nave2->life = 1;
 		frame = 0.1;
@@ -238,9 +238,6 @@ int main() {
 		}
 
 		update(nave1, nave2, planeta, frame, lista, id, total);
-		printf("update \n");
-		printf("total %d \n", total);
-		printf("id %d \n", id);
 		/*programa espera um décimo de segundo para garantir jogabilidade */
 		usleep(100000);
 

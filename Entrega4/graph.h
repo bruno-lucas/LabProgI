@@ -20,6 +20,9 @@
 
 #include "estruturas.h"
 #include "xwc.h"
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 extern int id;
 extern int total;
 
